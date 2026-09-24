@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>APLITAPP - APLITEK RAIL SOLUTIONS</title>
+    
+    <!-- Configuración para App Móvil -->
+    <meta name="apple-mobile-web-app-title" content="APLITAPP">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0b0f19">
+
+    <style>
+        :root {
+            --bg-dark: #070a12;
+            --card-bg: #111827;
+            --card-border: #1f2937;
+            --accent-blue: #00f0ff;
+            --accent-glow: rgba(0, 240, 255, 0.4);
+            --accent-green: #10b981;
+            --text-main: #f9fafb;
+            --text-sub: #9ca3af;
+            --nav-height: 60px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: calc(var(--nav-height) + 12px);
+            overflow-x: hidden;
+        }
+
+        /* --- PANTALLA DE INICIO (SPLASH SCREEN) --- */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background: radial-gradient(circle at center, #0f172a 0%, #030712 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            padding: 24px;
+        }
+
+        .splash-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            max-width: 900px;
+        }
+
+        /* Logo vectorial animado gigante */
+        .splash-logo-container {
+            width: 95vw;
+            max-width: 750px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0px 0px 35px var(--accent-glow));
+        }
+
+        .splash-logo-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- ANIMACIONES CSS DE LA RUEDA Y ENERGÍA --- */
+        @keyframes spinWheel {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseTrack {
+            0%, 100% { opacity: 0.3; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(-10px); }
+        }
+
+        /* Elementos que giran */
+        .animated-wheel {
+            transform-origin: 105px 105px;
+            animation: spinWheel 3.5s linear infinite;
+        }
+
+        .animated-wheel-fast {
+            transform-origin: 105px 105px;
+            animation: spinWheel 2s linear infinite;
+        }
+
+        .header-wheel-spin {
+            transform-origin: 50px 50px;
+            animation: spinWheel 5s linear infinite;
+        }
+
+        /* Líneas de velocidad traseras */
+        .speed-lines {
+            animation: pulseTrack 1.5s ease-in-out infinite;
+        }
+
+        /* Barra de progreso futurista */
+        .loading-bar-container {
+            width: 80%;
+            max-width: 320px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .loading-bar-fill {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #0077b6, #00f0ff, #10b981);
+            position: absolute;
+            left: -100%;
+            animation: loadingFill 2s ease-in-out forwards;
+        }
+
+        @keyframes loadingFill {
+            0% { left: -100%; }
+            50% { left: -30%; }
+            100% { left: 0%; }
+        }
+
+        /* Cabecera Principal */
+        header {
+            background-color: #0b0f19;
+            padding: 12px 16px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo-svg {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+        }
+
+        .brand-text-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-size: 1.15rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            line-height: 1.1;
+        }
+
+        .brand-subtitle {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--accent-blue);
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
+        .status-pill {
+            font-size: 0.72rem;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        /* Grid de Tarjetas */
+        .dashboard-container {
+            padding: 12px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 125px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            font-size: 1.3rem;
+            background: rgba(255,255,255,0.05);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .card-desc {
+            font-size: 0.73rem;
+            color: var(--text-sub);
+            line-height: 1.2;
+            margin-top: 3px;
+        }
+
+        .card-footer {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.08);
+            color: var(--text-sub);
+        }
+
+        .card-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(0, 240, 255, 0.1);
+        }
+
+        /* Navegación Inferior */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background-color: #0b0f19;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-sub);
+            font-size: 0.68rem;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla de Inicio / Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo-container">
+                <svg viewBox="0 0 750 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="neonGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00f0ff" />
+                            <stop offset="100%" stop-color="#0077b6" />
+                        </linearGradient>
+                        <linearGradient id="darkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0f172a" />
+                            <stop offset="100%" stop-color="#030712" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Fondo Contenedor -->
+                    <rect width="750" height="210" rx="28" fill="url(#darkBg)" stroke="#1f2937" stroke-width="2"/>
+                    
+                    <!-- Líneas de velocidad dinámicas traseras -->
+                    <g class="speed-lines" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" opacity="0.25">
+                        <line x1="20" y1="185" x2="210" y2="185" stroke-width="4"/>
+                        <line x1="30" y1="192" x2="210" y2="192"/>
+                        <line x1="10" y1="178" x2="200" y2="178"/>
+                    </g>
+
+                    <!-- GRUPO DE RUEDA FERROVIARIA TECNOLÓGICA -->
+                    <g transform="translate(15, 0)">
+                        <!-- Vía de alta velocidad -->
+                        <line x1="10" y1="185" x2="200" y2="185" stroke="url(#neonGlow)" stroke-width="5" stroke-linecap="round"/>
+                        <path d="M 25 185 L 25 195 M 55 185 L 55 195 M 85 185 L 85 195 M 115 185 L 115 195 M 145 185 L 145 195 M 175 185 L 175 195" stroke="#00f0ff" stroke-width="3" opacity="0.6"/>
+
+                        <!-- Anillo exterior -->
+                        <circle cx="105" cy="105" r="76" stroke="#00f0ff" stroke-width="2" stroke-dasharray="8 6" opacity="0.4"/>
+
+                        <!-- RUEDA GIRATORIA -->
+                        <g class="animated-wheel">
+                            <circle cx="105" cy="105" r="68" fill="#0b1329" stroke="url(#neonGlow)" stroke-width="6"/>
+                            <circle cx="105" cy="105" r="48" fill="#030712" stroke="#00f0ff" stroke-width="3"/>
+                            
+                            <circle cx="105" cy="67" r="8" fill="#00f0ff" opacity="0.9"/>
+                            <circle cx="143" cy="105" r="8" fill="#00f0ff" opacity="0.9"/>
+                            <circle cx="105" cy="143" r="8" fill="#00f0ff" opacity="0.9"/>
+                            <circle cx="67" cy="105" r="8" fill="#00f0ff" opacity="0.9"/>
+
+                            <circle cx="132" cy="78" r="6" fill="#0077b6"/>
+                            <circle cx="132" cy="132" r="6" fill="#0077b6"/>
+                            <circle cx="78" cy="132" r="6" fill="#0077b6"/>
+                            <circle cx="78" cy="78" r="6" fill="#0077b6"/>
+                        </g>
+
+                        <!-- Núcleo central giratorio -->
+                        <g class="animated-wheel-fast">
+                            <circle cx="105" cy="105" r="22" fill="#00f0ff" opacity="0.2"/>
+                            <circle cx="105" cy="105" r="16" fill="#00f0ff"/>
+                            <circle cx="105" cy="105" r="6" fill="#ffffff"/>
+                            <line x1="105" y1="89" x2="105" y2="121" stroke="#ffffff" stroke-width="2"/>
+                            <line x1="89" y1="105" x2="121" y2="105" stroke="#ffffff" stroke-width="2"/>
+                        </g>
+                    </g>
+                    
+                    <!-- TEXTO DE MARCA -->
+                    <text x="245" y="112" font-family="-apple-system, sans-serif" font-weight="900" font-size="64" fill="#ffffff" letter-spacing="4">APLITAPP</text>
+                    <text x="248" y="152" font-family="-apple-system, sans-serif" font-weight="800" font-size="22" fill="#00f0ff" letter-spacing="4">APLITEK RAIL SOLUTIONS</text>
+                </svg>
+            </div>
+
+            <!-- Barra de Carga Futurista -->
+            <div class="loading-bar-container">
+                <div class="loading-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cabecera Principal -->
+    <header>
+        <div class="brand-header">
+            <svg class="header-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" rx="20" fill="#0f172a" stroke="#00f0ff" stroke-width="2"/>
+                <line x1="10" y1="88" x2="90" y2="88" stroke="#00f0ff" stroke-width="3"/>
+                <g class="header-wheel-spin">
+                    <circle cx="50" cy="46" r="30" fill="#030712" stroke="#00f0ff" stroke-width="4"/>
+                    <circle cx="50" cy="46" r="18" fill="#0077b6" stroke="#00f0ff" stroke-width="2"/>
+                    <circle cx="50" cy="46" r="6" fill="#ffffff"/>
+                    <circle cx="50" cy="28" r="3" fill="#ffffff"/>
+                    <circle cx="68" cy="46" r="3" fill="#ffffff"/>
+                    <circle cx="50" cy="64" r="3" fill="#ffffff"/>
+                    <circle cx="36" cy="46" r="3" fill="#ffffff"/>
+                </g>
+            </svg>
+            <div class="brand-text-container">
+                <span class="brand-title">APLITAPP</span>
+                <span class="brand-subtitle">APLITEK RAIL SOLUTIONS</span>
+            </div>
+        </div>
+        <span class="status-pill">● Online</span>
+    </header>
+
+    <!-- Grid de Tarjetas -->
+    <div class="dashboard-container">
+        <div class="grid" id="main-grid">
+
+            <!-- 1. Ruedas Sin Pintar -->
+            <div class="card" data-category="ruedas">
+                <div class="card-header">
+                    <span class="card-icon">⚙️</span>
+                    <div>
+                        <div class="card-title">1. Ruedas Sin Pintar</div>
+                        <div class="card-desc">Pestaña RES_SIN_PINTAR_. Estado e inspección.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">SharePoint</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQDbtMONQJT9TJeRuOBHV8d4ARW7etQ_24LRPiQMb90rVB4?e=ekMz1Y&ActiveCell=RES_SIN_PINTAR_!A1" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+            <!-- 2. Ruedas Pintadas -->
+            <div class="card" data-category="ruedas">
+                <div class="card-header">
+                    <span class="card-icon">🎨</span>
+                    <div>
+                        <div class="card-title">2. Ruedas Pintadas</div>
+                        <div class="card-desc">Pestaña RES_SIN_ENVIAR. Registro y salida.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">SharePoint</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQDbtMONQJT9TJeRuOBHV8d4ARW7etQ_24LRPiQMb90rVB4?e=ekMz1Y&ActiveCell=RES_SIN_ENVIAR!A1" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+            <!-- 3. Planos de Ruedas -->
+            <div class="card" data-category="planos">
+                <div class="card-header">
+                    <span class="card-icon">📐</span>
+                    <div>
+                        <div class="card-title">3. Planos de Ruedas</div>
+                        <div class="card-desc">Carpeta FZ con planos y cotas.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Carpeta FZ</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+            <!-- 4. Sistema de Pintura -->
+            <div class="card" data-category="pintura">
+                <div class="card-header">
+                    <span class="card-icon">🧪</span>
+                    <div>
+                        <div class="card-title">4. Sistema de Pintura</div>
+                        <div class="card-desc">Especificaciones técnicas y procesos.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Carpeta SP</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=N0rpUC" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+            <!-- 5. Embalaje -->
+            <div class="card" data-category="embalaje">
+                <div class="card-header">
+                    <span class="card-icon">📦</span>
+                    <div>
+                        <div class="card-title">5. Embalaje</div>
+                        <div class="card-desc">Cajas (E1-CV, E2-CVA) con esquemas.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Excel</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAe_IE2DpA5TL5rE2IxNhMZAQ9K4wpDuvsNCL9yk2ZOhUA?e=eVJF8W" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+            <!-- 6. Planificación Cabinas -->
+            <div class="card" data-category="planif">
+                <div class="card-header">
+                    <span class="card-icon">📅</span>
+                    <div>
+                        <div class="card-title">6. Planif. Cabinas</div>
+                        <div class="card-desc">Programación diaria de pintado CAF.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Live</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=LLomY9" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+            <!-- 7. Planificación Brochazo -->
+            <div class="card" data-category="planif">
+                <div class="card-header">
+                    <span class="card-icon">🖌️</span>
+                    <div>
+                        <div class="card-title">7. Planif. Brochazo</div>
+                        <div class="card-desc">Turnos y retocado manual CAF.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Live</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC53Cn1FjfAR4KeNM5a76ZtAY2wtaZYFz9n3YxSh4XLzZg?e=KPaXIP" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Navegación Inferior -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="filterNav('all', this)">
+            <span class="nav-icon">🏠</span>
+            <span>Inicio</span>
+        </button>
+        <button class="nav-item" onclick="filterNav('ruedas', this)">
+            <span class="nav-icon">⚙️</span>
+            <span>Ruedas</span>
+        </button>
+        <button class="nav-item" onclick="filterNav('planos', this)">
+            <span class="nav-icon">📐</span>
+            <span>Planos</span>
+        </button>
+        <button class="nav-item" onclick="filterNav('pintura', this)">
+            <span class="nav-icon">🧪</span>
+            <span>Pintura</span>
+        </button>
+        <button class="nav-item" onclick="filterNav('embalaje', this)">
+            <span class="nav-icon">📦</span>
+            <span>Embalaje</span>
+        </button>
+        <button class="nav-item" onclick="filterNav('planif', this)">
+            <span class="nav-icon">📅</span>
+            <span>Planif</span>
+        </button>
+    </nav>
+
+    <script>
+        window.addEventListener('load', function() {
+            const splash = document.getElementById('splash-screen');
+            if (splash) {
+                setTimeout(() => {
+                    splash.style.opacity = '0';
+                    splash.style.visibility = 'hidden';
+                }, 2400); 
+            }
+        });
+
+        function filterNav(category, element) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+
+            document.querySelectorAll('.card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
