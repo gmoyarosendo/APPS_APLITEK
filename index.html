@@ -40,34 +40,6 @@
             flex-direction: column;
             padding-bottom: calc(var(--nav-height) + 12px);
             overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- NOTIFICACIÓN FLOTANTE GIGANTE Y CENTRADA --- */
-        #toast-notification {
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%) scale(0.5);
-            background: linear-gradient(135deg, #00f0ff 0%, #0077b6 100%);
-            color: #030712;
-            padding: 18px 30px;
-            border-radius: 16px;
-            font-size: 1.1rem;
-            font-weight: 900;
-            box-shadow: 0 0 40px rgba(0, 240, 255, 0.8);
-            z-index: 99999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-            border: 2px solid #ffffff;
-        }
-
-        #toast-notification.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) scale(1);
         }
 
         /* --- PANTALLA DE INICIO (SPLASH SCREEN) --- */
@@ -159,7 +131,7 @@
             background: linear-gradient(90deg, #0077b6, #00f0ff, #10b981);
             position: absolute;
             left: -100%;
-            animation: loadingFill 1.5s ease-in-out forwards;
+            animation: loadingFill 2s ease-in-out forwards;
         }
 
         @keyframes loadingFill {
@@ -332,58 +304,6 @@
             gap: 6px;
         }
 
-        /* BUSCADOR DE CARPETAS */
-        .search-container {
-            margin-bottom: 16px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .search-input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-input {
-            width: 100%;
-            background: #070a12;
-            border: 1px solid var(--card-border);
-            color: #ffffff;
-            padding: 10px 14px 10px 38px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .search-input:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            font-size: 1.1rem;
-            color: var(--text-sub);
-            pointer-events: none;
-        }
-
-        .search-info {
-            font-size: 0.75rem;
-            color: var(--text-sub);
-            display: flex;
-            justify-content: space-between;
-            padding: 0 4px;
-        }
-
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -392,8 +312,8 @@
 
         @media (max-width: 600px) {
             .grid {
-                grid-template-columns: repeat(1, 1fr);
-                gap: 12px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
             }
         }
 
@@ -407,20 +327,7 @@
             justify-content: space-between;
             min-height: 125px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: rgba(0, 240, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        /* ESTILO PARA RESALTAR LA TARJETA SELECCIONADA CON NEÓN */
-        .card.resaltada {
-            background-color: rgba(0, 240, 255, 0.2) !important;
-            border: 2px solid var(--accent-blue) !important;
-            box-shadow: 0 0 25px var(--accent-glow) !important;
-            transform: scale(1.03);
+            transition: all 0.2s ease;
         }
 
         .card-header {
@@ -446,7 +353,6 @@
             font-weight: 700;
             color: var(--text-main);
             line-height: 1.2;
-            word-break: break-word;
         }
 
         .card-desc {
@@ -483,16 +389,9 @@
             padding: 4px 8px;
             border-radius: 6px;
             background: rgba(0, 240, 255, 0.1);
-            transition: background 0.2s ease;
-            cursor: pointer;
-            border: none;
         }
 
-        .card-link:hover {
-            background: rgba(0, 240, 255, 0.25);
-        }
-
-        /* NAVEGACIÓN INFERIOR */
+        /* Navegación Inferior */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -529,9 +428,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Notificación Flotante Gigante y Centrada -->
-    <div id="toast-notification">📋 ¡COPIADO AL PORTAPAPELES!<br><span style="font-size: 0.95rem; color:#030712; font-weight: 700;">Pulsa Ctrl+F y pega (Ctrl+V) en OneDrive</span></div>
 
     <!-- Pantalla de Inicio / Splash Screen -->
     <div id="splash-screen">
@@ -639,7 +535,7 @@
             <div class="main-category-icon">📏</div>
             <div class="main-category-info">
                 <h2>Eje Suelto</h2>
-                <p>Buscador de carpetas, planos y mecanizado de ejes.</p>
+                <p>Información técnica, pintura y mecanizado de ejes.</p>
             </div>
             <div class="main-category-arrow">→</div>
         </div>
@@ -660,18 +556,6 @@
         <div class="section-header">
             <span class="section-title" id="current-section-title">RUEDAS</span>
             <button class="btn-back" onclick="showMainSelector()">← Cambiar Menú</button>
-        </div>
-
-        <!-- BUSCADOR EXCLUSIVO PARA EJE SUELTO -->
-        <div class="search-container" id="eje-suelto-search-box" style="display: none;">
-            <div class="search-input-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="ejeSearchInput" class="search-input" placeholder="Buscar por referencia o eje (ej: TALGO, RENFE, S.14)..." oninput="filterEjes()">
-            </div>
-            <div class="search-info">
-                <span>Resultados encontrados:</span>
-                <strong id="searchCount" style="color: var(--accent-blue);">0</strong>
-            </div>
         </div>
 
         <div class="grid" id="main-grid">
@@ -763,7 +647,7 @@
 
             <div class="card" data-main-cat="ruedas">
                 <div class="card-header">
-                    <span class="card-icon">🖌</span>
+                    <span class="card-icon">🖌️</span>
                     <div>
                         <div class="card-title">7. Planif. Brochazo</div>
                         <div class="card-desc">Turnos y retocado manual CAF.</div>
@@ -775,17 +659,72 @@
                 </div>
             </div>
 
-            <!-- CONTENEDOR DINÁMICO DE EJES SUELTOS -->
-            <div id="ejes-container" style="display: contents;"></div>
+            <!-- ================= BLOQUES DE EJE SUELTO ================= -->
+            <div class="card" data-main-cat="eje-suelto">
+                <div class="card-header">
+                    <span class="card-icon">🧪</span>
+                    <div>
+                        <div class="card-title">Sistema de Pintura</div>
+                        <div class="card-desc">Especificaciones técnicas y procesos para ejes.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Carpeta SP</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=0gbPzC" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+            <div class="card" data-main-cat="eje-suelto">
+                <div class="card-header">
+                    <span class="card-icon">📐</span>
+                    <div>
+                        <div class="card-title">Planos de Eje Suelto</div>
+                        <div class="card-desc">Carpeta con planos y especificaciones de ejes sueltos.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Carpeta FZ</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBzZVPYZHRyRLMG6dlgGX9kAZUoFjrW_EmmiV8V2RoXBek?e=fMHSId" target="_blank">Abrir →</a>
+                </div>
+            </div>
+
+            <!-- ================= BLOQUES DE EJE MONTADO ================= -->
+            <div class="card" data-main-cat="eje-montado">
+                <div class="card-header">
+                    <span class="card-icon">🚆</span>
+                    <div>
+                        <div class="card-title">Registro de Calado</div>
+                        <div class="card-desc">Inspección de montaje de ejes completos.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Próximamente</span>
+                    <a class="card-link" href="#">Pendiente</a>
+                </div>
+            </div>
+
+            <div class="card" data-main-cat="eje-montado">
+                <div class="card-header">
+                    <span class="card-icon">📐</span>
+                    <div>
+                        <div class="card-title">Planos de Eje Montado</div>
+                        <div class="card-desc">Carpeta con planos y conjuntos de ejes montados.</div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="badge">Carpeta FZ</span>
+                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBdpT7CFabWTZycomGY-t5AAQfkGwef6q-D4T4gNTIqc4k?e=Q6JQXs" target="_blank">Abrir →</a>
+                </div>
+            </div>
 
         </div>
     </div>
 
-    <!-- NAVEGACIÓN INFERIOR -->
+    <!-- Navegación Inferior -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="showMainSelector()">
             <span class="nav-icon">🏠</span>
-            <span>Inicio</span>
+            <span>Menú</span>
         </button>
         <button class="nav-item" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
             <span class="nav-icon">⚙️</span>
@@ -801,197 +740,42 @@
         </button>
     </nav>
 
-    <!-- SCRIPTS DE FUNCIONALIDAD -->
     <script>
-        const rootFolderUrl = "https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBzZVPYZHRyRLMG6dlgGX9kAeQXXJkffYH7q9IaKMwT--A?e=D9PQeV";
-
-        const ejeFolders = [
-            {"name": "ANTIGUOS"}, {"name": "ESPECIALES"}, {"name": "KEOLIS (S.14)"}, {"name": "M850100302(S.13)"},
-            {"name": "MK10100501 FLYTOGET"}, {"name": "MK20150501"}, {"name": "MK30100501"}, {"name": "MK50150501"},
-            {"name": "MK80100501 MARYLAND"}, {"name": "ML20150601 BRUSELAS"}, {"name": "ML80105201 DE LIJN"}, {"name": "ML90105201 DE LIJN"},
-            {"name": "MM00100901 (S.4)"}, {"name": "MM10100501"}, {"name": "MM10150501"}, {"name": "MM30100201 MANILA"},
-            {"name": "MN10150801 (S.4) AMSTERDAM"}, {"name": "MN601512-01 NUEVA GALES"}, {"name": "MN60151201 (S.14)"}, {"name": "MN801505-01 DOCKLANDS"},
-            {"name": "MP60150801 (S4.)"}, {"name": "MP90100801 (S.13)"}, {"name": "MP9010081"}, {"name": "MS40150801"},
-            {"name": "P0000339993 (S.14)"}, {"name": "P0000346947 (S.4)"}, {"name": "P0000540306 (S.14)"}, {"name": "P0000671903 Montpelier (S.4)"},
-            {"name": "P0000945579 (S"}, {"name": "P0001181219 (S.)"}, {"name": "P0001203850"}, {"name": "P0001223217 (S.13)"},
-            {"name": "P0001223218 (S.13)"}, {"name": "P0001223240 (S.13)"}, {"name": "P0001283778 (S.13)"}, {"name": "P0001283832 (S.13)"},
-            {"name": "P0001620004 (S.13)"}, {"name": "P0001631020 (S.13)"}, {"name": "P0002131688 (S.7)"}, {"name": "P0002458803 (S.7)"},
-            {"name": "P0002508248 (S.7)"}, {"name": "P0003232153 M. MADRID (S.13)"}, {"name": "P000339993 MYANMAR"}, {"name": "P0003435725 (S13.)"},
-            {"name": "PM01541036 (S.8) RAL 7021"}, {"name": "PM01613459 (S.8)"}, {"name": "PM01670163 (S.14)"}, {"name": "PM01670328 (S.8)"},
-            {"name": "PM01672926 (S.7)"}, {"name": "PM01673338 (S.6)"}, {"name": "PM01673351 (S.6)"}, {"name": "PM01673476 (S.4)"},
-            {"name": "PM01673482 (S.)"}, {"name": "PM01677348 (S.14)"}, {"name": "PM01677349 (S.14)"}, {"name": "PM01677354 (S.14)"},
-            {"name": "PM01677355 (S.14)"}, {"name": "PM01679093 (S.13)"}, {"name": "PM01691575 (S.14)"}, {"name": "PM01691576 (S.14)"},
-            {"name": "X020000802 RENFE"}, {"name": "X020003702 (S.6)"}, {"name": "X020003803 RENFE"}, {"name": "X020004301"},
-            {"name": "X020009402 (S.13)"}, {"name": "X020009802 RENFE"}, {"name": "X020011901 (S.6)"}, {"name": "X020014202 RENFE (S.6)"},
-            {"name": "X020021802 (S.6)"}, {"name": "X020027402 RENFE"}, {"name": "X020050601 (S.8)"}, {"name": "X020050701 (S.8)"},
-            {"name": "X020055301 (S.6)"}, {"name": "X020055302 (S.6)"}, {"name": "X020062002 (S.4)"}, {"name": "X020063201 (S.7)"},
-            {"name": "X020063401 (S.7)"}, {"name": "X020071301 RENFE"}, {"name": "X020071401 RENFE"}, {"name": "X020075301 RENFE (S.6)"},
-            {"name": "X020076802 OBB"}, {"name": "X020077402 SNCF"}, {"name": "X020077501 (S.14)"}, {"name": "X020077601 (S.14)"},
-            {"name": "X020081801 (S.13)"}, {"name": "X020086102 (embalaje)"}, {"name": "X020089802 (S.6)"}, {"name": "X020091102"},
-            {"name": "X02009402 (S.13)"}, {"name": "x020094401"}, {"name": "x020094701 (S.6)"}, {"name": "X020095301 (S.7)"},
-            {"name": "X020095501 (S.7)"}, {"name": "X020096401 (A.I)"}, {"name": "X020096601 (S.6)"}, {"name": "X020096903 (S.8)"},
-            {"name": "X020098201 (S.6)"}, {"name": "X020099401 OBB LLEVA ETIQUETAS"}, {"name": "X020099402 OBB"}, {"name": "X020099901 (S.13)"},
-            {"name": "X020101101 (S.13)"}, {"name": "X020101901 (S.8-Solo Imprimacion )"}, {"name": "X020101902 (S.6)"}, {"name": "X020103001"},
-            {"name": "X020105801 ESTOCOLMO"}, {"name": "X020106001 (S.13)"}, {"name": "X020106401 (S.8)"}, {"name": "X020106500,  X020106501(S.8)"},
-            {"name": "X020106801 (S.13)"}, {"name": "X020109601 (S.6)"}, {"name": "X020118101 SNCF"}, {"name": "X020121202 (S.4)"},
-            {"name": "X020122401 ARABIA"}, {"name": "X020132101 (S.13)"}, {"name": "X020132401 (S.4)"}, {"name": "X020135301"},
-            {"name": "X0201360 ESTAMBUL"}, {"name": "X020136001 ESTAMBUL"}, {"name": "X020136601 (S.7)"}, {"name": "X020139801 (S.7)"},
-            {"name": "X020143501 (S.8)"}, {"name": "X020162901 (S.7)"}, {"name": "X020163201 (SOLO EMBALAR)"}, {"name": "X020163601 (SOLO EMBALAR)"},
-            {"name": "X020164502 (S.6)"}, {"name": "X020165101 OBB"}, {"name": "X020165802 OBB"}, {"name": "X020165803 OBB"},
-            {"name": "X020166101 OBB"}, {"name": "X020166701 (S.7)"}, {"name": "X020170702 OBB (S.6) LLEVA ETIQUETAS"}, {"name": "X020170901"},
-            {"name": "X020172601 TALGO"}, {"name": "X020172801 TALGO"}, {"name": "X020173801 (S.6) LLEVA ETIQUETAS"}, {"name": "X020173802"},
-            {"name": "X020177001"}, {"name": "X020189102"}, {"name": "X020189602 SNCF"}, {"name": "X020190002 (S.6)"},
-            {"name": "X020190202 SNCF"}, {"name": "X020191102 SNCF"}, {"name": "X020194402 SNCF"}, {"name": "X020194901 (S.8)"},
-            {"name": "X020195902 (solo embalaje)"}, {"name": "X020199401 (S.14) LLEVA PEGATINA Y CHIP"}, {"name": "X020199501 (S.14) LLEVA PEGATINA Y CHIP"}, {"name": "X020206901 TALGO"},
-            {"name": "X020206904 TALGO"}, {"name": "X020208601 (S.8)"}, {"name": "X020208701 (S.8)"}, {"name": "X020209001 OBB LLEVA ETIQUETAS"},
-            {"name": "X020210600 (S.8)"}, {"name": "X020211301 (S.8)"}, {"name": "X020218801 (S.8)"}, {"name": "X020223501 (S.14)"},
-            {"name": "X020223901 (S.14)"}, {"name": "X020225401 (S.8)"}, {"name": "X020225402 (S.8)"}
-        ];
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                splash.style.opacity = '0';
-                splash.style.visibility = 'hidden';
-            }, 1200);
-            
-            renderEjeFolders(ejeFolders);
+        window.addEventListener('load', function() {
+            const splash = document.getElementById('splash-screen');
+            if (splash) {
+                setTimeout(() => {
+                    splash.style.opacity = '0';
+                    splash.style.visibility = 'hidden';
+                }, 2400); 
+            }
         });
 
         function showMainSelector() {
             document.getElementById('main-selector-screen').style.display = 'flex';
             document.getElementById('dashboard').style.display = 'none';
-            updateActiveNav(0);
+            
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.nav-item')[0].classList.add('active');
         }
 
-        function openSection(catKey, catName) {
+        function openSection(categoryKey, titleText) {
             document.getElementById('main-selector-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
-            document.getElementById('current-section-title').innerText = catName;
+            document.getElementById('current-section-title').innerText = titleText;
 
-            const cards = document.querySelectorAll('.card[data-main-cat]');
-            cards.forEach(card => {
-                card.style.display = (card.getAttribute('data-main-cat') === catKey) ? 'flex' : 'none';
+            document.querySelectorAll('.card').forEach(card => {
+                if (card.dataset.mainCat === categoryKey) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
             });
 
-            const searchBox = document.getElementById('eje-suelto-search-box');
-            const ejesContainer = document.getElementById('ejes-container');
-            
-            if (catKey === 'eje-suelto') {
-                searchBox.style.display = 'flex';
-                ejesContainer.style.display = 'contents';
-                filterEjes();
-            } else {
-                searchBox.style.display = 'none';
-                ejesContainer.style.display = 'none';
-            }
-
-            if (catKey === 'ruedas') updateActiveNav(1);
-            else if (catKey === 'eje-suelto') updateActiveNav(2);
-            else if (catKey === 'eje-montado') updateActiveNav(3);
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function updateActiveNav(index) {
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach((item, idx) => {
-                if (idx === index) item.classList.add('active');
-                else item.classList.remove('active');
-            });
-        }
-
-        function renderEjeFolders(folders) {
-            const container = document.getElementById('ejes-container');
-            container.innerHTML = '';
-
-            if (!Array.isArray(folders)) return;
-
-            folders.forEach(item => {
-                let itemName = item.name || "Sin nombre";
-                let safeId = 'eje-' + itemName.replace(/[^a-zA-Z0-9]/g, '_');
-
-                const card = document.createElement('div');
-                card.className = 'card eje-card';
-                card.id = safeId;
-                
-                card.innerHTML = `
-                    <div class="card-header">
-                        <span class="card-icon">📁</span>
-                        <div>
-                            <div class="card-title">${itemName}</div>
-                            <div class="card-desc">Copia el nombre y abre OneDrive.</div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <span class="badge" style="color: var(--accent-blue);">Copia y Pega</span>
-                        <button class="card-link" onclick="copiarYAbrirDirecto('${safeId}', '${itemName.replace(/'/g, "\\'")}')">Abrir →</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-            document.getElementById('searchCount').innerText = folders.length;
-        }
-
-        // ACCIÓN CLARA Y VISIBLE
-        function copiarYAbrirDirecto(elementId, name) {
-            const cardElement = document.getElementById(elementId);
-            
-            if (cardElement) {
-                cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                document.querySelectorAll('.card.resaltada').forEach(c => c.classList.remove('resaltada'));
-                cardElement.classList.add('resaltada');
-            }
-
-            // Copiar al portapapeles con notificación gigante en pantalla durante 3 segundos
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(name).then(() => {
-                    mostrarToastGrande("📋 ¡COPIADO: " + name + "!<br><span style='font-size:0.95rem; color:#030712;'>Pulsa Ctrl+F y Pega (Ctrl+V)</span>");
-                }).catch(err => {
-                    fallbackCopyText(name);
-                });
-            } else {
-                fallbackCopyText(name);
-            }
-
-            // Abrir OneDrive tras mostrar el aviso con claridad
-            setTimeout(() => {
-                window.open(rootFolderUrl, '_blank');
-            }, 1200);
-        }
-
-        function fallbackCopyText(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                mostrarToastGrande("📋 ¡COPIADO: " + text + "!<br><span style='font-size:0.95rem; color:#030712;'>Pulsa Ctrl+F y Pega (Ctrl+V)</span>");
-            } catch (err) {
-                console.error('Error al copiar', err);
-            }
-            document.body.removeChild(textArea);
-        }
-
-        function mostrarToastGrande(htmlMensaje) {
-            const toast = document.getElementById('toast-notification');
-            toast.innerHTML = htmlMensaje;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        function filterEjes() {
-            const query = document.getElementById('ejeSearchInput').value.toLowerCase().trim();
-            const filtered = ejeFolders.filter(item => {
-                return String(item.name).toLowerCase().includes(query);
-            });
-            renderEjeFolders(filtered);
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if (categoryKey === 'ruedas') document.querySelectorAll('.nav-item')[1].classList.add('active');
+            if (categoryKey === 'eje-suelto') document.querySelectorAll('.nav-item')[2].classList.add('active');
+            if (categoryKey === 'eje-montado') document.querySelectorAll('.nav-item')[3].classList.add('active');
         }
     </script>
 </body>
