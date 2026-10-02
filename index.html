@@ -43,6 +43,33 @@
             scroll-behavior: smooth;
         }
 
+        /* --- NOTIFICACIÓN FLOTANTE GIGANTE Y CENTRADA --- */
+        #toast-notification {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%) scale(0.5);
+            background: linear-gradient(135deg, #00f0ff 0%, #0077b6 100%);
+            color: #030712;
+            padding: 18px 30px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.8);
+            z-index: 99999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            border: 2px solid #ffffff;
+        }
+
+        #toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+
         /* --- PANTALLA DE INICIO (SPLASH SCREEN) --- */
         #splash-screen {
             position: fixed;
@@ -503,6 +530,9 @@
 </head>
 <body>
 
+    <!-- Notificación Flotante Gigante y Centrada -->
+    <div id="toast-notification">📋 ¡COPIADO AL PORTAPAPELES!<br><span style="font-size: 0.95rem; color:#030712; font-weight: 700;">Pulsa Ctrl+F y pega (Ctrl+V) en OneDrive</span></div>
+
     <!-- Pantalla de Inicio / Splash Screen -->
     <div id="splash-screen">
         <div class="splash-content">
@@ -773,6 +803,8 @@
 
     <!-- SCRIPTS DE FUNCIONALIDAD -->
     <script>
+        const rootFolderUrl = "https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBzZVPYZHRyRLMG6dlgGX9kAeQXXJkffYH7q9IaKMwT--A?e=D9PQeV";
+
         const ejeFolders = [
             {"name": "ANTIGUOS"}, {"name": "ESPECIALES"}, {"name": "KEOLIS (S.14)"}, {"name": "M850100302(S.13)"},
             {"name": "MK10100501 FLYTOGET"}, {"name": "MK20150501"}, {"name": "MK30100501"}, {"name": "MK50150501"},
@@ -816,7 +848,6 @@
             {"name": "X020223901 (S.14)"}, {"name": "X020225401 (S.8)"}, {"name": "X020225402 (S.8)"}
         ];
 
-        // OCULTAR SPLASH SCREEN AL CARGAR
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -827,7 +858,6 @@
             renderEjeFolders(ejeFolders);
         });
 
-        // NAVEGACIÓN Y PANTALLAS
         function showMainSelector() {
             document.getElementById('main-selector-screen').style.display = 'flex';
             document.getElementById('dashboard').style.display = 'none';
@@ -871,7 +901,6 @@
             });
         }
 
-        // RENDERIZAR DINÁMICAMENTE LAS TARJETAS
         function renderEjeFolders(folders) {
             const container = document.getElementById('ejes-container');
             container.innerHTML = '';
@@ -891,12 +920,12 @@
                         <span class="card-icon">📁</span>
                         <div>
                             <div class="card-title">${itemName}</div>
-                            <div class="card-desc">Acceso directo a carpeta en OneDrive.</div>
+                            <div class="card-desc">Copia el nombre y abre OneDrive.</div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span class="badge">OneDrive Directo</span>
-                        <button class="card-link" onclick="abrirCarpetaEspecifica('${safeId}', '${itemName.replace(/'/g, "\\'")}')">Abrir →</button>
+                        <span class="badge" style="color: var(--accent-blue);">Copia y Pega</span>
+                        <button class="card-link" onclick="copiarYAbrirDirecto('${safeId}', '${itemName.replace(/'/g, "\\'")}')">Abrir →</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -905,34 +934,58 @@
             document.getElementById('searchCount').innerText = folders.length;
         }
 
-        // FUNCIÓN INTELIGENTE: SCROLL, NEÓN Y APERTURA DIRECTA DE LA SUBCARPETA ESPECÍFICA
-        function abrirCarpetaEspecifica(elementId, nombreEje) {
+        // ACCIÓN CLARA Y VISIBLE
+        function copiarYAbrirDirecto(elementId, name) {
             const cardElement = document.getElementById(elementId);
             
             if (cardElement) {
-                // 1. Desplazamiento suave hasta centrar la tarjeta
                 cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // 2. Limpiar otros resaltados y activar el brillo de neón
                 document.querySelectorAll('.card.resaltada').forEach(c => c.classList.remove('resaltada'));
                 cardElement.classList.add('resaltada');
-                
-                // 3. Construir dinámicamente la URL exacta de la subcarpeta en OneDrive
-                const rutaRelativa = "/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE SUELTO/" + nombreEje;
-                const urlDirecta = "https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=" + encodeURIComponent(rutaRelativa);
-                
-                // 4. Copiar también por precaución al portapapeles y abrir la carpeta exacta tras el efecto visual
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(nombreEje).catch(err => console.log('Clipboard err:', err));
-                }
-
-                setTimeout(() => {
-                    window.open(urlDirecta, '_blank');
-                }, 500);
             }
+
+            // Copiar al portapapeles con notificación gigante en pantalla durante 3 segundos
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(name).then(() => {
+                    mostrarToastGrande("📋 ¡COPIADO: " + name + "!<br><span style='font-size:0.95rem; color:#030712;'>Pulsa Ctrl+F y Pega (Ctrl+V)</span>");
+                }).catch(err => {
+                    fallbackCopyText(name);
+                });
+            } else {
+                fallbackCopyText(name);
+            }
+
+            // Abrir OneDrive tras mostrar el aviso con claridad
+            setTimeout(() => {
+                window.open(rootFolderUrl, '_blank');
+            }, 1200);
         }
 
-        // FILTRADO DE EJES EN TIEMPO REAL
+        function fallbackCopyText(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                mostrarToastGrande("📋 ¡COPIADO: " + text + "!<br><span style='font-size:0.95rem; color:#030712;'>Pulsa Ctrl+F y Pega (Ctrl+V)</span>");
+            } catch (err) {
+                console.error('Error al copiar', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function mostrarToastGrande(htmlMensaje) {
+            const toast = document.getElementById('toast-notification');
+            toast.innerHTML = htmlMensaje;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
         function filterEjes() {
             const query = document.getElementById('ejeSearchInput').value.toLowerCase().trim();
             const filtered = ejeFolders.filter(item => {
