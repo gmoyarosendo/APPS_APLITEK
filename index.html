@@ -202,7 +202,7 @@
         header {
             background-color: var(--header-bg);
             backdrop-filter: blur(8px);
-            padding: 10px 16px;
+            padding: 10px 14px;
             min-height: 70px;
             display: flex;
             align-items: center;
@@ -211,20 +211,21 @@
             position: sticky;
             top: 0;
             z-index: 40;
-            gap: 12px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .brand-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
             flex-shrink: 0;
         }
 
         .header-logo-svg {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             flex-shrink: 0;
         }
 
@@ -234,7 +235,7 @@
         }
 
         .brand-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 900;
             letter-spacing: 0.5px;
             color: var(--text-main);
@@ -242,9 +243,9 @@
         }
 
         .brand-subtitle {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             color: var(--accent-blue);
             margin-top: 2px;
             text-transform: uppercase;
@@ -254,11 +255,11 @@
         .aplite-talk-btn {
             background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 119, 182, 0.2));
             border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 20px;
-            padding: 6px 14px;
+            border-radius: 18px;
+            padding: 5px 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             cursor: pointer;
             transition: all 0.2s;
             position: relative;
@@ -267,18 +268,18 @@
 
         .aplite-talk-btn:hover {
             border-color: var(--accent-blue);
-            box-shadow: 0 0 12px var(--accent-glow);
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         .talk-icon {
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .talk-label {
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 800;
             color: var(--accent-blue);
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
 
         .talk-badge {
@@ -287,23 +288,24 @@
             right: -4px;
             background-color: var(--accent-red);
             color: white;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 800;
-            width: 16px;
-            height: 16px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 6px var(--accent-red);
+            box-shadow: 0 0 4px var(--accent-red);
+            display: none; /* Oculto por defecto al estar limpio */
         }
 
-        /* Bloque derecho separado */
+        /* Bloque derecho adaptado */
         .header-right-separated {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 0.78rem;
+            gap: 8px;
+            font-size: 0.72rem;
             color: var(--text-main);
         }
 
@@ -312,14 +314,15 @@
             border: 1px solid var(--card-border);
             color: var(--text-main);
             cursor: pointer;
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            flex-shrink: 0;
         }
 
         .header-tool-btn:hover {
@@ -331,14 +334,15 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 2px;
+            gap: 1px;
         }
 
         .header-meta-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-weight: 600;
+            font-size: 0.7rem;
         }
 
         .status-pill {
@@ -350,7 +354,7 @@
         }
 
         .app-version-info {
-            font-size: 0.58rem;
+            font-size: 0.52rem;
             color: var(--text-sub);
         }
 
@@ -381,8 +385,8 @@
             border-radius: 20px;
             width: 100%;
             max-width: 500px;
-            height: 85vh;
-            max-height: 650px;
+            height: 80vh;
+            max-height: 600px;
             display: flex;
             flex-direction: column;
             box-shadow: 0 0 30px var(--accent-glow);
@@ -437,31 +441,6 @@
             color: var(--accent-red);
         }
 
-        .talk-tabs {
-            display: flex;
-            background: var(--header-bg);
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .talk-tab {
-            flex: 1;
-            padding: 10px;
-            background: none;
-            border: none;
-            color: var(--text-sub);
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .talk-tab.active {
-            color: var(--accent-blue);
-            border-bottom: 2px solid var(--accent-blue);
-            background: rgba(0, 240, 255, 0.03);
-        }
-
         .talk-messages-container {
             flex: 1;
             padding: 16px;
@@ -470,6 +449,14 @@
             flex-direction: column;
             gap: 12px;
             background: var(--bg-dark);
+        }
+
+        .talk-empty-chat {
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            margin: auto;
+            padding: 20px;
         }
 
         .message-bubble {
@@ -610,6 +597,7 @@
             padding: 6px 14px;
             border-radius: 8px;
             transition: transform 0.2s;
+            flex-shrink: 0;
         }
 
         .last-doc-btn:hover {
@@ -995,16 +983,16 @@
         <button class="aplite-talk-btn" onclick="openApliteTalk()">
             <span class="talk-icon">💬</span>
             <span class="talk-label">ApliteTalk</span>
-            <span class="talk-badge" id="talkBadge">2</span>
+            <span class="talk-badge" id="talkBadge">0</span>
         </button>
 
-        <!-- Bloque derecho separado -->
+        <!-- Bloque derecho adaptado -->
         <div class="header-right-separated">
             <button class="header-tool-btn" title="Pantalla Completa" onclick="toggleFullScreen()">⛶</button>
             <button class="header-tool-btn" id="themeToggleBtn" title="Cambiar Tema (Oscuro/Claro)" onclick="toggleTheme()">🌙</button>
             <div class="header-info-col">
                 <div class="header-meta-row">
-                    <span id="headerClock">01:38</span>
+                    <span id="headerClock">01:50</span>
                     <span>📍 Amorebieta</span>
                     <span>17ºC</span>
                 </div>
@@ -1016,38 +1004,19 @@
         </div>
     </header>
 
-    <!-- VENTANA MODAL APLITETALK -->
+    <!-- VENTANA MODAL APLITETALK (Único canal General Planta y limpio) -->
     <div id="apliteTalkModal">
         <div class="talk-window">
             <div class="talk-header">
                 <div class="talk-header-info">
                     <h3>💬 ApliteTalk</h3>
-                    <span>Chat interno de planta y turnos</span>
+                    <span>General Planta</span>
                 </div>
                 <button class="talk-close-btn" onclick="closeApliteTalk()">✕</button>
             </div>
-            
-            <div class="talk-tabs">
-                <button class="talk-tab active" onclick="switchTalkTab('general', this)">🌐 General Planta</button>
-                <button class="talk-tab" onclick="switchTalkTab('direct', this)">👤 Turno Tarde / Calidad</button>
-            </div>
 
             <div class="talk-messages-container" id="talkMessagesBox">
-                <div class="message-bubble incoming">
-                    <span class="msg-sender">Carlos (Mecanizado)</span>
-                    <span>Revisados los planos de rueda 3, todo correcto para producción.</span>
-                    <span class="msg-time">08:15</span>
-                </div>
-                <div class="message-bubble incoming">
-                    <span class="msg-sender">Turno Tarde</span>
-                    <span>Atención al cambio de cabina previsto a las 14:00h.</span>
-                    <span class="msg-time">09:30</span>
-                </div>
-                <div class="message-bubble outgoing">
-                    <span class="msg-sender">Tú</span>
-                    <span>Recibido, aviso al personal de nave.</span>
-                    <span class="msg-time">09:35</span>
-                </div>
+                <div class="talk-empty-chat" id="emptyChatMsg">No hay mensajes todavía.<br>Escribe el primer aviso para el equipo de planta.</div>
             </div>
 
             <div class="talk-input-area">
@@ -1065,9 +1034,9 @@
         <div class="last-doc-card">
             <div class="last-doc-info">
                 <span>Último documento abierto</span>
-                <h4>3. Planos de Ruedas</h4>
+                <h4 id="lastDocTitle">3. Planos de Ruedas</h4>
             </div>
-            <a class="last-doc-btn" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a>
+            <a class="last-doc-btn" id="lastDocBtn" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a>
         </div>
 
         <!-- 1. RUEDAS -->
@@ -1402,7 +1371,6 @@
                 const lineColor = isLight ? 'rgba(2, 132, 199, 0.15)' : 'rgba(0, 240, 255, 0.12)';
                 const dotColor = isLight ? 'rgba(2, 132, 199, ' : 'rgba(0, 240, 255, ';
 
-                // Dibujar conexiones sutiles
                 ctx.lineWidth = 0.5;
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
@@ -1419,7 +1387,6 @@
                     }
                 }
 
-                // Mover y dibujar partículas
                 particles.forEach(p => {
                     p.x += p.vx;
                     p.y += p.vy;
@@ -1464,54 +1431,22 @@
             }
         }
 
-        // Funciones para ApliteTalk
+        // Funciones para ApliteTalk (Canal único y limpio)
         function openApliteTalk() {
             document.getElementById('apliteTalkModal').classList.add('active');
-            document.getElementById('talkBadge').style.display = 'none';
         }
 
         function closeApliteTalk() {
             document.getElementById('apliteTalkModal').classList.remove('active');
         }
 
-        function switchTalkTab(tabName, element) {
-            document.querySelectorAll('.talk-tab').forEach(t => t.classList.remove('active'));
-            element.classList.add('active');
-            
-            const msgBox = document.getElementById('talkMessagesBox');
-            if(tabName === 'direct') {
-                msgBox.innerHTML = `
-                    <div class="message-bubble incoming">
-                        <span class="msg-sender">Control de Calidad</span>
-                        <span>¿Hay alguna incidencia con el calado de los ejes montados?</span>
-                        <span class="msg-time">08:50</span>
-                    </div>
-                `;
-            } else {
-                msgBox.innerHTML = `
-                    <div class="message-bubble incoming">
-                        <span class="msg-sender">Carlos (Mecanizado)</span>
-                        <span>Revisados los planos de rueda 3, todo correcto para producción.</span>
-                        <span class="msg-time">08:15</span>
-                    </div>
-                    <div class="message-bubble incoming">
-                        <span class="msg-sender">Turno Tarde</span>
-                        <span>Atención al cambio de cabina previsto a las 14:00h.</span>
-                        <span class="msg-time">09:30</span>
-                    </div>
-                    <div class="message-bubble outgoing">
-                        <span class="msg-sender">Tú</span>
-                        <span>Recibido, aviso al personal de nave.</span>
-                        <span class="msg-time">09:35</span>
-                    </div>
-                `;
-            }
-        }
-
         function sendTalkMessage() {
             const input = document.getElementById('talkInput');
             const text = input.value.trim();
             if(!text) return;
+
+            const emptyMsg = document.getElementById('emptyChatMsg');
+            if (emptyMsg) emptyMsg.remove();
 
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -1521,7 +1456,7 @@
             const bubble = document.createElement('div');
             bubble.className = 'message-bubble outgoing';
             bubble.innerHTML = `
-                <span class="msg-sender">Tú</span>
+                <span class="msg-sender">Operario (Tú)</span>
                 <span>${text}</span>
                 <span class="msg-time">${hours}:${minutes}</span>
             `;
@@ -1540,6 +1475,7 @@
         function trackLastDoc(title, url) {
             const docData = { title: title, url: url };
             localStorage.setItem('aplitapp_last_doc', JSON.stringify(docData));
+            loadLastDoc();
         }
 
         function loadLastDoc() {
@@ -1547,8 +1483,8 @@
             if (saved) {
                 try {
                     const doc = JSON.parse(saved);
-                    const cardInfo = document.querySelector('.last-doc-info h4');
-                    const cardBtn = document.querySelector('.last-doc-btn');
+                    const cardInfo = document.getElementById('lastDocTitle');
+                    const cardBtn = document.getElementById('lastDocBtn');
                     if (cardInfo && cardBtn) {
                         cardInfo.innerText = doc.title;
                         cardBtn.href = doc.url;
