@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,23 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>APLITAPP - APLITEK RAIL SOLUTIONS</title>
     
-    <!-- Configuración para App Móvil -->
+    <!-- Configuración PWA / App Móvil -->
     <meta name="apple-mobile-web-app-title" content="APLITAPP">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0b0f19">
+    <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22APLITAPP%22%2C%22short_name%22%3A%22APLITAPP%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23070a12%22%2C%22theme_color%22%3A%22%230b0f19%22%7D">
 
     <style>
+        /* --- VARIABLES TEMA OSCURO (Por defecto) --- */
         :root {
             --bg-dark: #070a12;
-            --card-bg: #111827;
+            --header-bg: rgba(11, 15, 25, 0.9);
+            --card-bg: rgba(17, 24, 39, 0.85);
             --card-border: #1f2937;
             --accent-blue: #00f0ff;
             --accent-glow: rgba(0, 240, 255, 0.4);
             --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
             --text-main: #f9fafb;
             --text-sub: #9ca3af;
+            --nav-bg: rgba(11, 15, 25, 0.95);
             --nav-height: 60px;
+        }
+
+        /* --- VARIABLES TEMA CLARO --- */
+        body.light-mode {
+            --bg-dark: #f3f4f6;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: #d1d5db;
+            --accent-blue: #0284c7;
+            --accent-glow: rgba(2, 132, 199, 0.3);
+            --accent-green: #059669;
+            --accent-red: #dc2626;
+            --accent-yellow: #d97706;
+            --text-main: #111827;
+            --text-sub: #4b5563;
+            --nav-bg: rgba(255, 255, 255, 0.95);
         }
 
         * {
@@ -29,6 +52,7 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -40,6 +64,41 @@
             flex-direction: column;
             padding-bottom: calc(var(--nav-height) + 12px);
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas para el fondo dinámico estilo IA */
+        #ai-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 30%, #0f172a 0%, #030712 70%);
+            transition: opacity 0.5s ease;
+        }
+
+        body.light-mode #ai-background {
+            opacity: 0.2;
+            background: radial-gradient(circle at 50% 30%, #e0f2fe 0%, #cbd5e1 70%);
+        }
+
+        .view-screen {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            display: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .view-screen.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- PANTALLA DE INICIO (SPLASH SCREEN) --- */
@@ -84,7 +143,6 @@
             display: block;
         }
 
-        /* ANIMACIONES CSS */
         @keyframes spinWheel {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -142,8 +200,9 @@
 
         /* Cabecera Principal */
         header {
-            background-color: #0b0f19;
-            padding: 12px 16px;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(8px);
+            padding: 10px 16px;
             min-height: 70px;
             display: flex;
             align-items: center;
@@ -152,18 +211,20 @@
             position: sticky;
             top: 0;
             z-index: 40;
+            gap: 12px;
         }
 
         .brand-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .header-logo-svg {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             flex-shrink: 0;
         }
 
@@ -173,75 +234,415 @@
         }
 
         .brand-title {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 900;
             letter-spacing: 0.5px;
-            color: #ffffff;
+            color: var(--text-main);
             line-height: 1.1;
         }
 
         .brand-subtitle {
-            font-size: 0.68rem;
+            font-size: 0.6rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             color: var(--accent-blue);
             margin-top: 2px;
             text-transform: uppercase;
         }
 
-        .status-pill {
+        /* Botón Cabecera ApliteTalk */
+        .aplite-talk-btn {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 119, 182, 0.2));
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 20px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .aplite-talk-btn:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .talk-icon {
+            font-size: 1rem;
+        }
+
+        .talk-label {
             font-size: 0.72rem;
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--accent-green);
-            padding: 4px 10px;
-            border-radius: 12px;
+            font-weight: 800;
+            color: var(--accent-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .talk-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: var(--accent-red);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 800;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 6px var(--accent-red);
+        }
+
+        /* Bloque derecho separado */
+        .header-right-separated {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.78rem;
+            color: var(--text-main);
+        }
+
+        .header-tool-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .header-tool-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .header-info-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .header-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-weight: 600;
+        }
+
+        .status-pill {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+        .status-pill.offline {
+            color: var(--accent-red);
+        }
+
+        .app-version-info {
+            font-size: 0.58rem;
+            color: var(--text-sub);
+        }
+
+        /* --- VENTANA MODAL / PANEL APLITETALK --- */
+        #apliteTalkModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        #apliteTalkModal.active {
+            display: flex;
+        }
+
+        .talk-window {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-blue);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            height: 85vh;
+            max-height: 650px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px var(--accent-glow);
+            overflow: hidden;
+            animation: modalAppear 0.25s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .talk-header {
+            background: var(--header-bg);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .talk-header-info h3 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .talk-header-info span {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+        }
+
+        .talk-close-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: var(--text-main);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .talk-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+
+        .talk-tabs {
+            display: flex;
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .talk-tab {
+            flex: 1;
+            padding: 10px;
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .talk-tab.active {
+            color: var(--accent-blue);
+            border-bottom: 2px solid var(--accent-blue);
+            background: rgba(0, 240, 255, 0.03);
+        }
+
+        .talk-messages-container {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: var(--bg-dark);
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.3;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .message-bubble.incoming {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            align-self: flex-start;
+            border-top-left-radius: 2px;
+        }
+
+        .message-bubble.outgoing {
+            background: rgba(0, 240, 255, 0.15);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            align-self: flex-end;
+            border-top-right-radius: 2px;
+            color: var(--text-main);
+        }
+
+        .msg-sender {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .msg-time {
+            font-size: 0.6rem;
+            color: var(--text-sub);
+            align-self: flex-end;
+            margin-top: 2px;
+        }
+
+        .talk-input-area {
+            padding: 12px;
+            background: var(--header-bg);
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            gap: 8px;
+        }
+
+        .talk-input {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .talk-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .talk-send-btn {
+            background: var(--accent-blue);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 10px;
+            width: 44px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .talk-send-btn:active {
+            transform: scale(0.95);
         }
 
         /* --- PANTALLA SELECTORA PRINCIPAL --- */
         #main-selector-screen {
-            padding: 24px 16px;
+            padding: 20px 16px;
             max-width: 800px;
             margin: 0 auto;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 12px;
         }
 
         .selector-title {
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-sub);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+
+        /* Tarjeta de Último Documento Abierto */
+        .last-doc-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(4px);
+            border: 1.5px dashed var(--accent-blue);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .last-doc-info span {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--accent-blue);
+            letter-spacing: 0.8px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .last-doc-info h4 {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .last-doc-btn {
+            background: var(--accent-blue);
+            color: var(--bg-dark);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .last-doc-btn:hover {
+            transform: scale(1.05);
         }
 
         .main-category-card {
-            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            background: var(--card-bg);
+            backdrop-filter: blur(6px);
             border: 2px solid var(--card-border);
             border-radius: 16px;
-            padding: 20px;
+            padding: 18px 20px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 18px;
             cursor: pointer;
             transition: all 0.25s ease;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            margin-bottom: 12px;
+            position: relative;
         }
 
         .main-category-card:hover, .main-category-card:active {
             border-color: var(--accent-blue);
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
         .main-category-icon {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             background: rgba(0, 240, 255, 0.1);
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -250,30 +651,45 @@
             border: 1px solid rgba(0, 240, 255, 0.2);
         }
 
+        .main-category-info {
+            flex: 1;
+        }
+
         .main-category-info h2 {
-            font-size: 1.3rem;
-            color: #ffffff;
-            margin-bottom: 4px;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            margin-bottom: 3px;
         }
 
         .main-category-info p {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-sub);
         }
 
+        .resource-count-badge {
+            position: absolute;
+            top: 14px;
+            right: 45px;
+            background: rgba(128, 128, 128, 0.15);
+            border: 1px solid var(--card-border);
+            color: var(--text-sub);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+
         .main-category-arrow {
-            margin-left: auto;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--accent-blue);
         }
 
         /* --- DASHBOARD / GRID DE TARJETAS --- */
         .dashboard-container {
-            padding: 12px;
+            padding: 16px;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-            display: none;
         }
 
         .section-header {
@@ -291,7 +707,7 @@
         }
 
         .btn-back {
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--card-bg);
             color: var(--text-main);
             border: 1px solid var(--card-border);
             padding: 6px 12px;
@@ -302,6 +718,27 @@
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        .search-box-container {
+            padding: 0 4px 14px 4px;
+        }
+
+        .search-input {
+            width: 100%;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         .grid {
@@ -319,15 +756,24 @@
 
         .card {
             background-color: var(--card-bg);
+            backdrop-filter: blur(6px);
             border: 1px solid var(--card-border);
             border-radius: 12px;
             padding: 12px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 125px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            min-height: 135px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
             transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .card-top-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
         }
 
         .card-header {
@@ -338,7 +784,7 @@
 
         .card-icon {
             font-size: 1.3rem;
-            background: rgba(255,255,255,0.05);
+            background: rgba(128, 128, 128, 0.1);
             width: 36px;
             height: 36px;
             border-radius: 8px;
@@ -362,10 +808,29 @@
             margin-top: 3px;
         }
 
+        /* Botón de Favorito ⭐ */
+        .btn-fav {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-sub);
+            padding: 4px;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .btn-fav:hover {
+            transform: scale(1.2);
+        }
+
+        .btn-fav.is-favorite {
+            color: var(--accent-yellow);
+        }
+
         .card-footer {
             margin-top: 10px;
             padding-top: 8px;
-            border-top: 1px dashed rgba(255,255,255,0.08);
+            border-top: 1px dashed var(--card-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -377,7 +842,7 @@
             font-weight: 700;
             padding: 2px 6px;
             border-radius: 4px;
-            background: rgba(255,255,255,0.08);
+            background: rgba(128, 128, 128, 0.15);
             color: var(--text-sub);
         }
 
@@ -398,7 +863,8 @@
             left: 0;
             right: 0;
             height: var(--nav-height);
-            background-color: #0b0f19;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(8px);
             border-top: 1px solid var(--card-border);
             display: flex;
             justify-content: space-around;
@@ -425,9 +891,20 @@
         .nav-icon {
             font-size: 1.2rem;
         }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Canvas para el fondo dinámico estilo IA -->
+    <canvas id="ai-background"></canvas>
 
     <!-- Pantalla de Inicio / Splash Screen -->
     <div id="splash-screen">
@@ -513,12 +990,85 @@
                 <span class="brand-subtitle">APLITEK RAIL SOLUTIONS</span>
             </div>
         </div>
-        <span class="status-pill">● Online</span>
+
+        <!-- Botón ApliteTalk en la cabecera -->
+        <button class="aplite-talk-btn" onclick="openApliteTalk()">
+            <span class="talk-icon">💬</span>
+            <span class="talk-label">ApliteTalk</span>
+            <span class="talk-badge" id="talkBadge">2</span>
+        </button>
+
+        <!-- Bloque derecho separado -->
+        <div class="header-right-separated">
+            <button class="header-tool-btn" title="Pantalla Completa" onclick="toggleFullScreen()">⛶</button>
+            <button class="header-tool-btn" id="themeToggleBtn" title="Cambiar Tema (Oscuro/Claro)" onclick="toggleTheme()">🌙</button>
+            <div class="header-info-col">
+                <div class="header-meta-row">
+                    <span id="headerClock">01:38</span>
+                    <span>📍 Amorebieta</span>
+                    <span>17ºC</span>
+                </div>
+                <div class="header-meta-row">
+                    <span id="connectionStatus" class="status-pill">● Online</span>
+                    <span class="app-version-info" id="updateTimestamp">Act: --/--/---- --:--</span>
+                </div>
+            </div>
+        </div>
     </header>
 
+    <!-- VENTANA MODAL APLITETALK -->
+    <div id="apliteTalkModal">
+        <div class="talk-window">
+            <div class="talk-header">
+                <div class="talk-header-info">
+                    <h3>💬 ApliteTalk</h3>
+                    <span>Chat interno de planta y turnos</span>
+                </div>
+                <button class="talk-close-btn" onclick="closeApliteTalk()">✕</button>
+            </div>
+            
+            <div class="talk-tabs">
+                <button class="talk-tab active" onclick="switchTalkTab('general', this)">🌐 General Planta</button>
+                <button class="talk-tab" onclick="switchTalkTab('direct', this)">👤 Turno Tarde / Calidad</button>
+            </div>
+
+            <div class="talk-messages-container" id="talkMessagesBox">
+                <div class="message-bubble incoming">
+                    <span class="msg-sender">Carlos (Mecanizado)</span>
+                    <span>Revisados los planos de rueda 3, todo correcto para producción.</span>
+                    <span class="msg-time">08:15</span>
+                </div>
+                <div class="message-bubble incoming">
+                    <span class="msg-sender">Turno Tarde</span>
+                    <span>Atención al cambio de cabina previsto a las 14:00h.</span>
+                    <span class="msg-time">09:30</span>
+                </div>
+                <div class="message-bubble outgoing">
+                    <span class="msg-sender">Tú</span>
+                    <span>Recibido, aviso al personal de nave.</span>
+                    <span class="msg-time">09:35</span>
+                </div>
+            </div>
+
+            <div class="talk-input-area">
+                <input type="text" id="talkInput" class="talk-input" placeholder="Escribe un mensaje..." onkeypress="handleTalkKey(event)">
+                <button class="talk-send-btn" onclick="sendTalkMessage()">➤</button>
+            </div>
+        </div>
+    </div>
+
     <!-- PANTALLA DE SELECCIÓN DE MENÚ (3 BOTONES PRINCIPALES) -->
-    <div id="main-selector-screen">
+    <div id="main-selector-screen" class="view-screen active">
         <div class="selector-title">Selecciona una Categoría</div>
+
+        <!-- Tarjeta de Último Documento Abierto -->
+        <div class="last-doc-card">
+            <div class="last-doc-info">
+                <span>Último documento abierto</span>
+                <h4>3. Planos de Ruedas</h4>
+            </div>
+            <a class="last-doc-btn" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a>
+        </div>
 
         <!-- 1. RUEDAS -->
         <div class="main-category-card" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
@@ -527,6 +1077,7 @@
                 <h2>Ruedas</h2>
                 <p>Gestión, planos, pintura y planificación de ruedas.</p>
             </div>
+            <span class="resource-count-badge">7 recursos</span>
             <div class="main-category-arrow">→</div>
         </div>
 
@@ -537,6 +1088,7 @@
                 <h2>Eje Suelto</h2>
                 <p>Información técnica, pintura y mecanizado de ejes.</p>
             </div>
+            <span class="resource-count-badge">2 recursos</span>
             <div class="main-category-arrow">→</div>
         </div>
 
@@ -547,176 +1099,200 @@
                 <h2>Eje Montado</h2>
                 <p>Control de calado, montaje y conjuntos de ejes.</p>
             </div>
+            <span class="resource-count-badge">1 recurso</span>
             <div class="main-category-arrow">→</div>
         </div>
     </div>
 
     <!-- DASHBOARD DE CONTENIDOS -->
-    <div class="dashboard-container" id="dashboard">
-        <div class="section-header">
-            <span class="section-title" id="current-section-title">RUEDAS</span>
-            <button class="btn-back" onclick="showMainSelector()">← Cambiar Menú</button>
-        </div>
-
-        <div class="grid" id="main-grid">
-
-            <!-- ================= BLOQUES DE RUEDAS ================= -->
-            <div class="card" data-main-cat="ruedas">
-                <div class="card-header">
-                    <span class="card-icon">⚙️</span>
-                    <div>
-                        <div class="card-title">1. Ruedas Sin Pintar</div>
-                        <div class="card-desc">Pestaña RES_SIN_PINTAR_. Estado e inspección.</div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <span class="badge">SharePoint</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQDbtMONQJT9TJeRuOBHV8d4ARW7etQ_24LRPiQMb90rVB4?e=ekMz1Y&ActiveCell=RES_SIN_PINTAR_!A1" target="_blank">Abrir →</a>
-                </div>
+    <div class="view-screen" id="dashboard">
+        <div class="dashboard-container">
+            <div class="section-header">
+                <span class="section-title" id="current-section-title">RUEDAS</span>
+                <button class="btn-back" onclick="showMainSelector()">← Menú</button>
             </div>
 
-            <div class="card" data-main-cat="ruedas">
-                <div class="card-header">
-                    <span class="card-icon">🎨</span>
-                    <div>
-                        <div class="card-title">2. Ruedas Pintadas</div>
-                        <div class="card-desc">Pestaña RES_SIN_ENVIAR. Registro y salida.</div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <span class="badge">SharePoint</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQDbtMONQJT9TJeRuOBHV8d4ARW7etQ_24LRPiQMb90rVB4?e=ekMz1Y&ActiveCell=RES_SIN_ENVIAR!A1" target="_blank">Abrir →</a>
-                </div>
+            <!-- Buscador en tiempo real -->
+            <div class="search-box-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar documento o plano..." onkeyup="filterCards()">
             </div>
 
-            <div class="card" data-main-cat="ruedas">
-                <div class="card-header">
-                    <span class="card-icon">📐</span>
-                    <div>
-                        <div class="card-title">3. Planos de Ruedas</div>
-                        <div class="card-desc">Carpeta FZ con planos y cotas.</div>
+            <div class="grid" id="main-grid">
+
+                <!-- ================= BLOQUES DE RUEDAS ================= -->
+                <div class="card" data-id="rueda-1" data-main-cat="ruedas">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">⚙️</span>
+                            <div>
+                                <div class="card-title">1. Ruedas Sin Pintar</div>
+                                <div class="card-desc">Pestaña RES_SIN_PINTAR_. Estado e inspección.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('rueda-1', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">SharePoint</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQDbtMONQJT9TJeRuOBHV8d4ARW7etQ_24LRPiQMb90rVB4?e=ekMz1Y&ActiveCell=RES_SIN_PINTAR_!A1" target="_blank" onclick="trackLastDoc('1. Ruedas Sin Pintar', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Carpeta FZ</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank">Abrir →</a>
-                </div>
-            </div>
 
-            <div class="card" data-main-cat="ruedas">
-                <div class="card-header">
-                    <span class="card-icon">🧪</span>
-                    <div>
-                        <div class="card-title">4. Sistema de Pintura</div>
-                        <div class="card-desc">Especificaciones técnicas y procesos.</div>
+                <div class="card" data-id="rueda-2" data-main-cat="ruedas">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">🎨</span>
+                            <div>
+                                <div class="card-title">2. Ruedas Pintadas</div>
+                                <div class="card-desc">Pestaña RES_SIN_ENVIAR. Registro y salida.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('rueda-2', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">SharePoint</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQDbtMONQJT9TJeRuOBHV8d4ARW7etQ_24LRPiQMb90rVB4?e=ekMz1Y&ActiveCell=RES_SIN_ENVIAR!A1" target="_blank" onclick="trackLastDoc('2. Ruedas Pintadas', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Carpeta SP</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=N0rpUC" target="_blank">Abrir →</a>
-                </div>
-            </div>
 
-            <div class="card" data-main-cat="ruedas">
-                <div class="card-header">
-                    <span class="card-icon">📦</span>
-                    <div>
-                        <div class="card-title">5. Embalaje</div>
-                        <div class="card-desc">Cajas (E1-CV, E2-CVA) con esquemas.</div>
+                <div class="card" data-id="rueda-3" data-main-cat="ruedas">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">📐</span>
+                            <div>
+                                <div class="card-title">3. Planos de Ruedas</div>
+                                <div class="card-desc">Carpeta FZ con planos y cotas.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('rueda-3', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">Carpeta FZ</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Excel</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAe_IE2DpA5TL5rE2IxNhMZAQ9K4wpDuvsNCL9yk2ZOhUA?e=eVJF8W" target="_blank">Abrir →</a>
-                </div>
-            </div>
 
-            <div class="card" data-main-cat="ruedas">
-                <div class="card-header">
-                    <span class="card-icon">📅</span>
-                    <div>
-                        <div class="card-title">6. Planif. Cabinas</div>
-                        <div class="card-desc">Programación diaria de pintado CAF.</div>
+                <div class="card" data-id="rueda-4" data-main-cat="ruedas">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">🧪</span>
+                            <div>
+                                <div class="card-title">4. Sistema de Pintura</div>
+                                <div class="card-desc">Especificaciones técnicas y procesos.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('rueda-4', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">Carpeta SP</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=N0rpUC" target="_blank" onclick="trackLastDoc('4. Sistema de Pintura', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Live</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=LLomY9" target="_blank">Abrir →</a>
-                </div>
-            </div>
 
-            <div class="card" data-main-cat="ruedas">
-                <div class="card-header">
-                    <span class="card-icon">🖌️</span>
-                    <div>
-                        <div class="card-title">7. Planif. Brochazo</div>
-                        <div class="card-desc">Turnos y retocado manual CAF.</div>
+                <div class="card" data-id="rueda-5" data-main-cat="ruedas">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">📦</span>
+                            <div>
+                                <div class="card-title">5. Embalaje</div>
+                                <div class="card-desc">Cajas (E1-CV, E2-CVA) con esquemas.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('rueda-5', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">Excel</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAe_IE2DpA5TL5rE2IxNhMZAQ9K4wpDuvsNCL9yk2ZOhUA?e=eVJF8W" target="_blank" onclick="trackLastDoc('5. Embalaje', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Live</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC53Cn1FjfAR4KeNM5a76ZtAY2wtaZYFz9n3YxSh4XLzZg?e=KPaXIP" target="_blank">Abrir →</a>
-                </div>
-            </div>
 
-            <!-- ================= BLOQUES DE EJE SUELTO ================= -->
-            <div class="card" data-main-cat="eje-suelto">
-                <div class="card-header">
-                    <span class="card-icon">🧪</span>
-                    <div>
-                        <div class="card-title">Sistema de Pintura</div>
-                        <div class="card-desc">Especificaciones técnicas y procesos para ejes.</div>
+                <div class="card" data-id="rueda-6" data-main-cat="ruedas">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">📅</span>
+                            <div>
+                                <div class="card-title">6. Planif. Cabinas</div>
+                                <div class="card-desc">Programación diaria de pintado CAF.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('rueda-6', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">Live</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=LLomY9" target="_blank" onclick="trackLastDoc('6. Planif. Cabinas', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Carpeta SP</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=0gbPzC" target="_blank">Abrir →</a>
-                </div>
-            </div>
 
-            <div class="card" data-main-cat="eje-suelto">
-                <div class="card-header">
-                    <span class="card-icon">📐</span>
-                    <div>
-                        <div class="card-title">Planos de Eje Suelto</div>
-                        <div class="card-desc">Carpeta con planos y especificaciones de ejes sueltos.</div>
+                <div class="card" data-id="rueda-7" data-main-cat="ruedas">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">🖌️</span>
+                            <div>
+                                <div class="card-title">7. Planif. Brochazo</div>
+                                <div class="card-desc">Turnos y retocado manual CAF.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('rueda-7', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">Live</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC53Cn1FjfAR4KeNM5a76ZtAY2wtaZYFz9n3YxSh4XLzZg?e=KPaXIP" target="_blank" onclick="trackLastDoc('7. Planif. Brochazo', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Carpeta FZ</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBzZVPYZHRyRLMG6dlgGX9kAZUoFjrW_EmmiV8V2RoXBek?e=fMHSId" target="_blank">Abrir →</a>
-                </div>
-            </div>
 
-            <!-- ================= BLOQUES DE EJE MONTADO ================= -->
-            <div class="card" data-main-cat="eje-montado">
-                <div class="card-header">
-                    <span class="card-icon">🚆</span>
-                    <div>
-                        <div class="card-title">Registro de Calado</div>
-                        <div class="card-desc">Inspección de montaje de ejes completos.</div>
+                <!-- ================= BLOQUES DE EJE SUELTO ================= -->
+                <div class="card" data-id="eje-s-1" data-main-cat="eje-suelto">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">🧪</span>
+                            <div>
+                                <div class="card-title">Sistema de Pintura</div>
+                                <div class="card-desc">Especificaciones técnicas y procesos para ejes.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('eje-s-1', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">Carpeta SP</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=0gbPzC" target="_blank" onclick="trackLastDoc('Sistema de Pintura (Eje)', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Próximamente</span>
-                    <a class="card-link" href="#">Pendiente</a>
-                </div>
-            </div>
 
-            <div class="card" data-main-cat="eje-montado">
-                <div class="card-header">
-                    <span class="card-icon">📐</span>
-                    <div>
-                        <div class="card-title">Planos de Eje Montado</div>
-                        <div class="card-desc">Carpeta con planos y conjuntos de ejes montados.</div>
+                <div class="card" data-id="eje-s-2" data-main-cat="eje-suelto">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">📐</span>
+                            <div>
+                                <div class="card-title">Planos de Eje Suelto</div>
+                                <div class="card-desc">Carpeta con planos y especificaciones de ejes sueltos.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('eje-s-2', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">Carpeta FZ</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBzZVPYZHRyRLMG6dlgGX9kAZUoFjrW_EmmiV8V2RoXBek?e=fMHSId" target="_blank" onclick="trackLastDoc('Planos de Eje Suelto', this.href)">Abrir →</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <span class="badge">Carpeta FZ</span>
-                    <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBdpT7CFabWTZycomGY-t5AAQfkGwef6q-D4T4gNTIqc4k?e=Q6JQXs" target="_blank">Abrir →</a>
-                </div>
-            </div>
 
+                <!-- ================= BLOQUES DE EJE MONTADO ================= -->
+                <div class="card" data-id="eje-m-2" data-main-cat="eje-montado">
+                    <div class="card-top-row">
+                        <div class="card-header">
+                            <span class="card-icon">📐</span>
+                            <div>
+                                <div class="card-title">Planos de Eje Montado</div>
+                                <div class="card-desc">Carpeta con planos y conjuntos de ejes montados.</div>
+                            </div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('eje-m-2', event)" title="Marcar favorito">★</button>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">Carpeta FZ</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBdpT7CFabWTZycomGY-t5AAQfkGwef6q-D4T4gNTIqc4k?e=Q6JQXs" target="_blank" onclick="trackLastDoc('Planos de Eje Montado', this.href)">Abrir →</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -725,6 +1301,10 @@
         <button class="nav-item active" onclick="showMainSelector()">
             <span class="nav-icon">🏠</span>
             <span>Menú</span>
+        </button>
+        <button class="nav-item" onclick="openFavorites()">
+            <span class="nav-icon">⭐</span>
+            <span>Favoritos</span>
         </button>
         <button class="nav-item" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
             <span class="nav-icon">⚙️</span>
@@ -741,6 +1321,10 @@
     </nav>
 
     <script>
+        let currentViewMode = ''; 
+        let currentCategoryKey = '';
+        let favorites = JSON.parse(localStorage.getItem('aplitapp_favs')) || [];
+
         window.addEventListener('load', function() {
             const splash = document.getElementById('splash-screen');
             if (splash) {
@@ -749,33 +1333,376 @@
                     splash.style.visibility = 'hidden';
                 }, 2400); 
             }
+            initThemePreference();
+            updateFavIcons();
+            initNetworkMonitor();
+            setLastUpdateTimestamp();
+            initClock();
+            loadLastDoc();
+            initAiBackground();
         });
 
-        function showMainSelector() {
-            document.getElementById('main-selector-screen').style.display = 'flex';
-            document.getElementById('dashboard').style.display = 'none';
+        // Inicializar preferencia de tema guardada
+        function initThemePreference() {
+            const savedTheme = localStorage.getItem('aplitapp_theme');
+            const btn = document.getElementById('themeToggleBtn');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                if (btn) btn.innerText = '☀️';
+            } else {
+                document.body.classList.remove('light-mode');
+                if (btn) btn.innerText = '🌙';
+            }
+        }
+
+        // Alternar Tema Oscuro / Claro
+        function toggleTheme() {
+            const btn = document.getElementById('themeToggleBtn');
+            document.body.classList.toggle('light-mode');
             
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            document.querySelectorAll('.nav-item')[0].classList.add('active');
+            if (document.body.classList.contains('light-mode')) {
+                localStorage.setItem('aplitapp_theme', 'light');
+                if (btn) btn.innerText = '☀️';
+            } else {
+                localStorage.setItem('aplitapp_theme', 'dark');
+                if (btn) btn.innerText = '🌙';
+            }
+        }
+
+        // Fondo Dinámico tipo IA con partículas de luz
+        function initAiBackground() {
+            const canvas = document.getElementById('ai-background');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = [];
+            const count = Math.floor((width * height) / 18000);
+
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    alpha: Math.random() * 0.5 + 0.2
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                
+                const isLight = document.body.classList.contains('light-mode');
+                const lineColor = isLight ? 'rgba(2, 132, 199, 0.15)' : 'rgba(0, 240, 255, 0.12)';
+                const dotColor = isLight ? 'rgba(2, 132, 199, ' : 'rgba(0, 240, 255, ';
+
+                // Dibujar conexiones sutiles
+                ctx.lineWidth = 0.5;
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.strokeStyle = lineColor;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // Mover y dibujar partículas
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+
+                    ctx.fillStyle = dotColor + p.alpha + ')';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Reloj en tiempo real
+        function initClock() {
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const clockEl = document.getElementById('headerClock');
+                if (clockEl) clockEl.innerText = `${hours}:${minutes}`;
+            }
+            updateClock();
+            setInterval(updateClock, 10000);
+        }
+
+        // Pantalla completa
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {});
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Funciones para ApliteTalk
+        function openApliteTalk() {
+            document.getElementById('apliteTalkModal').classList.add('active');
+            document.getElementById('talkBadge').style.display = 'none';
+        }
+
+        function closeApliteTalk() {
+            document.getElementById('apliteTalkModal').classList.remove('active');
+        }
+
+        function switchTalkTab(tabName, element) {
+            document.querySelectorAll('.talk-tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            
+            const msgBox = document.getElementById('talkMessagesBox');
+            if(tabName === 'direct') {
+                msgBox.innerHTML = `
+                    <div class="message-bubble incoming">
+                        <span class="msg-sender">Control de Calidad</span>
+                        <span>¿Hay alguna incidencia con el calado de los ejes montados?</span>
+                        <span class="msg-time">08:50</span>
+                    </div>
+                `;
+            } else {
+                msgBox.innerHTML = `
+                    <div class="message-bubble incoming">
+                        <span class="msg-sender">Carlos (Mecanizado)</span>
+                        <span>Revisados los planos de rueda 3, todo correcto para producción.</span>
+                        <span class="msg-time">08:15</span>
+                    </div>
+                    <div class="message-bubble incoming">
+                        <span class="msg-sender">Turno Tarde</span>
+                        <span>Atención al cambio de cabina previsto a las 14:00h.</span>
+                        <span class="msg-time">09:30</span>
+                    </div>
+                    <div class="message-bubble outgoing">
+                        <span class="msg-sender">Tú</span>
+                        <span>Recibido, aviso al personal de nave.</span>
+                        <span class="msg-time">09:35</span>
+                    </div>
+                `;
+            }
+        }
+
+        function sendTalkMessage() {
+            const input = document.getElementById('talkInput');
+            const text = input.value.trim();
+            if(!text) return;
+
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            const msgBox = document.getElementById('talkMessagesBox');
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble outgoing';
+            bubble.innerHTML = `
+                <span class="msg-sender">Tú</span>
+                <span>${text}</span>
+                <span class="msg-time">${hours}:${minutes}</span>
+            `;
+            msgBox.appendChild(bubble);
+            input.value = '';
+            msgBox.scrollTop = msgBox.scrollHeight;
+        }
+
+        function handleTalkKey(event) {
+            if(event.key === 'Enter') {
+                sendTalkMessage();
+            }
+        }
+
+        // Gestión de Último Documento Abierto
+        function trackLastDoc(title, url) {
+            const docData = { title: title, url: url };
+            localStorage.setItem('aplitapp_last_doc', JSON.stringify(docData));
+        }
+
+        function loadLastDoc() {
+            const saved = localStorage.getItem('aplitapp_last_doc');
+            if (saved) {
+                try {
+                    const doc = JSON.parse(saved);
+                    const cardInfo = document.querySelector('.last-doc-info h4');
+                    const cardBtn = document.querySelector('.last-doc-btn');
+                    if (cardInfo && cardBtn) {
+                        cardInfo.innerText = doc.title;
+                        cardBtn.href = doc.url;
+                    }
+                } catch(e) {}
+            }
+        }
+
+        // Fecha y hora de la última actualización
+        function setLastUpdateTimestamp() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            document.getElementById('updateTimestamp').innerText = `Act: ${day}/${month}/${year} ${hours}:${minutes}`;
+        }
+
+        // Monitor de estado online/offline en vivo
+        function initNetworkMonitor() {
+            const statusPill = document.getElementById('connectionStatus');
+            function updateStatus() {
+                if (navigator.onLine) {
+                    statusPill.innerText = '● Online';
+                    statusPill.classList.remove('offline');
+                } else {
+                    statusPill.innerText = '○ Sin Conexión';
+                    statusPill.classList.add('offline');
+                }
+            }
+            window.addEventListener('online', updateStatus);
+            window.addEventListener('offline', updateStatus);
+            updateStatus();
+        }
+
+        function switchScreen(screenId) {
+            document.querySelectorAll('.view-screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function showMainSelector() {
+            switchScreen('main-selector-screen');
+            updateNavActive(0);
         }
 
         function openSection(categoryKey, titleText) {
-            document.getElementById('main-selector-screen').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
+            currentViewMode = 'category';
+            currentCategoryKey = categoryKey;
             document.getElementById('current-section-title').innerText = titleText;
+            document.getElementById('searchInput').style.display = 'block';
+            document.getElementById('searchInput').value = '';
 
+            removeEmptyState();
+            applyCardFilters();
+            switchScreen('dashboard');
+
+            if (categoryKey === 'ruedas') updateNavActive(2);
+            if (categoryKey === 'eje-suelto') updateNavActive(3);
+            if (categoryKey === 'eje-montado') updateNavActive(4);
+        }
+
+        function openFavorites() {
+            currentViewMode = 'favorites';
+            document.getElementById('current-section-title').innerText = 'FAVORITOS ⭐';
+            document.getElementById('searchInput').style.display = 'none';
+
+            removeEmptyState();
+
+            let visibleCount = 0;
             document.querySelectorAll('.card').forEach(card => {
-                if (card.dataset.mainCat === categoryKey) {
+                if (favorites.includes(card.dataset.id)) {
                     card.style.display = 'flex';
+                    visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
 
+            switchScreen('dashboard');
+            updateNavActive(1);
+
+            if (visibleCount === 0) {
+                const grid = document.getElementById('main-grid');
+                const empty = document.createElement('div');
+                empty.className = 'empty-state';
+                empty.id = 'emptyFavState';
+                empty.innerHTML = 'No tienes elementos marcados como favoritos.<br>Pulsa la estrella (★) en cualquier tarjeta para añadirla aquí.';
+                grid.appendChild(empty);
+            }
+        }
+
+        function removeEmptyState() {
+            const empty = document.getElementById('emptyFavState');
+            if (empty) empty.remove();
+        }
+
+        function toggleFavorite(cardId, event) {
+            event.stopPropagation();
+            const index = favorites.indexOf(cardId);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(cardId);
+            }
+            localStorage.setItem('aplitapp_favs', JSON.stringify(favorites));
+            updateFavIcons();
+
+            if (currentViewMode === 'favorites') {
+                openFavorites();
+            }
+        }
+
+        function updateFavIcons() {
+            document.querySelectorAll('.card').forEach(card => {
+                const id = card.dataset.id;
+                const btn = card.querySelector('.btn-fav');
+                if (favorites.includes(id)) {
+                    btn.classList.add('is-favorite');
+                } else {
+                    btn.classList.remove('is-favorite');
+                }
+            });
+        }
+
+        function updateNavActive(index) {
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            if (categoryKey === 'ruedas') document.querySelectorAll('.nav-item')[1].classList.add('active');
-            if (categoryKey === 'eje-suelto') document.querySelectorAll('.nav-item')[2].classList.add('active');
-            if (categoryKey === 'eje-montado') document.querySelectorAll('.nav-item')[3].classList.add('active');
+            const navItems = document.querySelectorAll('.nav-item');
+            if (navItems[index]) navItems[index].classList.add('active');
+        }
+
+        function filterCards() {
+            applyCardFilters();
+        }
+
+        function applyCardFilters() {
+            if (currentViewMode !== 'category') return;
+            const query = document.getElementById('searchInput').value.toLowerCase();
+
+            document.querySelectorAll('.card').forEach(card => {
+                const matchesCategory = (card.dataset.mainCat === currentCategoryKey);
+                const title = card.querySelector('.card-title').innerText.toLowerCase();
+                const desc = card.querySelector('.card-desc').innerText.toLowerCase();
+                const matchesQuery = title.includes(query) || desc.includes(query);
+
+                if (matchesCategory && matchesQuery) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
