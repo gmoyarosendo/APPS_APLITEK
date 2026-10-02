@@ -71,7 +71,6 @@
             max-width: 900px;
         }
 
-        /* Logo vectorial animado gigante */
         .splash-logo-container {
             width: 95vw;
             max-width: 750px;
@@ -85,7 +84,7 @@
             display: block;
         }
 
-        /* --- ANIMACIONES CSS DE LA RUEDA Y ENERGÍA --- */
+        /* ANIMACIONES CSS */
         @keyframes spinWheel {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -96,7 +95,6 @@
             50% { opacity: 1; transform: translateX(-10px); }
         }
 
-        /* Elementos que giran */
         .animated-wheel {
             transform-origin: 105px 105px;
             animation: spinWheel 3.5s linear infinite;
@@ -112,12 +110,10 @@
             animation: spinWheel 5s linear infinite;
         }
 
-        /* Líneas de velocidad traseras */
         .speed-lines {
             animation: pulseTrack 1.5s ease-in-out infinite;
         }
 
-        /* Barra de progreso futurista */
         .loading-bar-container {
             width: 80%;
             max-width: 320px;
@@ -135,7 +131,7 @@
             background: linear-gradient(90deg, #0077b6, #00f0ff, #10b981);
             position: absolute;
             left: -100%;
-            animation: loadingFill 2s ease-in-out forwards;
+            animation: loadingFill 1.5s ease-in-out forwards;
         }
 
         @keyframes loadingFill {
@@ -162,6 +158,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            cursor: pointer;
         }
 
         .header-logo-svg {
@@ -201,12 +198,162 @@
             font-weight: 600;
         }
 
-        /* Grid de Tarjetas */
+        /* --- PANTALLA SELECTORA PRINCIPAL --- */
+        #main-selector-screen {
+            padding: 24px 16px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .selector-title {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .main-category-card {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .main-category-card:hover, .main-category-card:active {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        .main-category-icon {
+            font-size: 2.5rem;
+            background: rgba(0, 240, 255, 0.1);
+            width: 65px;
+            height: 65px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .main-category-info h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .main-category-info p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .main-category-arrow {
+            margin-left: auto;
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+        }
+
+        /* --- DASHBOARD / GRID DE TARJETAS --- */
         .dashboard-container {
             padding: 12px;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
+            display: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding: 0 4px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* BUSCADOR DE CARPETAS */
+        .search-container {
+            margin-bottom: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 100%;
+            background: #070a12;
+            border: 1px solid var(--card-border);
+            color: #ffffff;
+            padding: 10px 14px 10px 38px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            pointer-events: none;
+        }
+
+        .search-info {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 4px;
         }
 
         .grid {
@@ -217,8 +364,8 @@
 
         @media (max-width: 600px) {
             .grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
+                grid-template-columns: repeat(1, 1fr);
+                gap: 12px;
             }
         }
 
@@ -233,6 +380,11 @@
             min-height: 125px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
             transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 240, 255, 0.4);
+            transform: translateY(-2px);
         }
 
         .card-header {
@@ -258,6 +410,7 @@
             font-weight: 700;
             color: var(--text-main);
             line-height: 1.2;
+            word-break: break-word;
         }
 
         .card-desc {
@@ -294,6 +447,11 @@
             padding: 4px 8px;
             border-radius: 6px;
             background: rgba(0, 240, 255, 0.1);
+            transition: background 0.2s ease;
+        }
+
+        .card-link:hover {
+            background: rgba(0, 240, 255, 0.25);
         }
 
         /* Navegación Inferior */
@@ -350,42 +508,33 @@
                         </linearGradient>
                     </defs>
 
-                    <!-- Fondo Contenedor -->
                     <rect width="750" height="210" rx="28" fill="url(#darkBg)" stroke="#1f2937" stroke-width="2"/>
                     
-                    <!-- Líneas de velocidad dinámicas traseras -->
                     <g class="speed-lines" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" opacity="0.25">
                         <line x1="20" y1="185" x2="210" y2="185" stroke-width="4"/>
                         <line x1="30" y1="192" x2="210" y2="192"/>
                         <line x1="10" y1="178" x2="200" y2="178"/>
                     </g>
 
-                    <!-- GRUPO DE RUEDA FERROVIARIA TECNOLÓGICA -->
                     <g transform="translate(15, 0)">
-                        <!-- Vía de alta velocidad -->
                         <line x1="10" y1="185" x2="200" y2="185" stroke="url(#neonGlow)" stroke-width="5" stroke-linecap="round"/>
                         <path d="M 25 185 L 25 195 M 55 185 L 55 195 M 85 185 L 85 195 M 115 185 L 115 195 M 145 185 L 145 195 M 175 185 L 175 195" stroke="#00f0ff" stroke-width="3" opacity="0.6"/>
 
-                        <!-- Anillo exterior -->
                         <circle cx="105" cy="105" r="76" stroke="#00f0ff" stroke-width="2" stroke-dasharray="8 6" opacity="0.4"/>
 
-                        <!-- RUEDA GIRATORIA -->
                         <g class="animated-wheel">
                             <circle cx="105" cy="105" r="68" fill="#0b1329" stroke="url(#neonGlow)" stroke-width="6"/>
                             <circle cx="105" cy="105" r="48" fill="#030712" stroke="#00f0ff" stroke-width="3"/>
-                            
                             <circle cx="105" cy="67" r="8" fill="#00f0ff" opacity="0.9"/>
                             <circle cx="143" cy="105" r="8" fill="#00f0ff" opacity="0.9"/>
                             <circle cx="105" cy="143" r="8" fill="#00f0ff" opacity="0.9"/>
                             <circle cx="67" cy="105" r="8" fill="#00f0ff" opacity="0.9"/>
-
                             <circle cx="132" cy="78" r="6" fill="#0077b6"/>
                             <circle cx="132" cy="132" r="6" fill="#0077b6"/>
                             <circle cx="78" cy="132" r="6" fill="#0077b6"/>
                             <circle cx="78" cy="78" r="6" fill="#0077b6"/>
                         </g>
 
-                        <!-- Núcleo central giratorio -->
                         <g class="animated-wheel-fast">
                             <circle cx="105" cy="105" r="22" fill="#00f0ff" opacity="0.2"/>
                             <circle cx="105" cy="105" r="16" fill="#00f0ff"/>
@@ -395,13 +544,11 @@
                         </g>
                     </g>
                     
-                    <!-- TEXTO DE MARCA -->
                     <text x="245" y="112" font-family="-apple-system, sans-serif" font-weight="900" font-size="64" fill="#ffffff" letter-spacing="4">APLITAPP</text>
                     <text x="248" y="152" font-family="-apple-system, sans-serif" font-weight="800" font-size="22" fill="#00f0ff" letter-spacing="4">APLITEK RAIL SOLUTIONS</text>
                 </svg>
             </div>
 
-            <!-- Barra de Carga Futurista -->
             <div class="loading-bar-container">
                 <div class="loading-bar-fill"></div>
             </div>
@@ -410,7 +557,7 @@
 
     <!-- Cabecera Principal -->
     <header>
-        <div class="brand-header">
+        <div class="brand-header" onclick="showMainSelector()">
             <svg class="header-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="100" height="100" rx="20" fill="#0f172a" stroke="#00f0ff" stroke-width="2"/>
                 <line x1="10" y1="88" x2="90" y2="88" stroke="#00f0ff" stroke-width="3"/>
@@ -432,12 +579,64 @@
         <span class="status-pill">● Online</span>
     </header>
 
-    <!-- Grid de Tarjetas -->
-    <div class="dashboard-container">
+    <!-- PANTALLA DE SELECCIÓN DE MENÚ (3 BOTONES PRINCIPALES) -->
+    <div id="main-selector-screen">
+        <div class="selector-title">Selecciona una Categoría</div>
+
+        <!-- 1. RUEDAS -->
+        <div class="main-category-card" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
+            <div class="main-category-icon">⚙️</div>
+            <div class="main-category-info">
+                <h2>Ruedas</h2>
+                <p>Gestión, planos, pintura y planificación de ruedas.</p>
+            </div>
+            <div class="main-category-arrow">→</div>
+        </div>
+
+        <!-- 2. EJE SUELTO -->
+        <div class="main-category-card" onclick="openSection('eje-suelto', 'EJE SUELTO')">
+            <div class="main-category-icon">📏</div>
+            <div class="main-category-info">
+                <h2>Eje Suelto</h2>
+                <p>Buscador de carpetas, planos y mecanizado de ejes.</p>
+            </div>
+            <div class="main-category-arrow">→</div>
+        </div>
+
+        <!-- 3. EJE MONTADO -->
+        <div class="main-category-card" onclick="openSection('eje-montado', 'EJE MONTADO')">
+            <div class="main-category-icon">🚆</div>
+            <div class="main-category-info">
+                <h2>Eje Montado</h2>
+                <p>Control de calado, montaje y conjuntos de ejes.</p>
+            </div>
+            <div class="main-category-arrow">→</div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD DE CONTENIDOS -->
+    <div class="dashboard-container" id="dashboard">
+        <div class="section-header">
+            <span class="section-title" id="current-section-title">RUEDAS</span>
+            <button class="btn-back" onclick="showMainSelector()">← Cambiar Menú</button>
+        </div>
+
+        <!-- BUSCADOR EXCLUSIVO PARA EJE SUELTO -->
+        <div class="search-container" id="eje-suelto-search-box" style="display: none;">
+            <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="ejeSearchInput" class="search-input" placeholder="Buscar por referencia o eje (ej: TALGO, RENFE, S.14)..." oninput="filterEjes()">
+            </div>
+            <div class="search-info">
+                <span>Resultados encontrados:</span>
+                <strong id="searchCount" style="color: var(--accent-blue);">0</strong>
+            </div>
+        </div>
+
         <div class="grid" id="main-grid">
 
-            <!-- 1. Ruedas Sin Pintar -->
-            <div class="card" data-category="ruedas">
+            <!-- ================= BLOQUES DE RUEDAS ================= -->
+            <div class="card" data-main-cat="ruedas">
                 <div class="card-header">
                     <span class="card-icon">⚙️</span>
                     <div>
@@ -451,8 +650,7 @@
                 </div>
             </div>
 
-            <!-- 2. Ruedas Pintadas -->
-            <div class="card" data-category="ruedas">
+            <div class="card" data-main-cat="ruedas">
                 <div class="card-header">
                     <span class="card-icon">🎨</span>
                     <div>
@@ -466,8 +664,7 @@
                 </div>
             </div>
 
-            <!-- 3. Planos de Ruedas -->
-            <div class="card" data-category="planos">
+            <div class="card" data-main-cat="ruedas">
                 <div class="card-header">
                     <span class="card-icon">📐</span>
                     <div>
@@ -481,8 +678,7 @@
                 </div>
             </div>
 
-            <!-- 4. Sistema de Pintura -->
-            <div class="card" data-category="pintura">
+            <div class="card" data-main-cat="ruedas">
                 <div class="card-header">
                     <span class="card-icon">🧪</span>
                     <div>
@@ -496,8 +692,7 @@
                 </div>
             </div>
 
-            <!-- 5. Embalaje -->
-            <div class="card" data-category="embalaje">
+            <div class="card" data-main-cat="ruedas">
                 <div class="card-header">
                     <span class="card-icon">📦</span>
                     <div>
@@ -511,8 +706,7 @@
                 </div>
             </div>
 
-            <!-- 6. Planificación Cabinas -->
-            <div class="card" data-category="planif">
+            <div class="card" data-main-cat="ruedas">
                 <div class="card-header">
                     <span class="card-icon">📅</span>
                     <div>
@@ -526,10 +720,9 @@
                 </div>
             </div>
 
-            <!-- 7. Planificación Brochazo -->
-            <div class="card" data-category="planif">
+            <div class="card" data-main-cat="ruedas">
                 <div class="card-header">
-                    <span class="card-icon">🖌️</span>
+                    <span class="card-icon">🖌</span>
                     <div>
                         <div class="card-title">7. Planif. Brochazo</div>
                         <div class="card-desc">Turnos y retocado manual CAF.</div>
@@ -541,59 +734,149 @@
                 </div>
             </div>
 
+            <!-- CONTENEDOR DINÁMICO DE EJES SUELTOS -->
+            <div id="ejes-container" style="display: contents;"></div>
+
         </div>
     </div>
 
-    <!-- Navegación Inferior -->
+    <!-- NAVEGACIÓN INFERIOR -->
     <nav class="bottom-nav">
-        <button class="nav-item active" onclick="filterNav('all', this)">
+        <button class="nav-item active" onclick="showMainSelector()">
             <span class="nav-icon">🏠</span>
             <span>Inicio</span>
         </button>
-        <button class="nav-item" onclick="filterNav('ruedas', this)">
+        <button class="nav-item" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
             <span class="nav-icon">⚙️</span>
             <span>Ruedas</span>
         </button>
-        <button class="nav-item" onclick="filterNav('planos', this)">
-            <span class="nav-icon">📐</span>
-            <span>Planos</span>
+        <button class="nav-item" onclick="openSection('eje-suelto', 'EJE SUELTO')">
+            <span class="nav-icon">📏</span>
+            <span>Eje Suelto</span>
         </button>
-        <button class="nav-item" onclick="filterNav('pintura', this)">
-            <span class="nav-icon">🧪</span>
-            <span>Pintura</span>
-        </button>
-        <button class="nav-item" onclick="filterNav('embalaje', this)">
-            <span class="nav-icon">📦</span>
-            <span>Embalaje</span>
-        </button>
-        <button class="nav-item" onclick="filterNav('planif', this)">
-            <span class="nav-icon">📅</span>
-            <span>Planif</span>
+        <button class="nav-item" onclick="openSection('eje-montado', 'EJE MONTADO')">
+            <span class="nav-icon">🚆</span>
+            <span>Eje Montado</span>
         </button>
     </nav>
 
+    <!-- SCRIPTS DE NAVEGACIÓN Y FILTRADO -->
     <script>
-        window.addEventListener('load', function() {
-            const splash = document.getElementById('splash-screen');
-            if (splash) {
-                setTimeout(() => {
-                    splash.style.opacity = '0';
-                    splash.style.visibility = 'hidden';
-                }, 2400); 
-            }
+        // BASE DE DATOS DE CARPETAS DE EJE SUELTO (.flat(Infinity) aplicado para limpiar arrays dobles de Power Automate)
+        const ejeFolders = [[{"name":"ANTIGUOS","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/ANTIGUOS"},{"name":"ESPECIALES","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/ESPECIALES"},{"name":"KEOLIS (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/KEOLIS%20(S.14)"},{"name":"M850100302(S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/M850100302(S.13)"},{"name":"MK10100501 FLYTOGET","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MK10100501%20FLYTOGET"},{"name":"MK20150501","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MK20150501"},{"name":"MK30100501","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MK30100501"},{"name":"MK50150501","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MK50150501"},{"name":"MK80100501 MARYLAND","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MK80100501%20MARYLAND"},{"name":"ML20150601 BRUSELAS","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/ML20150601%20BRUSELAS"},{"name":"ML80105201 DE LIJN","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/ML80105201%20DE%20LIJN"},{"name":"ML90105201 DE LIJN","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/ML90105201%20DE%20LIJN"},{"name":"MM00100901 (S.4)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MM00100901%20(S.4)"},{"name":"MM10100501","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MM10100501"},{"name":"MM10150501","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MM10150501"},{"name":"MM30100201 MANILA","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MM30100201%20MANILA"},{"name":"MN10150801 (S.4) AMSTERDAM","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MN10150801%20(S.4)%20AMSTERDAM"},{"name":"MN601512-01 NUEVA GALES","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MN601512-01%20NUEVA%20GALES"},{"name":"MN60151201 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MN60151201%20(S.14)"},{"name":"MN801505-01 DOCKLANDS","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MN801505-01%20DOCKLANDS"},{"name":"MP60150801 (S4.)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MP60150801%20(S4.)"},{"name":"MP90100801 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MP90100801%20(S.13)"},{"name":"MP9010081","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MP9010081"},{"name":"MS40150801","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/MS40150801"},{"name":"P0000339993 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0000339993%20(S.14)"},{"name":"P0000346947 (S.4)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0000346947%20(S.4)"},{"name":"P0000540306 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0000540306%20(S.14)"},{"name":"P0000671903 Montpelier (S.4)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0000671903%20Montpelier%20(S.4)"},{"name":"P0000945579 (S","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0000945579%20(S"},{"name":"P0001181219 (S.)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001181219%20(S.)"},{"name":"P0001203850","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001203850"},{"name":"P0001223217 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001223217%20(S.13)"},{"name":"P0001223218 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001223218%20(S.13)"},{"name":"P0001223240 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001223240%20(S.13)"},{"name":"P0001283778 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001283778%20(S.13)"},{"name":"P0001283832 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001283832%20(S.13)"},{"name":"P0001620004 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001620004%20(S.13)"},{"name":"P0001631020 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0001631020%20(S.13)"},{"name":"P0002131688 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0002131688%20(S.7)"},{"name":"P0002458803 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0002458803%20(S.7)"},{"name":"P0002508248 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0002508248%20(S.7)"},{"name":"P0003232153 M. MADRID (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0003232153%20M.%20MADRID%20(S.13)"},{"name":"P000339993 MYANMAR","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P000339993%20MYANMAR"},{"name":"P0003435725 (S13.)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/P0003435725%20(S13.)"},{"name":"PM01541036 (S.8) RAL 7021","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01541036%20(S.8)%20RAL%207021"},{"name":"PM01613459 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01613459%20(S.8)"},{"name":"PM01670163 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01670163%20(S.14)"},{"name":"PM01670328 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01670328%20(S.8)"},{"name":"PM01672926 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01672926%20(S.7)"},{"name":"PM01673338 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01673338%20(S.6)"},{"name":"PM01673351 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01673351%20(S.6)"},{"name":"PM01673476 (S.4)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01673476%20(S.4)"},{"name":"PM01673482 (S.)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01673482%20(S.)"},{"name":"PM01677348 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01677348%20(S.14)"},{"name":"PM01677349 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01677349%20(S.14)"},{"name":"PM01677354 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01677354%20(S.14)"},{"name":"PM01677355 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01677355%20(S.14)"},{"name":"PM01679093 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01679093%20(S.13)"},{"name":"PM01691575 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01691575%20(S.14)"},{"name":"PM01691576 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/PM01691576%20(S.14)"},{"name":"X020000802 RENFE","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020000802%20RENFE"},{"name":"X020003702 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020003702%20(S.6)"},{"name":"X020003803 RENFE","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020003803%20RENFE"},{"name":"X020004301","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020004301"},{"name":"X020009402 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020009402%20(S.13)"},{"name":"X020009802 RENFE","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020009802%20RENFE"},{"name":"X020011901 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020011901%20(S.6)"},{"name":"X020014202 RENFE (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020014202%20RENFE%20(S.6)"},{"name":"X020021802 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020021802%20(S.6)"},{"name":"X020027402 RENFE","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020027402%20RENFE"},{"name":"X020050601 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020050601%20(S.8)"},{"name":"X020050701 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020050701%20(S.8)"},{"name":"X020055301 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020055301%20(S.6)"},{"name":"X020055302 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020055302%20(S.6)"},{"name":"X020062002 (S.4)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020062002%20(S.4)"},{"name":"X020063201 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020063201%20(S.7)"},{"name":"X020063401 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020063401%20(S.7)"},{"name":"X020071301 RENFE","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020071301%20RENFE"},{"name":"X020071401 RENFE","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020071401%20RENFE"},{"name":"X020075301 RENFE (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020075301%20RENFE%20(S.6)"},{"name":"X020076802 OBB","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020076802%20OBB"},{"name":"X020077402 SNCF","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020077402%20SNCF"},{"name":"X020077501 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020077501%20(S.14)"},{"name":"X020077601 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020077601%20(S.14)"},{"name":"X020081801 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020081801%20(S.13)"},{"name":"X020086102 (embalaje)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020086102%20(embalaje)"},{"name":"X020089802 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020089802%20(S.6)"},{"name":"X020091102","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020091102"},{"name":"X02009402 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X02009402%20(S.13)"},{"name":"x020094401","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/x020094401"},{"name":"x020094701 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/x020094701%20(S.6)"},{"name":"X020095301 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020095301%20(S.7)"},{"name":"X020095501 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020095501%20(S.7)"},{"name":"X020096401 (A.I)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020096401%20(A.I)"},{"name":"X020096601 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020096601%20(S.6)"},{"name":"X020096903 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020096903%20(S.8)"},{"name":"X020098201 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020098201%20(S.6)"},{"name":"X020099401 OBB LLEVA ETIQUETAS","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020099401%20OBB%20LLEVA%20ETIQUETAS"},{"name":"X020099402 OBB","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020099402%20OBB"},{"name":"X020099901 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020099901%20(S.13)"},{"name":"X020101101 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020101101%20(S.13)"},{"name":"X020101901 (S.8-Solo Imprimacion )","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020101901%20(S.8-Solo%20Imprimacion%20)"},{"name":"X020101902 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020101902%20(S.6)"},{"name":"X020103001","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020103001"},{"name":"X020105801 ESTOCOLMO","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020105801%20ESTOCOLMO"},{"name":"X020106001 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020106001%20(S.13)"},{"name":"X020106401 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020106401%20(S.8)"},{"name":"X020106500,  X020106501(S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020106500,%20%20X020106501(S.8)"},{"name":"X020106801 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020106801%20(S.13)"},{"name":"X020109601 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020109601%20(S.6)"},{"name":"X020118101 SNCF","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020118101%20SNCF"},{"name":"X020121202 (S.4)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020121202%20(S.4)"},{"name":"X020122401 ARABIA","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020122401%20ARABIA"},{"name":"X020132101 (S.13)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020132101%20(S.13)"},{"name":"X020132401 (S.4)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020132401%20(S.4)"},{"name":"X020135301","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020135301"},{"name":"X0201360 ESTAMBUL","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X0201360%20ESTAMBUL"},{"name":"X020136001 ESTAMBUL","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020136001%20ESTAMBUL"},{"name":"X020136601 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020136601%20(S.7)"},{"name":"X020139801 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020139801%20(S.7)"},{"name":"X020143501 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020143501%20(S.8)"},{"name":"X020162901 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020162901%20(S.7)"},{"name":"X020163201 (SOLO EMBALAR)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020163201%20(SOLO%20EMBALAR)"},{"name":"X020163601 (SOLO EMBALAR)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020163601%20(SOLO%20EMBALAR)"},{"name":"X020164502 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020164502%20(S.6)"},{"name":"X020165101 OBB","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020165101%20OBB"},{"name":"X020165802 OBB","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020165802%20OBB"},{"name":"X020165803 OBB","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020165803%20OBB"},{"name":"X020166101 OBB","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020166101%20OBB"},{"name":"X020166701 (S.7)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020166701%20(S.7)"},{"name":"X020170702 OBB (S.6) LLEVA ETIQUETAS","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020170702%20OBB%20(S.6)%20LLEVA%20ETIQUETAS"},{"name":"X020170901","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020170901"},{"name":"X020172601 TALGO","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020172601%20TALGO"},{"name":"X020172801 TALGO","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020172801%20TALGO"},{"name":"X020173801 (S.6) LLEVA ETIQUETAS","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020173801%20(S.6)%20LLEVA%20ETIQUETAS"},{"name":"X020173802","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020173802"},{"name":"X020177001","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020177001"},{"name":"X020189102","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020189102"},{"name":"X020189602 SNCF","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020189602%20SNCF"},{"name":"X020190002 (S.6)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020190002%20(S.6)"},{"name":"X020190202 SNCF","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020190202%20SNCF"},{"name":"X020191102 SNCF","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020191102%20SNCF"},{"name":"X020194402 SNCF","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020194402%20SNCF"},{"name":"X020194901 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020194901%20(S.8)"},{"name":"X020195902 (solo embalaje)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020195902%20(solo%20embalaje)"},{"name":"X020199401 (S.14) LLEVA PEGATINA Y CHIP","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020199401%20(S.14)%20LLEVA%20PEGATINA%20Y%20CHIP"},{"name":"X020199501 (S.14) LLEVA PEGATINA Y CHIP","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020199501%20(S.14)%20LLEVA%20PEGATINA%20Y%20CHIP"},{"name":"X020206901 TALGO","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020206901%20TALGO"},{"name":"X020206904 TALGO","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020206904%20TALGO"},{"name":"X020208601 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020208601%20(S.8)"},{"name":"X020208701 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020208701%20(S.8)"},{"name":"X020209001 OBB LLEVA ETIQUETAS","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020209001%20OBB%20LLEVA%20ETIQUETAS"},{"name":"X020210600 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020210600%20(S.8)"},{"name":"X020211301 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020211301%20(S.8)"},{"name":"X020218801 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020218801%20(S.8)"},{"name":"X020223501 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020223501%20(S.14)"},{"name":"X020223901 (S.14)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020223901%20(S.14)"},{"name":"X020225401 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020225401%20(S.8)"},{"name":"X020225402 (S.8)","url":"https://railsolutionsslu-my.sharepoint.com/personal/aplitek_railsolutionsslu_onmicrosoft_com/_layouts/15/onedrive.aspx?id=/personal/aplitek_railsolutionsslu_onmicrosoft_com/Documents/EJE%20SUELTO/X020225402%20(S.8)"}]].flat(Infinity);
+
+        // OCULTAR SPLASH SCREEN AL CARGAR
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                splash.style.visibility = 'hidden';
+            }, 1200);
+            
+            renderEjeFolders(ejeFolders);
         });
 
-        function filterNav(category, element) {
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
+        // NAVEGACIÓN Y PANTALLAS
+        function showMainSelector() {
+            document.getElementById('main-selector-screen').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+            updateActiveNav(0);
+        }
 
-            document.querySelectorAll('.card').forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+        function openSection(catKey, catName) {
+            document.getElementById('main-selector-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('current-section-title').innerText = catName;
+
+            // Ocultar todas las tarjetas fijas por defecto
+            const cards = document.querySelectorAll('.card[data-main-cat]');
+            cards.forEach(card => {
+                card.style.display = (card.getAttribute('data-main-cat') === catKey) ? 'flex' : 'none';
             });
+
+            // Mostrar el buscador y carpetas dinámicas solo en Eje Suelto
+            const searchBox = document.getElementById('eje-suelto-search-box');
+            const ejesContainer = document.getElementById('ejes-container');
+            
+            if (catKey === 'eje-suelto') {
+                searchBox.style.display = 'flex';
+                ejesContainer.style.display = 'contents';
+                filterEjes();
+            } else {
+                searchBox.style.display = 'none';
+                ejesContainer.style.display = 'none';
+            }
+
+            // Actualizar icono activo en barra inferior
+            if (catKey === 'ruedas') updateActiveNav(1);
+            else if (catKey === 'eje-suelto') updateActiveNav(2);
+            else if (catKey === 'eje-montado') updateActiveNav(3);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateActiveNav(index) {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach((item, idx) => {
+                if (idx === index) item.classList.add('active');
+                else item.classList.remove('active');
+            });
+        }
+
+        // RENDERIZAR CARPETAS DE EJE SUELTO
+        function renderEjeFolders(folders) {
+            const container = document.getElementById('ejes-container');
+            container.innerHTML = '';
+
+            if (!Array.isArray(folders)) return;
+
+            folders.forEach(item => {
+                let itemName = "Sin nombre";
+                let itemUrl = "#";
+
+                if (typeof item === 'object' && item !== null) {
+                    const values = Object.values(item);
+                    itemName = item.name || item.Name || item.Nombre || item.Title || item.PLANOS || item.EJE || values[0] || "Sin nombre";
+                    itemUrl = item.url || item.Url || item.URL || item.Link || item.ENLACE || item.Carpeta || values[1] || "#";
+                } else {
+                    itemName = String(item);
+                }
+
+                const card = document.createElement('div');
+                card.className = 'card eje-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-icon">📂</span>
+                        <div>
+                            <div class="card-title">${itemName}</div>
+                            <div class="card-desc">Carpeta de planos en OneDrive.</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge">OneDrive</span>
+                        <a class="card-link" href="${itemUrl}" target="_blank">Abrir →</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('searchCount').innerText = folders.length;
+        }
+
+        // FILTRADO DE EJES EN TIEMPO REAL
+        function filterEjes() {
+            const query = document.getElementById('ejeSearchInput').value.toLowerCase().trim();
+            const filtered = ejeFolders.filter(item => {
+                let nameVal = "";
+                if (typeof item === 'object' && item !== null) {
+                    const values = Object.values(item);
+                    nameVal = item.name || item.Name || item.Nombre || item.Title || item.PLANOS || item.EJE || values[0] || "";
+                } else {
+                    nameVal = String(item);
+                }
+                return String(nameVal).toLowerCase().includes(query);
+            });
+            renderEjeFolders(filtered);
         }
     </script>
 </body>
