@@ -456,7 +456,7 @@
             background: rgba(0, 240, 255, 0.25);
         }
 
-        /* MODAL DE AVISO DE COPIA PARA MÓVIL */
+        /* MODAL DE AVISO Y COPIA PARA MÓVIL */
         #copy-modal {
             position: fixed;
             top: 0;
@@ -623,11 +623,11 @@
     <!-- MODAL DE AVISO Y COPIA PARA EL MÓVIL -->
     <div id="copy-modal">
         <div class="modal-content">
-            <div class="modal-title">Carpeta Pública Principal</div>
-            <div class="modal-desc">Has seleccionado la referencia:</div>
+            <div class="modal-title">Referencia Copiada</div>
+            <div class="modal-desc">Has seleccionado el plano:</div>
             <div class="modal-highlight" id="modal-eje-name">NOMBRE</div>
-            <div class="modal-desc">El nombre se ha copiado al portapapeles. Al abrirse OneDrive, pégalo en su buscador interno para entrar al instante.</div>
-            <button class="modal-btn" onclick="openOneDriveFolder()">Abrir Planos →</button>
+            <div class="modal-desc">El nombre ya está guardado en el portapapeles. Al abrir OneDrive, búscalo pegándolo allí.</div>
+            <button class="modal-btn" onclick="openOneDriveFolder()">Abrir OneDrive →</button>
         </div>
     </div>
 
@@ -838,7 +838,6 @@
 
     <!-- SCRIPTS DE NAVEGACIÓN Y FILTRADO -->
     <script>
-        // ENLACE PÚBLICO MAESTRO DE LA CARPETA PRINCIPAL
         const publicRootUrl = "https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBzZVPYZHRyRLMG6dlgGX9kAeQXXJkffYH7q9IaKMwT--A?e=D9PQeV";
         
         let selectedEjeName = "";
@@ -941,7 +940,7 @@
             });
         }
 
-        // RENDERIZAR CARPETAS DE EJE SUELTO CON AVISO INTELIGENTE
+        // RENDERIZAR CARPETAS DE EJE SUELTO CON MODAL DE COPIA
         function renderEjeFolders(folders) {
             const container = document.getElementById('ejes-container');
             container.innerHTML = '';
@@ -958,11 +957,11 @@
                         <span class="card-icon">📂</span>
                         <div>
                             <div class="card-title">${itemName}</div>
-                            <div class="card-desc">Carpeta principal de planos en OneDrive.</div>
+                            <div class="card-desc">Copia el nombre y abre OneDrive.</div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span class="badge">OneDrive Público</span>
+                        <span class="badge">OneDrive Copiar</span>
                         <button class="card-link" onclick="promptEjeCopy('${itemName.replace(/'/g, "\\'")}')">Abrir →</button>
                     </div>
                 `;
@@ -972,13 +971,12 @@
             document.getElementById('searchCount').innerText = folders.length;
         }
 
-        // MOSTRAR VENTANA DE AVISO Y COPIAR NOMBRE AL PORTAPAPELES
+        // MOSTRAR VENTANA DE AVISO Y COPIAR AL PORTAPAPELES
         function promptEjeCopy(name) {
             selectedEjeName = name;
             document.getElementById('modal-eje-name').innerText = name;
             document.getElementById('copy-modal').style.display = 'flex';
 
-            // Copiar automáticamente al portapapeles si es compatible con el navegador móvil
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(name).catch(err => console.log('Error al copiar', err));
             }
