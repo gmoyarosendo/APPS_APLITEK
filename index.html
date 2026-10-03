@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>APLITAPP - APLITEK RAIL SOLUTIONS</title>
     
-    <!-- Configuración PWA / App Móvil -->
+    <!-- Configuración PWA / App Móvil y Logotipo en Pantalla de Inicio -->
     <meta name="apple-mobile-web-app-title" content="APLITAPP">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0b0f19">
-    <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22APLITAPP%22%2C%22short_name%22%3A%22APLITAPP%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23070a12%22%2C%22theme_color%22%3A%22%230b0f19%22%7D">
+    <meta name="theme-color" content="#070a12">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Icono para dispositivos Apple (iOS) al añadir a pantalla de inicio -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTAwIDUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiByeD0iMTAwIiBmaWxsPSIjMDcwYTEyIi8+CiAgICA8ZyB0cmFuc2Zvcm09InRyYWuc2xhdGUoMjUwLDI1MCkgc2NhbGUoMS4xKSI+CiAgICAgICAgPGVsbGlwc2UgY3g9Ii03MCIgY3k9IjAiIHJ4PSI3MCIgcnk9IjEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmMGZmIiBzdHJva2Utd2lkdGg9IjE2Ii8+CiAgICAgICAgPGVsbGlwc2UgY3g9IjcwIiBjeT0iMCIgcng9IjcwIiByeT0iM0AiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwZjBmZiIgc3Ryb2tlLXdpZHRoPSIxNiIvPgogICAgPC9nPgogICAgPHRleHQgeD0iMjUwIiB5PSIyNzAiIGZvbnQtZmFtaWx5PSItYXBwbGUtc3lzdGVtLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjY0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZjlmYWZiIj5BUExJVEFQUDwvdGV4dD4KPC9zdmc+">
+
+    <!-- Manifiesto PWA para Android -->
+    <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22APLITAPP%20-%20APLITEK%20RAIL%20SOLUTIONS%22%2C%22short_name%22%3A%22APLITAPP%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23070a12%22%2C%22theme_color%22%3A%22%23070a12%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64,PHN2ZyB2aWV3Qm94PSIwIDAgNTAwIDUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiByeD0iMTAwIiBmaWxsPSIjMDcwYTEyIi8+CiAgICA8ZyB0cmFuc2Zvcm09InRyYWuc2xhdGUoMjUwLDI1MCkgc2NhbGUoMS4xKSI+CiAgICAgICAgPGVsbGlwc2UgY3g9Ii03MCIgY3k9IjAiIHJ4PSI3MCIgcnk9IjEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmMGZmIiBzdHJva2Utd2lkdGg9IjE2Ii8+CiAgICAgICAgPGVsbGlwc2UgY3g9IjcwIiBjeT0iMCIgcng9IjcwIiByeT0iMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMGYwZmYiIHN0cm9rZS13aWR0aD0iMTYiLz4KICAgIDwvZz4KICAgIDx0ZXh0IHg9IjI1MCIgeT0iMjcwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjgwMCIgZm9udC1zaXplPSI2NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIjlmYWZiIj5BUExJVEFQUDwvdGV4dD4KPC9zdmc=%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 
     <style>
         /* --- VARIABLES TEMA OSCURO (Por defecto) --- */
@@ -101,7 +106,7 @@
             flex-direction: column;
         }
 
-        /* --- PANTALLA DE INICIO (SPLASH SCREEN) --- */
+        /* --- PANTALLA DE INICIO (SPLASH SCREEN CON ANIMACIÓN) --- */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -297,7 +302,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 0 4px var(--accent-red);
-            display: none; /* Oculto por defecto al estar limpio */
+            display: none;
         }
 
         /* Bloque derecho adaptado */
@@ -558,7 +563,6 @@
             margin-bottom: 5px;
         }
 
-        /* Tarjeta de Último Documento Abierto */
         .last-doc-card {
             background: var(--card-bg);
             backdrop-filter: blur(4px);
@@ -796,7 +800,6 @@
             margin-top: 3px;
         }
 
-        /* Botón de Favorito ⭐ */
         .btn-fav {
             background: none;
             border: none;
@@ -894,7 +897,7 @@
     <!-- Canvas para el fondo dinámico estilo IA -->
     <canvas id="ai-background"></canvas>
 
-    <!-- Pantalla de Inicio / Splash Screen -->
+    <!-- Pantalla de Inicio / Splash Screen con Animación -->
     <div id="splash-screen">
         <div class="splash-content">
             <div class="splash-logo-container">
@@ -1004,7 +1007,7 @@
         </div>
     </header>
 
-    <!-- VENTANA MODAL APLITETALK (Único canal General Planta y limpio) -->
+    <!-- VENTANA MODAL APLITETALK -->
     <div id="apliteTalkModal">
         <div class="talk-window">
             <div class="talk-header">
@@ -1026,7 +1029,7 @@
         </div>
     </div>
 
-    <!-- PANTALLA DE SELECCIÓN DE MENÚ (3 BOTONES PRINCIPALES) -->
+    <!-- PANTALLA DE SELECCIÓN DE MENÚ -->
     <div id="main-selector-screen" class="view-screen active">
         <div class="selector-title">Selecciona una Categoría</div>
 
@@ -1311,7 +1314,6 @@
             initAiBackground();
         });
 
-        // Inicializar preferencia de tema guardada
         function initThemePreference() {
             const savedTheme = localStorage.getItem('aplitapp_theme');
             const btn = document.getElementById('themeToggleBtn');
@@ -1324,11 +1326,9 @@
             }
         }
 
-        // Alternar Tema Oscuro / Claro
         function toggleTheme() {
             const btn = document.getElementById('themeToggleBtn');
             document.body.classList.toggle('light-mode');
-            
             if (document.body.classList.contains('light-mode')) {
                 localStorage.setItem('aplitapp_theme', 'light');
                 if (btn) btn.innerText = '☀️';
@@ -1338,7 +1338,6 @@
             }
         }
 
-        // Fondo Dinámico tipo IA con partículas de luz
         function initAiBackground() {
             const canvas = document.getElementById('ai-background');
             const ctx = canvas.getContext('2d');
@@ -1366,7 +1365,6 @@
 
             function animate() {
                 ctx.clearRect(0, 0, width, height);
-                
                 const isLight = document.body.classList.contains('light-mode');
                 const lineColor = isLight ? 'rgba(2, 132, 199, 0.15)' : 'rgba(0, 240, 255, 0.12)';
                 const dotColor = isLight ? 'rgba(2, 132, 199, ' : 'rgba(0, 240, 255, ';
@@ -1390,7 +1388,6 @@
                 particles.forEach(p => {
                     p.x += p.vx;
                     p.y += p.vy;
-
                     if (p.x < 0) p.x = width;
                     if (p.x > width) p.x = 0;
                     if (p.y < 0) p.y = height;
@@ -1407,7 +1404,6 @@
             animate();
         }
 
-        // Reloj en tiempo real
         function initClock() {
             function updateClock() {
                 const now = new Date();
@@ -1420,7 +1416,6 @@
             setInterval(updateClock, 10000);
         }
 
-        // Pantalla completa
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().catch(err => {});
@@ -1431,7 +1426,6 @@
             }
         }
 
-        // Funciones para ApliteTalk (Canal único y limpio)
         function openApliteTalk() {
             document.getElementById('apliteTalkModal').classList.add('active');
         }
@@ -1471,7 +1465,6 @@
             }
         }
 
-        // Gestión de Último Documento Abierto
         function trackLastDoc(title, url) {
             const docData = { title: title, url: url };
             localStorage.setItem('aplitapp_last_doc', JSON.stringify(docData));
@@ -1493,7 +1486,6 @@
             }
         }
 
-        // Fecha y hora de la última actualización
         function setLastUpdateTimestamp() {
             const now = new Date();
             const day = String(now.getDate()).padStart(2, '0');
@@ -1501,11 +1493,9 @@
             const year = now.getFullYear();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            
             document.getElementById('updateTimestamp').innerText = `Act: ${day}/${month}/${year} ${hours}:${minutes}`;
         }
 
-        // Monitor de estado online/offline en vivo
         function initNetworkMonitor() {
             const statusPill = document.getElementById('connectionStatus');
             function updateStatus() {
