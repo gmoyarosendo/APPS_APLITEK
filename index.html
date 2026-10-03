@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>APLITAPP - APLITEK RAIL SOLUTIONS</title>
+    <title>APLITAPP - ApliTek RAIL SOLUTIONS</title>
     
     <meta name="apple-mobile-web-app-title" content="APLITAPP">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,7 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     
     <link rel="apple-touch-icon" href="logo_2.png">
-    <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22APLITAPP%20-%20APLITEK%20RAIL%20SOLUTIONS%22%2C%22short_name%22%3A%22APLITAPP%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23070a12%22%2C%22theme_color%22%3A%22%23070a12%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22logo_2.png%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+    <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22APLITAPP%20-%20ApliTek%20RAIL%20SOLUTIONS%22%2C%22short_name%22%3A%22APLITAPP%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23070a12%22%2C%22theme_color%22%3A%22%23070a12%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22logo_2.png%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
 
     <style>
         :root {
@@ -224,7 +224,7 @@
         .brand-title { font-size: 1rem; font-weight: 900; color: var(--text-main); line-height: 1.1; }
         .brand-subtitle { font-size: 0.55rem; font-weight: 700; color: var(--accent-blue); margin-top: 2px; text-transform: uppercase; }
 
-        .aplite-talk-btn {
+        .aplitalk-btn {
             background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 119, 182, 0.2));
             border: 1px solid rgba(0, 240, 255, 0.3);
             border-radius: 18px; padding: 5px 10px; display: flex; align-items: center; gap: 5px; cursor: pointer;
@@ -242,13 +242,13 @@
         .status-pill { color: var(--accent-green); font-weight: 700; }
         .app-version-info { font-size: 0.52rem; color: var(--text-sub); }
 
-        /* --- VENTANA MODAL APLITALK (WHATSAPP) --- */
-        #apliteTalkModal {
+        /* --- VENTANA MODAL APLITALK --- */
+        #aplitalkModal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
             background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(5px); z-index: 10000;
             display: none; justify-content: center; align-items: center; padding: 16px;
         }
-        #apliteTalkModal.active { display: flex; }
+        #aplitalkModal.active { display: flex; }
 
         .talk-window {
             background-color: var(--card-bg); border: 2px solid var(--accent-blue); border-radius: 20px;
@@ -274,7 +274,7 @@
         .talk-label { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; }
         .talk-textarea {
             background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px;
-            color: var(--text-main); outline: none; resize: vertical; min-height: 100px; font-size: 0.9rem;
+            color: var(--text-main); outline: none; resize: vertical; min-height: 90px; font-size: 0.9rem;
         }
         .btn-whatsapp {
             background: #25d366; color: #ffffff; border: none; border-radius: 12px; padding: 14px;
@@ -295,6 +295,41 @@
         .last-doc-btn {
             background: var(--accent-blue); color: var(--bg-dark); text-decoration: none; font-size: 0.78rem; font-weight: 800; padding: 6px 14px; border-radius: 8px;
         }
+
+        /* Tarjetas de Acceso Directo Comunicaciones (WhatsApp, Email, Contacto) */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        @media (max-width: 600px) {
+            .quick-actions-grid { grid-template-columns: 1fr; }
+        }
+
+        .quick-action-card {
+            border-radius: 14px; padding: 12px;
+            display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .quick-action-info span { font-size: 0.6rem; text-transform: uppercase; font-weight: 800; display: block; }
+        .quick-action-info h4 { font-size: 0.85rem; color: var(--text-main); line-height: 1.1; }
+        .quick-action-btn { font-size: 0.72rem; font-weight: 800; padding: 5px 10px; border-radius: 8px; color: #fff; text-decoration: none; white-space: nowrap; }
+
+        /* Estilo WhatsApp */
+        .qa-whatsapp { background: linear-gradient(135deg, rgba(37, 211, 102, 0.15), rgba(16, 185, 129, 0.2)); border: 1.5px solid #25d366; }
+        .qa-whatsapp span { color: #25d366; }
+        .qa-whatsapp .quick-action-btn { background: #25d366; }
+
+        /* Estilo Email */
+        .qa-email { background: linear-gradient(135deg, rgba(0, 119, 182, 0.15), rgba(2, 132, 199, 0.2)); border: 1.5px solid #0077b6; }
+        .qa-email span { color: #00f0ff; }
+        .qa-email .quick-action-btn { background: #0077b6; }
+
+        /* Estilo Contacto */
+        .qa-contact { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.2)); border: 1.5px solid #f59e0b; }
+        .qa-contact span { color: #f59e0b; }
+        .qa-contact .quick-action-btn { background: #f59e0b; color: #070a12; }
 
         .main-category-card {
             background: var(--card-bg); border: 2px solid var(--card-border); border-radius: 16px; padding: 18px 20px;
@@ -363,7 +398,7 @@
 
     <div id="ai-background"></div>
 
-    <!-- Splash Screen con animación original y botón -->
+    <!-- Splash Screen -->
     <div id="splash-screen">
         <div class="splash-content">
             <div class="splash-logo-container">
@@ -409,7 +444,7 @@
                         </g>
                     </g>
                     <text x="245" y="112" font-family="-apple-system, sans-serif" font-weight="900" font-size="64" fill="#ffffff" letter-spacing="4">APLITAPP</text>
-                    <text x="248" y="152" font-family="-apple-system, sans-serif" font-weight="800" font-size="22" fill="#00f0ff" letter-spacing="4">APLITEK RAIL SOLUTIONS</text>
+                    <text x="248" y="152" font-family="-apple-system, sans-serif" font-weight="800" font-size="22" fill="#00f0ff" letter-spacing="4">ApliTek RAIL SOLUTIONS</text>
                 </svg>
             </div>
             <div class="loading-bar-container">
@@ -433,11 +468,11 @@
             </svg>
             <div class="brand-text-container">
                 <span class="brand-title">APLITAPP</span>
-                <span class="brand-subtitle">APLITEK RAIL SOLUTIONS</span>
+                <span class="brand-subtitle">ApliTek RAIL SOLUTIONS</span>
             </div>
         </div>
 
-        <button class="aplite-talk-btn" onclick="openApliteTalk()">
+        <button class="aplitalk-btn" onclick="openApliTalk()">
             <span class="talk-icon">💬</span>
             <span class="talk-label">ApliTalk</span>
         </button>
@@ -458,25 +493,45 @@
         </div>
     </header>
 
-    <!-- VENTANA MODAL APLITALK (WHATSAPP) -->
-    <div id="apliteTalkModal">
+    <!-- VENTANA MODAL APLITALK -->
+    <div id="aplitalkModal">
         <div class="talk-window">
             <div class="talk-header">
                 <div class="talk-header-info">
                     <h3>💬 ApliTalk</h3>
-                    <span>Aviso Rápido de Planta</span>
+                    <span>Aviso Rápido de Planta y Adjuntos</span>
                 </div>
-                <button class="talk-close-btn" onclick="closeApliteTalk()">✕</button>
+                <button class="talk-close-btn" onclick="closeApliTalk()">✕</button>
             </div>
             
             <div class="talk-body">
                 <div class="talk-info-box">
-                    Escribe tu incidencia o aviso a continuación. Al pulsar el botón verde, se abrirá WhatsApp con el texto listo para enviar al equipo o supervisor de planta.
+                    Escribe tu incidencia, haz una foto directa con la cámara o adjunta documentos (Máx. 10 MB total).
                 </div>
 
                 <div class="talk-group">
                     <label class="talk-label">Mensaje o Incidencia</label>
-                    <textarea id="whatsappMessage" class="talk-textarea" placeholder="Ej. Incidencia detectada en rueda L-402, requiere revisión..."></textarea>
+                    <textarea id="whatsappMessage" class="talk-textarea" placeholder="Ej. Incidencia detectada en rueda L-402..."></textarea>
+                </div>
+
+                <div class="talk-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <label class="talk-label">Archivos y Cámara</label>
+                        <span style="font-size: 0.65rem; color: var(--accent-blue); font-weight: 700;">Máx. 10 MB total</span>
+                    </div>
+
+                    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFileSelection(this)">
+                    <input type="file" id="attachmentInput" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple style="display: none;" onchange="handleFileSelection(this)">
+
+                    <div style="display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap;">
+                        <button type="button" onclick="document.getElementById('cameraInput').click()" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                            📸 Hacer foto
+                        </button>
+                        <button type="button" onclick="document.getElementById('attachmentInput').click()" style="background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                            📁 Adjuntar archivos
+                        </button>
+                    </div>
+                    <span id="fileNameDisplay" style="font-size: 0.72rem; color: var(--text-sub); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Ningún archivo seleccionado</span>
                 </div>
 
                 <button class="btn-whatsapp" onclick="sendWhatsAppNotice()">
@@ -498,13 +553,43 @@
             <a class="last-doc-btn" id="lastDocBtn" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a>
         </div>
 
+        <!-- ACCESOS RÁPIDOS DE COMUNICACIÓN EN PANTALLA PRINCIPAL -->
+        <div class="quick-actions-grid">
+            <!-- Botón WhatsApp -->
+            <div class="quick-action-card qa-whatsapp" onclick="openApliTalk()">
+                <div class="quick-action-info">
+                    <span>Aviso</span>
+                    <h4>WhatsApp</h4>
+                </div>
+                <div class="quick-action-btn">💬 Abrir</div>
+            </div>
+
+            <!-- Botón Email -->
+            <div class="quick-action-card qa-email" onclick="sendEmailNotice()">
+                <div class="quick-action-info">
+                    <span>Redactar</span>
+                    <h4>Correo</h4>
+                </div>
+                <div class="quick-action-btn">✉️ Email</div>
+            </div>
+
+            <!-- Botón Contacto / Agenda -->
+            <div class="quick-action-card qa-contact" onclick="openContactsOrCall()">
+                <div class="quick-action-info">
+                    <span>Planta</span>
+                    <h4>Contacto</h4>
+                </div>
+                <div class="quick-action-btn">📞 Llamar</div>
+            </div>
+        </div>
+
         <div class="main-category-card" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
             <div class="main-category-icon">⚙</div>
             <div class="main-category-info">
                 <h2>Ruedas</h2>
                 <p>Gestión, planos, pintura y planificación de ruedas.</p>
             </div>
-            <span class="resource-count-badge">7 recursos</span>
+            <span class="resource-count-badge">8 recursos</span>
             <div class="main-category-arrow">→</div>
         </div>
 
@@ -570,6 +655,10 @@
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🖌</span><div><div class="card-title">7. Planif. Brochazo</div><div class="card-desc">Retocado manual CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-7', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Live</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC53Cn1FjfAR4KeNM5a76ZtAY2wtaZYFz9n3YxSh4XLzZg?e=KPaXIP" target="_blank" onclick="trackLastDoc('7. Planif. Brochazo', this.href)">Abrir →</a></div>
                 </div>
+                <div class="card" data-id="rueda-8" data-main-cat="ruedas">
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🚛</span><div><div class="card-title">8. Pedidos</div><div class="card-desc">Pedidos pendientes de recoger</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-8', event)">★</button></div>
+                    <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://caf2.sharepoint.com/:x:/r/sites/APLITEKRUEDAS/Shared%20Documents/APLITEK%20PLANIFICACI%C3%93N%20RUEDAS/SEGUIMIENTO%20PINTURA%20APLITEK%20V2.xlsx?d=w61c4021c12d84d97a57e38d186dec041&csf=1&web=1&e=hhmedB" target="_blank" onclick="trackLastDoc('8. Pedidos (Camiones)', this.href)">Abrir →</a></div>
+                </div>
                 <div class="card" data-id="eje-s-1" data-main-cat="eje-suelto">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🧪</span><div><div class="card-title">Sistema de Pintura</div><div class="card-desc">Procesos para ejes.</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-s-1', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Carpeta SP</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=0gbPzC" target="_blank" onclick="trackLastDoc('Sistema de Pintura (Eje)', this.href)">Abrir →</a></div>
@@ -597,7 +686,7 @@
             <span>Favoritos</span>
         </button>
         <button class="nav-item" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
-            <span class="nav-icon">⚙️</span>
+            <span class="nav-icon">⚙</span>
             <span>Ruedas</span>
         </button>
         <button class="nav-item" onclick="openSection('eje-suelto', 'EJE SUELTO')">
@@ -614,6 +703,8 @@
         let currentViewMode = ''; 
         let currentCategoryKey = '';
         let favorites = JSON.parse(localStorage.getItem('aplitapp_favs')) || [];
+        let selectedFiles = [];
+        const MAX_TOTAL_SIZE_MB = 10;
 
         function dismissSplash() {
             const splash = document.getElementById('splash-screen');
@@ -680,21 +771,72 @@
             }
         }
 
-        function openApliteTalk() {
-            document.getElementById('apliteTalkModal').classList.add('active');
+        function openApliTalk() {
+            document.getElementById('aplitalkModal').classList.add('active');
         }
 
-        function closeApliteTalk() {
-            document.getElementById('apliteTalkModal').classList.remove('active');
+        function closeApliTalk() {
+            document.getElementById('aplitalkModal').classList.remove('active');
+        }
+
+        // NUEVA FUNCIÓN: Enviar Email rápido
+        function sendEmailNotice() {
+            const subject = encodeURIComponent("Aviso / Incidencia de Planta - APLITAPP");
+            const body = encodeURIComponent("Hola,\n\nIncidencia detectada en planta (Amorebieta):\n\n");
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        // NUEVA FUNCIÓN: Abrir agenda / llamada directa
+        function openContactsOrCall() {
+            // Número predeterminado de planta (puedes cambiarlo si tienes uno específico)
+            const plantPhoneNumber = "+34940000000"; 
+            window.location.href = `tel:${plantPhoneNumber}`;
+        }
+
+        function handleFileSelection(input) {
+            const displaySpan = document.getElementById('fileNameDisplay');
+            
+            if (input.files && input.files.length > 0) {
+                let tempFiles = [];
+
+                for (let i = 0; i < input.files.length; i++) {
+                    tempFiles.push(input.files[i]);
+                }
+
+                let currentTotalSize = selectedFiles.reduce((acc, f) => acc + f.size, 0);
+                let newFilesSize = tempFiles.reduce((acc, f) => acc + f.size, 0);
+                let totalSizeMB = (currentTotalSize + newFilesSize) / (1024 * 1024);
+
+                if (totalSizeMB > MAX_TOTAL_SIZE_MB) {
+                    alert(`El espacio total (${totalSizeMB.toFixed(1)} MB) supera el límite máximo permitido de ${MAX_TOTAL_SIZE_MB} MB.`);
+                    input.value = ''; 
+                    return;
+                }
+
+                selectedFiles = selectedFiles.concat(tempFiles);
+                displaySpan.innerText = `${selectedFiles.length} elemento(s) (${totalSizeMB.toFixed(1)} MB / ${MAX_TOTAL_SIZE_MB} MB)`;
+            }
+            input.value = '';
         }
 
         function sendWhatsAppNotice() {
             const textMsg = document.getElementById('whatsappMessage').value.trim();
-            const fullText = `*Aviso desde APLITAPP (Amorebieta)*:\n${textMsg || 'Incidencia general en planta.'}`;
+            let fullText = `*Aviso desde APLITAPP (Amorebieta)*:\n${textMsg || 'Incidencia general en planta.'}`;
+            
+            if (selectedFiles.length > 0) {
+                fullText += `\n\n📎 *Archivos y fotos adjuntas (${selectedFiles.length}):*`;
+                selectedFiles.forEach((file) => {
+                    fullText += `\n- ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                });
+            }
+
             const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fullText)}`;
             window.open(whatsappUrl, '_blank');
+
             document.getElementById('whatsappMessage').value = '';
-            closeApliteTalk();
+            selectedFiles = [];
+            document.getElementById('fileNameDisplay').innerText = 'Ningún archivo seleccionado';
+            closeApliTalk();
         }
 
         function trackLastDoc(title, url) {
