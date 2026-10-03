@@ -199,7 +199,7 @@
             color: var(--bg-dark);
         }
 
-        /* Cabecera Principal */
+        /* Cabecera Principal (Sin ApliTalk) */
         header {
             background-color: var(--header-bg);
             backdrop-filter: blur(8px);
@@ -224,14 +224,6 @@
         .brand-title { font-size: 1rem; font-weight: 900; color: var(--text-main); line-height: 1.1; }
         .brand-subtitle { font-size: 0.55rem; font-weight: 700; color: var(--accent-blue); margin-top: 2px; text-transform: uppercase; }
 
-        .aplitalk-btn {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 119, 182, 0.2));
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 18px; padding: 5px 10px; display: flex; align-items: center; gap: 5px; cursor: pointer;
-        }
-        .talk-icon { font-size: 0.95rem; }
-        .talk-label { font-size: 0.68rem; font-weight: 800; color: var(--accent-blue); }
-
         .header-right-separated { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--text-main); }
         .header-tool-btn {
             background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);
@@ -241,46 +233,6 @@
         .header-meta-row { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.7rem; }
         .status-pill { color: var(--accent-green); font-weight: 700; }
         .app-version-info { font-size: 0.52rem; color: var(--text-sub); }
-
-        /* --- VENTANA MODAL APLITALK --- */
-        #aplitalkModal {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
-            background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(5px); z-index: 10000;
-            display: none; justify-content: center; align-items: center; padding: 16px;
-        }
-        #aplitalkModal.active { display: flex; }
-
-        .talk-window {
-            background-color: var(--card-bg); border: 2px solid var(--accent-blue); border-radius: 20px;
-            width: 100%; max-width: 500px; height: 85vh; max-height: 650px; display: flex; flex-direction: column;
-            box-shadow: 0 0 30px var(--accent-glow); overflow: hidden;
-        }
-        .talk-header {
-            background: var(--header-bg); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid var(--card-border);
-        }
-        .talk-header-info h3 { font-size: 1.1rem; color: var(--text-main); }
-        .talk-header-info span { font-size: 0.75rem; color: var(--text-sub); }
-        .talk-close-btn {
-            background: rgba(255,255,255,0.08); border: none; color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
-        }
-
-        .talk-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; background: var(--bg-dark); }
-        .talk-info-box {
-            background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 12px;
-            padding: 12px; font-size: 0.82rem; color: var(--text-sub); line-height: 1.3;
-        }
-        .talk-group { display: flex; flex-direction: column; gap: 6px; }
-        .talk-label { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; }
-        .talk-textarea {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px;
-            color: var(--text-main); outline: none; resize: vertical; min-height: 90px; font-size: 0.9rem;
-        }
-        .btn-whatsapp {
-            background: #25d366; color: #ffffff; border: none; border-radius: 12px; padding: 14px;
-            font-weight: 800; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-            text-transform: uppercase; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-        }
 
         /* --- PANTALLA SELECTORA PRINCIPAL --- */
         #main-selector-screen { padding: 20px 16px; max-width: 800px; margin: 0 auto; width: 100%; gap: 12px; }
@@ -296,40 +248,34 @@
             background: var(--accent-blue); color: var(--bg-dark); text-decoration: none; font-size: 0.78rem; font-weight: 800; padding: 6px 14px; border-radius: 8px;
         }
 
-        /* Tarjetas de Acceso Directo Comunicaciones (WhatsApp, Email, Contacto) */
+        /* Accesos rápidos compactos en pantalla principal (WhatsApp, Email, Contacto) */
         .quick-actions-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 12px;
         }
         @media (max-width: 600px) {
-            .quick-actions-grid { grid-template-columns: 1fr; }
+            .quick-actions-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         .quick-action-card {
-            border-radius: 14px; padding: 12px;
-            display: flex; align-items: center; justify-content: space-between; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 10px; padding: 8px 6px;
+            display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); gap: 4px;
         }
-        .quick-action-info span { font-size: 0.6rem; text-transform: uppercase; font-weight: 800; display: block; }
-        .quick-action-info h4 { font-size: 0.85rem; color: var(--text-main); line-height: 1.1; }
-        .quick-action-btn { font-size: 0.72rem; font-weight: 800; padding: 5px 10px; border-radius: 8px; color: #fff; text-decoration: none; white-space: nowrap; }
+        .quick-action-card span { font-size: 0.52rem; text-transform: uppercase; font-weight: 800; }
+        .quick-action-card h4 { font-size: 0.72rem; color: var(--text-main); line-height: 1.1; }
+        .qa-icon { font-size: 1.1rem; }
 
-        /* Estilo WhatsApp */
-        .qa-whatsapp { background: linear-gradient(135deg, rgba(37, 211, 102, 0.15), rgba(16, 185, 129, 0.2)); border: 1.5px solid #25d366; }
+        .qa-whatsapp { background: linear-gradient(135deg, rgba(37, 211, 102, 0.15), rgba(16, 185, 129, 0.2)); border: 1.2px solid #25d366; }
         .qa-whatsapp span { color: #25d366; }
-        .qa-whatsapp .quick-action-btn { background: #25d366; }
 
-        /* Estilo Email */
-        .qa-email { background: linear-gradient(135deg, rgba(0, 119, 182, 0.15), rgba(2, 132, 199, 0.2)); border: 1.5px solid #0077b6; }
+        .qa-email { background: linear-gradient(135deg, rgba(0, 119, 182, 0.15), rgba(2, 132, 199, 0.2)); border: 1.2px solid #0077b6; }
         .qa-email span { color: #00f0ff; }
-        .qa-email .quick-action-btn { background: #0077b6; }
 
-        /* Estilo Contacto */
-        .qa-contact { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.2)); border: 1.5px solid #f59e0b; }
+        .qa-contact { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.2)); border: 1.2px solid #f59e0b; }
         .qa-contact span { color: #f59e0b; }
-        .qa-contact .quick-action-btn { background: #f59e0b; color: #070a12; }
 
         .main-category-card {
             background: var(--card-bg); border: 2px solid var(--card-border); border-radius: 16px; padding: 18px 20px;
@@ -472,11 +418,6 @@
             </div>
         </div>
 
-        <button class="aplitalk-btn" onclick="openApliTalk()">
-            <span class="talk-icon">💬</span>
-            <span class="talk-label">ApliTalk</span>
-        </button>
-
         <div class="header-right-separated">
             <button class="header-tool-btn" title="Pantalla Completa" onclick="toggleFullScreen()">⛶</button>
             <button class="header-tool-btn" id="themeToggleBtn" title="Cambiar Tema" onclick="toggleTheme()">🌙</button>
@@ -493,54 +434,6 @@
         </div>
     </header>
 
-    <!-- VENTANA MODAL APLITALK -->
-    <div id="aplitalkModal">
-        <div class="talk-window">
-            <div class="talk-header">
-                <div class="talk-header-info">
-                    <h3>💬 ApliTalk</h3>
-                    <span>Aviso Rápido de Planta y Adjuntos</span>
-                </div>
-                <button class="talk-close-btn" onclick="closeApliTalk()">✕</button>
-            </div>
-            
-            <div class="talk-body">
-                <div class="talk-info-box">
-                    Escribe tu incidencia, haz una foto directa con la cámara o adjunta documentos (Máx. 10 MB total).
-                </div>
-
-                <div class="talk-group">
-                    <label class="talk-label">Mensaje o Incidencia</label>
-                    <textarea id="whatsappMessage" class="talk-textarea" placeholder="Ej. Incidencia detectada en rueda L-402..."></textarea>
-                </div>
-
-                <div class="talk-group">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <label class="talk-label">Archivos y Cámara</label>
-                        <span style="font-size: 0.65rem; color: var(--accent-blue); font-weight: 700;">Máx. 10 MB total</span>
-                    </div>
-
-                    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFileSelection(this)">
-                    <input type="file" id="attachmentInput" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple style="display: none;" onchange="handleFileSelection(this)">
-
-                    <div style="display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap;">
-                        <button type="button" onclick="document.getElementById('cameraInput').click()" style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 4px;">
-                            📸 Hacer foto
-                        </button>
-                        <button type="button" onclick="document.getElementById('attachmentInput').click()" style="background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 4px;">
-                            📁 Adjuntar archivos
-                        </button>
-                    </div>
-                    <span id="fileNameDisplay" style="font-size: 0.72rem; color: var(--text-sub); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Ningún archivo seleccionado</span>
-                </div>
-
-                <button class="btn-whatsapp" onclick="sendWhatsAppNotice()">
-                    <span>💬 Enviar aviso por WhatsApp</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- PANTALLA DE SELECCIÓN DE MENÚ -->
     <div id="main-selector-screen" class="view-screen active">
         <div class="selector-title">Selecciona una Categoría</div>
@@ -553,33 +446,30 @@
             <a class="last-doc-btn" id="lastDocBtn" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a>
         </div>
 
-        <!-- ACCESOS RÁPIDOS DE COMUNICACIÓN EN PANTALLA PRINCIPAL -->
+        <!-- ACCESOS RÁPIDOS COMPACTOS (WhatsApp, Email limpio, Contacto limpio) -->
         <div class="quick-actions-grid">
-            <!-- Botón WhatsApp -->
-            <div class="quick-action-card qa-whatsapp" onclick="openApliTalk()">
-                <div class="quick-action-info">
+            <div class="quick-action-card qa-whatsapp" onclick="openWhatsAppDirect()">
+                <div class="qa-icon">💬</div>
+                <div>
                     <span>Aviso</span>
                     <h4>WhatsApp</h4>
                 </div>
-                <div class="quick-action-btn">💬 Abrir</div>
             </div>
 
-            <!-- Botón Email -->
             <div class="quick-action-card qa-email" onclick="sendEmailNotice()">
-                <div class="quick-action-info">
+                <div class="qa-icon">✉️</div>
+                <div>
                     <span>Redactar</span>
                     <h4>Correo</h4>
                 </div>
-                <div class="quick-action-btn">✉️ Email</div>
             </div>
 
-            <!-- Botón Contacto / Agenda -->
             <div class="quick-action-card qa-contact" onclick="openContactsOrCall()">
-                <div class="quick-action-info">
-                    <span>Planta</span>
-                    <h4>Contacto</h4>
+                <div class="qa-icon">📞</div>
+                <div>
+                    <span>Agenda</span>
+                    <h4>Llamar</h4>
                 </div>
-                <div class="quick-action-btn">📞 Llamar</div>
             </div>
         </div>
 
@@ -703,8 +593,6 @@
         let currentViewMode = ''; 
         let currentCategoryKey = '';
         let favorites = JSON.parse(localStorage.getItem('aplitapp_favs')) || [];
-        let selectedFiles = [];
-        const MAX_TOTAL_SIZE_MB = 10;
 
         function dismissSplash() {
             const splash = document.getElementById('splash-screen');
@@ -732,7 +620,7 @@
             const btn = document.getElementById('themeToggleBtn');
             if (savedTheme === 'light') {
                 document.body.classList.add('light-mode');
-                if (btn) btn.innerText = '☀️';
+                if (btn) btn.innerText = '☀️️';
             } else {
                 document.body.classList.remove('light-mode');
                 if (btn) btn.innerText = '🌙';
@@ -771,72 +659,21 @@
             }
         }
 
-        function openApliTalk() {
-            document.getElementById('aplitalkModal').classList.add('active');
-        }
-
-        function closeApliTalk() {
-            document.getElementById('aplitalkModal').classList.remove('active');
-        }
-
-        // NUEVA FUNCIÓN: Enviar Email rápido
-        function sendEmailNotice() {
-            const subject = encodeURIComponent("Aviso / Incidencia de Planta - APLITAPP");
-            const body = encodeURIComponent("Hola,\n\nIncidencia detectada en planta (Amorebieta):\n\n");
-            window.location.href = `mailto:?subject=${subject}&body=${body}`;
-        }
-
-        // NUEVA FUNCIÓN: Abrir agenda / llamada directa
-        function openContactsOrCall() {
-            // Número predeterminado de planta (puedes cambiarlo si tienes uno específico)
-            const plantPhoneNumber = "+34940000000"; 
-            window.location.href = `tel:${plantPhoneNumber}`;
-        }
-
-        function handleFileSelection(input) {
-            const displaySpan = document.getElementById('fileNameDisplay');
-            
-            if (input.files && input.files.length > 0) {
-                let tempFiles = [];
-
-                for (let i = 0; i < input.files.length; i++) {
-                    tempFiles.push(input.files[i]);
-                }
-
-                let currentTotalSize = selectedFiles.reduce((acc, f) => acc + f.size, 0);
-                let newFilesSize = tempFiles.reduce((acc, f) => acc + f.size, 0);
-                let totalSizeMB = (currentTotalSize + newFilesSize) / (1024 * 1024);
-
-                if (totalSizeMB > MAX_TOTAL_SIZE_MB) {
-                    alert(`El espacio total (${totalSizeMB.toFixed(1)} MB) supera el límite máximo permitido de ${MAX_TOTAL_SIZE_MB} MB.`);
-                    input.value = ''; 
-                    return;
-                }
-
-                selectedFiles = selectedFiles.concat(tempFiles);
-                displaySpan.innerText = `${selectedFiles.length} elemento(s) (${totalSizeMB.toFixed(1)} MB / ${MAX_TOTAL_SIZE_MB} MB)`;
-            }
-            input.value = '';
-        }
-
-        function sendWhatsAppNotice() {
-            const textMsg = document.getElementById('whatsappMessage').value.trim();
-            let fullText = `*Aviso desde APLITAPP (Amorebieta)*:\n${textMsg || 'Incidencia general en planta.'}`;
-            
-            if (selectedFiles.length > 0) {
-                fullText += `\n\n📎 *Archivos y fotos adjuntas (${selectedFiles.length}):*`;
-                selectedFiles.forEach((file) => {
-                    fullText += `\n- ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-                });
-            }
-
-            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fullText)}`;
+        // WhatsApp Directo Limpio
+        function openWhatsAppDirect() {
+            const defaultText = encodeURIComponent("*Aviso desde APLITAPP (Amorebieta)*:\n");
+            const whatsappUrl = `https://wa.me/?text=${defaultText}`;
             window.open(whatsappUrl, '_blank');
+        }
 
-            document.getElementById('whatsappMessage').value = '';
-            selectedFiles = [];
-            document.getElementById('fileNameDisplay').innerText = 'Ningún archivo seleccionado';
-            closeApliTalk();
+        // Email Completamente Vacío
+        function sendEmailNotice() {
+            window.location.href = `mailto:`;
+        }
+
+        // Llamada / Agenda Limpia (sin número predeterminado)
+        function openContactsOrCall() {
+            window.location.href = `tel:`;
         }
 
         function trackLastDoc(title, url) {
