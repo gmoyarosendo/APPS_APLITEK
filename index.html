@@ -514,7 +514,7 @@
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">📦</span><div><div class="card-title">5. Embalaje</div><div class="card-desc">Cajas (E1-CV, E2-CVA).</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-5', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAe_IE2DpA5TL5rE2IxNhMZAQ9K4wpDuvsNCL9yk2ZOhUA?e=eVJF8W" target="_blank" onclick="trackLastDoc('5. Embalaje', this.href)">Abrir →</a></div>
                 </div>
-                <!-- Tarjeta 6: Planif. Cabinas con la tilde correcta en PLANIFICACIÓN -->
+                <!-- Tarjeta 6: Planif. Cabinas con tilde -->
                 <div class="card" data-id="rueda-6" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">📅</span><div><div class="card-title">6. Planif. Cabinas</div><div class="card-desc">Programación diaria CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-6', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=Zx6un3&sheet=PLANIFICACIÓN&ActiveCell=PLANIFICACIÓN!A1" target="_blank" onclick="trackLastDoc('6. Planif. Cabinas', this.href)">Abrir →</a></div>
@@ -639,9 +639,14 @@
             }
         }
 
-        // WhatsApp Directo y Limpio
+        // WhatsApp Directo y Limpio (Compatible con Móvil y Escritorio sin texto predeterminado)
         function openWhatsAppDirect() {
-            window.open('https://wa.me/?phone=', '_blank');
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                window.location.href = 'whatsapp://';
+            } else {
+                window.open('https://web.whatsapp.com/', '_blank');
+            }
         }
 
         function sendEmailNotice() {
