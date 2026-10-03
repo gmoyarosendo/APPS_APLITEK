@@ -199,7 +199,7 @@
             color: var(--bg-dark);
         }
 
-        /* Cabecera Principal (Sin ApliTalk) */
+        /* Cabecera Principal */
         header {
             background-color: var(--header-bg);
             backdrop-filter: blur(8px);
@@ -248,7 +248,7 @@
             background: var(--accent-blue); color: var(--bg-dark); text-decoration: none; font-size: 0.78rem; font-weight: 800; padding: 6px 14px; border-radius: 8px;
         }
 
-        /* Accesos rápidos compactos en pantalla principal (WhatsApp, Email, Contacto) */
+        /* Accesos rápidos compactos */
         .quick-actions-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -446,12 +446,12 @@
             <a class="last-doc-btn" id="lastDocBtn" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a>
         </div>
 
-        <!-- ACCESOS RÁPIDOS COMPACTOS (WhatsApp, Email limpio, Contacto limpio) -->
+        <!-- ACCESOS RÁPIDOS COMPACTOS -->
         <div class="quick-actions-grid">
             <div class="quick-action-card qa-whatsapp" onclick="openWhatsAppDirect()">
                 <div class="qa-icon">💬</div>
                 <div>
-                    <span>Aviso</span>
+                    <span>Buscar</span>
                     <h4>WhatsApp</h4>
                 </div>
             </div>
@@ -620,7 +620,7 @@
             const btn = document.getElementById('themeToggleBtn');
             if (savedTheme === 'light') {
                 document.body.classList.add('light-mode');
-                if (btn) btn.innerText = '☀️️';
+                if (btn) btn.innerText = '☀️';
             } else {
                 document.body.classList.remove('light-mode');
                 if (btn) btn.innerText = '🌙';
@@ -659,11 +659,9 @@
             }
         }
 
-        // WhatsApp Directo Limpio
+        // WhatsApp Directo Limpio (Abre la app para buscar contacto y escribir libremente)
         function openWhatsAppDirect() {
-            const defaultText = encodeURIComponent("*Aviso desde APLITAPP (Amorebieta)*:\n");
-            const whatsappUrl = `https://wa.me/?text=${defaultText}`;
-            window.open(whatsappUrl, '_blank');
+            window.open('https://wa.me/', '_blank');
         }
 
         // Email Completamente Vacío
@@ -671,7 +669,7 @@
             window.location.href = `mailto:`;
         }
 
-        // Llamada / Agenda Limpia (sin número predeterminado)
+        // Llamada / Agenda Limpia
         function openContactsOrCall() {
             window.location.href = `tel:`;
         }
