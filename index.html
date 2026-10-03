@@ -514,7 +514,7 @@
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">📦</span><div><div class="card-title">5. Embalaje</div><div class="card-desc">Cajas (E1-CV, E2-CVA).</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-5', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAe_IE2DpA5TL5rE2IxNhMZAQ9K4wpDuvsNCL9yk2ZOhUA?e=eVJF8W" target="_blank" onclick="trackLastDoc('5. Embalaje', this.href)">Abrir →</a></div>
                 </div>
-                <!-- Tarjeta 6: Planif. Cabinas con tilde -->
+                <!-- Tarjeta 6: Planif. Cabinas -->
                 <div class="card" data-id="rueda-6" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">📅</span><div><div class="card-title">6. Planif. Cabinas</div><div class="card-desc">Programación diaria CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-6', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=Zx6un3&sheet=PLANIFICACIÓN&ActiveCell=PLANIFICACIÓN!A1" target="_blank" onclick="trackLastDoc('6. Planif. Cabinas', this.href)">Abrir →</a></div>
@@ -532,14 +532,8 @@
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🧪</span><div><div class="card-title">Sistema de Pintura</div><div class="card-desc">Procesos para ejes.</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-s-1', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Carpeta SP</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=0gbPzC" target="_blank" onclick="trackLastDoc('Sistema de Pintura (Eje)', this.href)">Abrir →</a></div>
                 </div>
-                <div class="card" data-id="eje-s-2" data-main-cat="eje-suelto">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📐</span><div><div class="card-title">Planos de Eje Suelto</div><div class="card-desc">Especificaciones ejes.</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-s-2', event)">★</button></div>
-                    <div class="card-footer"><span class="badge">Carpeta FZ</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBzZVPYZHRyRLMG6dlgGX9kAZUoFjrW_EmmiV8V2RoXBek?e=fMHSId" target="_blank" onclick="trackLastDoc('Planos de Eje Suelto', this.href)">Abrir →</a></div>
-                </div>
-                <div class="card" data-id="eje-m-2" data-main-cat="eje-montado">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📐</span><div><div class="card-title">Planos de Eje Montado</div><div class="card-desc">Conjuntos montados.</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-m-2', event)">★</button></div>
-                    <div class="card-footer"><span class="badge">Carpeta FZ</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBdpT7CFabWTZycomGY-t5AAQfkGwef6q-D4T4gNTIqc4k?e=Q6JQXs" target="_blank" onclick="trackLastDoc('Planos de Eje Montado', this.href)">Abrir →</a></div>
-                </div>
+                <div class="card" data-id="eje-s-2" data-main-cat="eje-suelto">...</div>
+                <div class="card" data-id="eje-m-2" data-main-cat="eje-montado">...</div>
             </div>
         </div>
     </div>
@@ -639,14 +633,9 @@
             }
         }
 
-        // WhatsApp Directo y Limpio (Compatible con Móvil y Escritorio sin texto predeterminado)
+        // WhatsApp Directo con el mensaje predeterminado de Aviso (Amorebieta)
         function openWhatsAppDirect() {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            if (isMobile) {
-                window.location.href = 'whatsapp://';
-            } else {
-                window.open('https://web.whatsapp.com/', '_blank');
-            }
+            window.open('https://wa.me/?text=*Aviso...*:%20(Amorebieta)', '_blank');
         }
 
         function sendEmailNotice() {
