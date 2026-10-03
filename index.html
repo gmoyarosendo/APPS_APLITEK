@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -91,7 +92,7 @@
             flex-direction: column;
         }
 
-        /* --- SPLASH SCREEN CON ANIMACIÓN ORIGINAL RESTAURADA --- */
+        /* --- SPLASH SCREEN --- */
         #splash-screen {
             position: fixed;
             top: 0; left: 0;
@@ -346,6 +347,8 @@
         .badge { font-size: 0.62rem; text-transform: uppercase; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(128, 128, 128, 0.15); color: var(--text-sub); }
         .card-link { color: var(--accent-blue); text-decoration: none; font-size: 0.78rem; font-weight: 700; padding: 4px 8px; background: rgba(0, 240, 255, 0.1); border-radius: 6px; }
 
+        .empty-state { text-align: center; color: var(--text-sub); padding: 40px 20px; font-size: 0.9rem; grid-column: 1 / -1; }
+
         /* Navegación Inferior Completa */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-height);
@@ -361,7 +364,7 @@
 
     <div id="ai-background"></div>
 
-    <!-- Splash Screen con animación original completa -->
+    <!-- Splash Screen con animación original y botón -->
     <div id="splash-screen">
         <div class="splash-content">
             <div class="splash-logo-container">
@@ -497,7 +500,7 @@
         </div>
 
         <div class="main-category-card" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
-            <div class="main-category-icon">⚙️</div>
+            <div class="main-category-icon">⚙️️</div>
             <div class="main-category-info">
                 <h2>Ruedas</h2>
                 <p>Gestión, planos, pintura y planificación de ruedas.</p>
@@ -625,7 +628,6 @@
         }
 
         window.addEventListener('load', function() {
-            // Temporizador de seguridad de 2.2 segundos para quitar la animación automáticamente
             setTimeout(dismissSplash, 2200);
             initThemePreference();
             updateFavIcons();
@@ -749,6 +751,7 @@
         }
 
         function showMainSelector() {
+            currentViewMode = '';
             switchScreen('main-selector-screen');
             updateNavActive(0);
         }
@@ -765,8 +768,8 @@
             switchScreen('dashboard');
 
             if (categoryKey === 'ruedas') updateNavActive(2);
-            if (categoryKey === 'eje-suelto') updateNavActive(3);
-            if (categoryKey === 'eje-montado') updateNavActive(4);
+            else if (categoryKey === 'eje-suelto') updateNavActive(3);
+            else if (categoryKey === 'eje-montado') updateNavActive(4);
         }
 
         function openFavorites() {
@@ -819,8 +822,10 @@
             document.querySelectorAll('.card').forEach(card => {
                 const id = card.dataset.id;
                 const btn = card.querySelector('.btn-fav');
-                if (favorites.includes(id)) btn.classList.add('is-favorite');
-                else btn.classList.remove('is-favorite');
+                if (btn) {
+                    if (favorites.includes(id)) btn.classList.add('is-favorite');
+                    else btn.classList.remove('is-favorite');
+                }
             });
         }
 
@@ -830,10 +835,8 @@
             if (navItems[index]) navItems[index].classList.add('active');
         }
 
-        function filterCards() {
-            if (currentViewMode !== 'category') return;
+        function applyCardFilters() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-
             document.querySelectorAll('.card').forEach(card => {
                 const matchesCategory = (card.dataset.mainCat === currentCategoryKey);
                 const title = card.querySelector('.card-title').innerText.toLowerCase();
@@ -844,6 +847,11 @@
                     card.style.display = 'none';
                 }
             });
+        }
+
+        function filterCards() {
+            if (currentViewMode !== 'category') return;
+            applyCardFilters();
         }
     </script>
 </body>
