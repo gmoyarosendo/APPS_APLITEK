@@ -428,7 +428,7 @@
             <div class="quick-action-card qa-whatsapp" onclick="openWhatsAppDirect()">
                 <div class="qa-icon">💬</div>
                 <div>
-                    <span>Buscar</span>
+                    <span>Abrir</span>
                     <h4>WhatsApp</h4>
                 </div>
             </div>
@@ -514,17 +514,19 @@
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">📦</span><div><div class="card-title">5. Embalaje</div><div class="card-desc">Cajas (E1-CV, E2-CVA).</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-5', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAe_IE2DpA5TL5rE2IxNhMZAQ9K4wpDuvsNCL9yk2ZOhUA?e=eVJF8W" target="_blank" onclick="trackLastDoc('5. Embalaje', this.href)">Abrir →</a></div>
                 </div>
+                <!-- Tarjeta 6: Planif. Cabinas con la tilde correcta en PLANIFICACIÓN -->
                 <div class="card" data-id="rueda-6" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">📅</span><div><div class="card-title">6. Planif. Cabinas</div><div class="card-desc">Programación diaria CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-6', event)">★</button></div>
-                    <div class="card-footer"><span class="badge">Live</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=LLomY9" target="_blank" onclick="trackLastDoc('6. Planif. Cabinas', this.href)">Abrir →</a></div>
+                    <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=Zx6un3&sheet=PLANIFICACIÓN&ActiveCell=PLANIFICACIÓN!A1" target="_blank" onclick="trackLastDoc('6. Planif. Cabinas', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-7" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🖌</span><div><div class="card-title">7. Planif. Brochazo</div><div class="card-desc">Retocado manual CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-7', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Live</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC53Cn1FjfAR4KeNM5a76ZtAY2wtaZYFz9n3YxSh4XLzZg?e=KPaXIP" target="_blank" onclick="trackLastDoc('7. Planif. Brochazo', this.href)">Abrir →</a></div>
                 </div>
+                <!-- Tarjeta 8: Pedidos (Camiones) -->
                 <div class="card" data-id="rueda-8" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🚛</span><div><div class="card-title">8. Pedidos</div><div class="card-desc">Seguimiento y camiones</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-8', event)">★</button></div>
-                    <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://caf2.sharepoint.com/:x:/r/sites/APLITEKRUEDAS/Shared%20Documents/APLITEK%20PLANIFICACI%C3%93N%20RUEDAS/SEGUIMIENTO%20PINTURA%20APLITEK%20V2.xlsx?web=1" target="_blank" onclick="trackLastDoc('8. Pedidos (Camiones)', this.href)">Abrir →</a></div>
+                    <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=uyeJvG&sheet=CAMIONES&ActiveCell=CAMIONES!A1" target="_blank" onclick="trackLastDoc('8. Pedidos (Camiones)', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="eje-s-1" data-main-cat="eje-suelto">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🧪</span><div><div class="card-title">Sistema de Pintura</div><div class="card-desc">Procesos para ejes.</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-s-1', event)">★</button></div>
@@ -582,7 +584,6 @@
             }
         }
 
-        // Temporizador de seguridad infalible (entra automáticamente a los 2s si algo se retrasa)
         setTimeout(dismissSplash, 2000);
 
         window.addEventListener('DOMContentLoaded', function() {
@@ -638,8 +639,9 @@
             }
         }
 
+        // WhatsApp Directo y Limpio
         function openWhatsAppDirect() {
-            window.open('https://wa.me/', '_blank');
+            window.open('https://wa.me/?phone=', '_blank');
         }
 
         function sendEmailNotice() {
