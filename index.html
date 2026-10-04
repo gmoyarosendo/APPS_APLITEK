@@ -225,9 +225,162 @@
         .status-pill { color: var(--accent-green); font-weight: 700; }
         .app-version-info { font-size: 0.52rem; color: var(--text-sub); }
 
-        /* --- PANTALLA SELECTORA PRINCIPAL --- */
+        /* --- PANTALLA SELECTORA PRINCIPAL & WIDGET METEOROLÓGICO --- */
         #main-selector-screen { padding: 20px 16px; max-width: 800px; margin: 0 auto; width: 100%; gap: 12px; }
-        .selector-title { text-align: center; font-size: 1.05rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+
+        .weather-widget-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .weather-widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed var(--card-border);
+            padding-bottom: 6px;
+        }
+        .weather-widget-title {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .weather-days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .weather-days-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+            }
+        }
+        .weather-day-card {
+            background: rgba(128, 128, 128, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 6px 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 85px;
+            cursor: pointer;
+        }
+        .weather-day-card:hover {
+            border-color: var(--accent-blue);
+            background: rgba(0, 240, 255, 0.05);
+        }
+        .weather-day-card.now-card {
+            border-color: var(--accent-blue);
+            background: rgba(0, 240, 255, 0.1);
+        }
+        .weather-day-name {
+            font-size: 0.58rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            text-transform: uppercase;
+        }
+        .weather-day-name.now-text {
+            color: var(--accent-blue);
+            font-weight: 900;
+        }
+        .weather-day-icon {
+            font-size: 1.05rem;
+            margin: 2px 0;
+        }
+        .weather-day-temps {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.6rem;
+            gap: 1px;
+        }
+        .temp-max { font-weight: 800; color: var(--text-main); }
+        .temp-min { font-weight: 600; color: var(--text-sub); }
+        .rain-prob {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: #38bdf8;
+            margin-top: 2px;
+        }
+
+        /* MODAL DE DETALLE HORA A HORA */
+        #weatherModal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 100000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .weather-modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-blue);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px var(--accent-glow);
+            overflow: hidden;
+        }
+        .weather-modal-header {
+            padding: 14px 18px;
+            background: rgba(0, 240, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .weather-modal-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+        }
+        .weather-modal-close {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 30px; height: 30px;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .weather-hourly-scroll {
+            padding: 14px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .hourly-row {
+            background: rgba(128, 128, 128, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        .hourly-time { font-weight: 700; color: var(--text-sub); }
+        .hourly-info { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .hourly-temp { font-weight: 800; color: var(--text-main); font-size: 0.9rem; }
+        .hourly-rain { color: #38bdf8; font-size: 0.75rem; }
 
         .last-doc-card {
             background: var(--card-bg); border: 1.5px dashed var(--accent-blue); border-radius: 14px; padding: 14px 18px;
@@ -335,6 +488,19 @@
 
     <div id="ai-background"></div>
 
+    <!-- MODAL DETALLE HORA A HORA -->
+    <div id="weatherModal" onclick="closeWeatherModal(event)">
+        <div class="weather-modal-content" onclick="event.stopPropagation()">
+            <div class="weather-modal-header">
+                <span class="weather-modal-title" id="modalDayTitle">Previsión Hora a Hora</span>
+                <button class="weather-modal-close" onclick="closeWeatherModal()">✕</button>
+            </div>
+            <div class="weather-hourly-scroll" id="hourlyScrollContainer">
+                <!-- Se cargará por JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <!-- Splash Screen con seguridad de arranque -->
     <div id="splash-screen">
         <div class="splash-content">
@@ -413,7 +579,24 @@
 
     <!-- PANTALLA DE SELECCIÓN DE MENÚ -->
     <div id="main-selector-screen" class="view-screen active">
-        <div class="selector-title">Selecciona una Categoría</div>
+        
+        <!-- WIDGET DE TIEMPO A 7 DÍAS -->
+        <div class="weather-widget-container">
+            <div class="weather-widget-header">
+                <span class="weather-widget-title">⛅ Previsión Amorebieta (Toca un día)</span>
+                <span id="weatherStatusTime" style="font-size:0.6rem; color:var(--text-sub);">Actualizando...</span>
+            </div>
+            <div class="weather-days-grid" id="weatherDaysGrid">
+                <!-- Se cargará automáticamente por JavaScript -->
+                <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
+                <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
+                <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
+                <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
+                <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
+                <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
+                <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
+            </div>
+        </div>
 
         <div class="last-doc-card">
             <div class="last-doc-info">
@@ -514,7 +697,6 @@
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">📦</span><div><div class="card-title">5. Embalaje</div><div class="card-desc">Cajas (E1-CV, E2-CVA).</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-5', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAe_IE2DpA5TL5rE2IxNhMZAQ9K4wpDuvsNCL9yk2ZOhUA?e=eVJF8W" target="_blank" onclick="trackLastDoc('5. Embalaje', this.href)">Abrir →</a></div>
                 </div>
-                <!-- Tarjeta 6: Planif. Cabinas -->
                 <div class="card" data-id="rueda-6" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">📅</span><div><div class="card-title">6. Planif. Cabinas</div><div class="card-desc">Programación diaria CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-6', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=Zx6un3&sheet=PLANIFICACIÓN&ActiveCell=PLANIFICACIÓN!A1" target="_blank" onclick="trackLastDoc('6. Planif. Cabinas', this.href)">Abrir →</a></div>
@@ -523,7 +705,6 @@
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🖌</span><div><div class="card-title">7. Planif. Brochazo</div><div class="card-desc">Retocado manual CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-7', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Live</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC53Cn1FjfAR4KeNM5a76ZtAY2wtaZYFz9n3YxSh4XLzZg?e=KPaXIP" target="_blank" onclick="trackLastDoc('7. Planif. Brochazo', this.href)">Abrir →</a></div>
                 </div>
-                <!-- Tarjeta 8: Pedidos (Camiones) -->
                 <div class="card" data-id="rueda-8" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🚛</span><div><div class="card-title">8. Pedidos</div><div class="card-desc">Seguimiento y camiones</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-8', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=uyeJvG&sheet=CAMIONES&ActiveCell=CAMIONES!A1" target="_blank" onclick="trackLastDoc('8. Pedidos (Camiones)', this.href)">Abrir →</a></div>
@@ -572,6 +753,7 @@
         let currentViewMode = ''; 
         let currentCategoryKey = '';
         let favorites = JSON.parse(localStorage.getItem('aplitapp_favs')) || [];
+        let weatherCacheData = null;
 
         function dismissSplash() {
             const splash = document.getElementById('splash-screen');
@@ -593,6 +775,7 @@
             setLastUpdateTimestamp();
             initClock();
             loadLastDoc();
+            loadAmorebietaWeather();
         });
 
         function initThemePreference() {
@@ -637,6 +820,171 @@
             } else {
                 if (document.exitFullscreen) document.exitFullscreen();
             }
+        }
+
+        // Cargar tiempo de Amorebieta
+        async function loadAmorebietaWeather() {
+            const gridContainer = document.getElementById('weatherDaysGrid');
+            const statusTime = document.getElementById('weatherStatusTime');
+            if (!gridContainer) return;
+
+            try {
+                const url = 'https://api.open-meteo.com/v1/forecast?latitude=43.225&longitude=-2.733&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&hourly=temperature_2m,weathercode,precipitation_probability&timezone=Europe%2FMadrid';
+                let response = await fetch(url);
+                let data = await response.json();
+
+                if (data && data.daily && data.hourly) {
+                    weatherCacheData = data;
+                    let html = '';
+                    let days = data.daily.time;
+                    let maxTemps = data.daily.temperature_2m_max;
+                    let minTemps = data.daily.temperature_2m_min;
+                    let codes = data.daily.weathercode;
+                    let rainMax = data.daily.precipitation_probability_max || [];
+
+                    const diasSemana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+                    // 1. TARJETA "AHORA" (Hoy)
+                    let now = new Date();
+                    let year = now.getFullYear();
+                    let month = String(now.getMonth() + 1).padStart(2, '0');
+                    let dayNum = String(now.getDate()).padStart(2, '0');
+                    let currentHourStr = `${year}-${month}-${dayNum}T${String(now.getHours()).padStart(2, '0')}:00`;
+                    
+                    let currentTemp = '--';
+                    let currentIcon = '🌤️';
+                    let currentRain = 0;
+
+                    let hourlyTimes = data.hourly.time;
+                    let hourlyTemps = data.hourly.temperature_2m;
+                    let hourlyCodes = data.hourly.weathercode;
+                    let hourlyRainArr = data.hourly.precipitation_probability;
+
+                    let hourIndex = hourlyTimes.indexOf(currentHourStr);
+                    if (hourIndex !== -1) {
+                        currentTemp = Math.round(hourlyTemps[hourIndex]) + '°';
+                        currentIcon = getWeatherIcon(hourlyCodes[hourIndex]);
+                        currentRain = hourlyRainArr[hourIndex] || 0;
+                    } else if (hourlyTemps.length > 0) {
+                        currentTemp = Math.round(hourlyTemps[0]) + '°';
+                        currentIcon = getWeatherIcon(hourlyCodes[0]);
+                        currentRain = hourlyRainArr[0] || 0;
+                    }
+
+                    // Pasamos true en el parámetro isToday para que filtre desde ahora en adelante
+                    html += `
+                        <div class="weather-day-card now-card" onclick="openHourlyModal(0, 'Hoy (${days[0]})', '${days[0]}', true)">
+                            <span class="weather-day-name now-text">AHORA</span>
+                            <span class="weather-day-icon">${currentIcon}</span>
+                            <div class="weather-day-temps">
+                                <span class="temp-max" style="color:var(--accent-blue); font-size:0.75rem;">${currentTemp}</span>
+                                <span class="rain-prob">💧 ${currentRain}%</span>
+                            </div>
+                        </div>
+                    `;
+
+                    // 2. RESTO DE DÍAS
+                    for (let i = 1; i < Math.min(7, days.length); i++) {
+                        let dateObj = new Date(days[i]);
+                        let nombreDia = diasSemana[dateObj.getDay()];
+                        let tMax = Math.round(maxTemps[i]);
+                        let tMin = Math.round(minTemps[i]);
+                        let iconoTiempo = getWeatherIcon(codes[i]);
+                        let rProb = rainMax[i] !== undefined ? rainMax[i] : 0;
+
+                        html += `
+                            <div class="weather-day-card" onclick="openHourlyModal(${i}, '${nombreDia} (${days[i]})', '${days[i]}', false)">
+                                <span class="weather-day-name">${nombreDia}</span>
+                                <span class="weather-day-icon">${iconoTiempo}</span>
+                                <div class="weather-day-temps">
+                                    <span class="temp-max">${tMax}°</span>
+                                    <span class="temp-min">${tMin}°</span>
+                                </div>
+                                <span class="rain-prob">💧 ${rProb}%</span>
+                            </div>
+                        `;
+                    }
+                    gridContainer.innerHTML = html;
+                    if (statusTime) statusTime.innerText = 'Actualizado ahora';
+                }
+            } catch (e) {
+                if (statusTime) statusTime.innerText = 'Modo offline';
+            }
+        }
+
+        // Abrir Modal Hora a Hora (Si es hoy, muestra solo desde la hora actual en adelante)
+        function openHourlyModal(dayIndex, dayTitle, dateString, isToday) {
+            const modal = document.getElementById('weatherModal');
+            const modalTitle = document.getElementById('modalDayTitle');
+            const scrollContainer = document.getElementById('hourlyScrollContainer');
+            if (!modal || !weatherCacheData || !weatherCacheData.hourly) return;
+
+            modalTitle.innerText = isToday ? `Previsión Resto del Día — ${dayTitle}` : `Previsión Hora a Hora — ${dayTitle}`;
+
+            let hourlyTimes = weatherCacheData.hourly.time;
+            let hourlyTemps = weatherCacheData.hourly.temperature_2m;
+            let hourlyCodes = weatherCacheData.hourly.weathercode;
+            let hourlyRain = weatherCacheData.hourly.precipitation_probability;
+
+            let now = new Date();
+            let currentIsoString = '';
+            if (isToday) {
+                let year = now.getFullYear();
+                let month = String(now.getMonth() + 1).padStart(2, '0');
+                let dayNum = String(now.getDate()).padStart(2, '0');
+                let hourNum = String(now.getHours()).padStart(2, '0');
+                currentIsoString = `${year}-${month}-${dayNum}T${hourNum}:00`;
+            }
+
+            let html = '';
+            for (let i = 0; i < hourlyTimes.length; i++) {
+                if (hourlyTimes[i].startsWith(dateString)) {
+                    // Si es hoy, filtramos para que solo salgan las horas iguales o posteriores a la actual
+                    if (isToday && hourlyTimes[i] < currentIsoString) {
+                        continue;
+                    }
+
+                    let horaStr = hourlyTimes[i].split('T')[1];
+                    let temp = Math.round(hourlyTemps[i]);
+                    let icono = getWeatherIcon(hourlyCodes[i]);
+                    let rain = hourlyRain ? hourlyRain[i] : 0;
+
+                    html += `
+                        <div class="hourly-row">
+                            <span class="hourly-time">🕒 ${horaStr}</span>
+                            <div class="hourly-info">
+                                <span class="hourly-rain">💧 ${rain}%</span>
+                                <span>${icono}</span>
+                                <span class="hourly-temp">${temp}°C</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            if (html === '') {
+                html = `<div style="text-align:center; padding: 20px; color: var(--text-sub);">No hay más registros horarios para el día de hoy.</div>`;
+            }
+
+            scrollContainer.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+
+        function closeWeatherModal(event) {
+            const modal = document.getElementById('weatherModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        // Traductor de códigos meteorológicos de WMO a Emojis intuitivos
+        function getWeatherIcon(code) {
+            if (code === 0) return '☀️'; // Despejado
+            if ([1, 2].includes(code)) return '⛅'; // Parcialmente nublado
+            if (code === 3) return '☁️'; // Nublado
+            if ([45, 48].includes(code)) return '🌫️'; // Niebla
+            if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return '🌧️'; // Lluvia
+            if ([71, 73, 75, 77, 85, 86].includes(code)) return '❄️'; // Nieve
+            if ([95, 96, 99].includes(code)) return '⛈️'; // Tormenta
+            return '🌤️';
         }
 
         // WhatsApp Directo con el asterisco (*) como mensaje predeterminado
@@ -798,6 +1146,10 @@
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             const navItems = document.querySelectorAll('.nav-item');
             if (navItems[index]) navItems[index].classList.add('active');
+        }
+
+        function applyCardFilters$1() {
+            // ... (función auxiliar mantenida)
         }
 
         function applyCardFilters() {
