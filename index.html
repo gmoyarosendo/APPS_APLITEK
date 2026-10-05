@@ -263,7 +263,6 @@
             gap: 6px;
         }
         
-        /* CARRUSEL HORIZONTAL DESLIZABLE */
         .weather-days-grid {
             display: flex;
             gap: 8px;
@@ -273,23 +272,15 @@
             scrollbar-width: thin;
             scrollbar-color: var(--accent-blue) rgba(255, 255, 255, 0.05);
         }
-        .weather-days-grid::-webkit-scrollbar {
-            height: 4px;
-        }
-        .weather-days-grid::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-        }
-        .weather-days-grid::-webkit-scrollbar-thumb {
-            background: var(--accent-blue);
-            border-radius: 4px;
-        }
+        .weather-days-grid::-webkit-scrollbar { height: 4px; }
+        .weather-days-grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 4px; }
+        .weather-days-grid::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 4px; }
 
         .weather-day-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.07);
             border-radius: 10px;
-            padding: 8px 8px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -347,7 +338,6 @@
             border-radius: 4px;
         }
 
-        /* MODAL DE DETALLE HORA A HORA PRÉMIUM */
         #weatherModal {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
@@ -417,11 +407,6 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.85rem;
-            transition: background 0.2s ease;
-        }
-        .hourly-row:hover {
-            background: rgba(0, 240, 255, 0.05);
-            border-color: rgba(0, 240, 255, 0.2);
         }
         .hourly-time { font-weight: 700; color: var(--text-sub); }
         .hourly-info { display: flex; align-items: center; gap: 14px; font-weight: 600; }
@@ -439,15 +424,11 @@
             background: var(--accent-blue); color: var(--bg-dark); text-decoration: none; font-size: 0.78rem; font-weight: 800; padding: 6px 14px; border-radius: 8px;
         }
 
-        /* Accesos rápidos compactos */
         .quick-actions-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             margin-bottom: 12px;
-        }
-        @media (max-width: 600px) {
-            .quick-actions-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         .quick-action-card {
@@ -487,7 +468,6 @@
         }
         .main-category-arrow { font-size: 1.3rem; color: var(--accent-blue); }
 
-        /* --- DASHBOARD --- */
         .dashboard-container { padding: 16px; max-width: 1200px; margin: 0 auto; width: 100%; }
         .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
         .section-title { font-size: 1.2rem; font-weight: 800; color: var(--accent-blue); }
@@ -524,7 +504,6 @@
 
         .empty-state { text-align: center; color: var(--text-sub); padding: 40px 20px; font-size: 0.9rem; grid-column: 1 / -1; }
 
-        /* Navegación Inferior Completa */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-height);
             background-color: var(--nav-bg); backdrop-filter: blur(12px);
@@ -537,23 +516,18 @@
 </head>
 <body>
 
-    <!-- FONDO DE IA EN MOVIMIENTO (Lienzo interactivo de red neuronal) -->
     <canvas id="ai-neural-canvas"></canvas>
 
-    <!-- MODAL DETALLE HORA A HORA PRÉMIUM -->
     <div id="weatherModal" onclick="closeWeatherModal(event)">
         <div class="weather-modal-content" onclick="event.stopPropagation()">
             <div class="weather-modal-header">
                 <span class="weather-modal-title" id="modalDayTitle">Previsión Hora a Hora</span>
                 <button class="weather-modal-close" onclick="closeWeatherModal()">✕</button>
             </div>
-            <div class="weather-hourly-scroll" id="hourlyScrollContainer">
-                <!-- Se cargará por JavaScript -->
-            </div>
+            <div class="weather-hourly-scroll" id="hourlyScrollContainer"></div>
         </div>
     </div>
 
-    <!-- Splash Screen con seguridad de arranque -->
     <div id="splash-screen">
         <div class="splash-content">
             <div class="splash-logo-container">
@@ -595,7 +569,6 @@
         </div>
     </div>
 
-    <!-- Cabecera Principal -->
     <header>
         <div class="brand-header" onclick="showMainSelector()">
             <svg class="header-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -629,17 +602,14 @@
         </div>
     </header>
 
-    <!-- PANTALLA DE SELECCIÓN DE MENÚ -->
     <div id="main-selector-screen" class="view-screen active">
         
-        <!-- WIDGET DE TIEMPO CARRUSEL -->
         <div class="weather-widget-container">
             <div class="weather-widget-header">
                 <span class="weather-widget-title">⚡ METEOROLOGÍA AMOREBIETA</span>
                 <span id="weatherStatusTime" style="font-size:0.6rem; color:var(--text-sub);">Actualizando...</span>
             </div>
             <div class="weather-days-grid" id="weatherDaysGrid">
-                <!-- Se cargará automáticamente por JavaScript -->
                 <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
                 <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
                 <div class="weather-day-card"><span class="weather-day-name">---</span><span class="weather-day-icon">⏳</span><div class="weather-day-temps"><span class="temp-max">--°</span><span class="temp-min">--°</span></div></div>
@@ -658,7 +628,6 @@
             <a class="last-doc-btn" id="lastDocBtn" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a>
         </div>
 
-        <!-- ACCESOS RÁPIDOS COMPACTOS -->
         <div class="quick-actions-grid">
             <div class="quick-action-card qa-whatsapp" onclick="openWhatsAppDirect()">
                 <div class="qa-icon">💬</div>
@@ -716,7 +685,6 @@
         </div>
     </div>
 
-    <!-- DASHBOARD -->
     <div class="view-screen" id="dashboard">
         <div class="dashboard-container">
             <div class="section-header">
@@ -755,7 +723,7 @@
                 </div>
                 <div class="card" data-id="rueda-7" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🖌</span><div><div class="card-title">7. Planif. Brochazo</div><div class="card-desc">Retocado manual CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-7', event)">★</button></div>
-                    <div class="card-footer"><span class="badge">Live</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC53Cn1FjfAR4KeNM5a76ZtAY2wtaZYFz9n3YxSh4XLzZg?e=KPaXIP" target="_blank" onclick="trackLastDoc('7. Planif. Brochazo', this.href)">Abrir →</a></div>
+                    <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=1t530y&sheet=PLANIFICACIÓN_B&ActiveCell=PLANIFICACIÓN_B!A1" target="_blank" onclick="trackLastDoc('7. Planif. Brochazo', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-8" data-main-cat="ruedas">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🚛</span><div><div class="card-title">8. Pedidos</div><div class="card-desc">Seguimiento y camiones</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-8', event)">★</button></div>
@@ -777,7 +745,6 @@
         </div>
     </div>
 
-    <!-- Navegación Inferior Completa -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="showMainSelector()">
             <span class="nav-icon">🏠</span>
@@ -802,7 +769,6 @@
     </nav>
 
     <script>
-        // --- SCRIPT DE RED NEURONAL DE IA EN MOVIMIENTO ---
         const canvas = document.getElementById('ai-neural-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -846,7 +812,6 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const isLight = document.body.classList.contains('light-mode');
 
-            // Dibujar conexiones neuronales (líneas entre partículas cercanas)
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
@@ -871,8 +836,6 @@
         }
         animateNeuralBackground();
 
-
-        // --- LÓGICA DE LA APLICACIÓN ---
         let currentViewMode = ''; 
         let currentCategoryKey = '';
         let favorites = JSON.parse(localStorage.getItem('aplitapp_favs')) || [];
@@ -945,7 +908,6 @@
             }
         }
 
-        // Cargar tiempo de Amorebieta
         async function loadAmorebietaWeather() {
             const gridContainer = document.getElementById('weatherDaysGrid');
             const statusTime = document.getElementById('weatherStatusTime');
@@ -967,7 +929,6 @@
 
                     const diasSemana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
-                    // 1. TARJETA "AHORA"
                     let now = new Date();
                     let year = now.getFullYear();
                     let month = String(now.getMonth() + 1).padStart(2, '0');
@@ -1005,7 +966,6 @@
                         </div>
                     `;
 
-                    // 2. RESTO DE DÍAS
                     for (let i = 1; i < Math.min(7, days.length); i++) {
                         let dateObj = new Date(days[i]);
                         let nombreDia = diasSemana[dateObj.getDay()];
@@ -1034,7 +994,6 @@
             }
         }
 
-        // Abrir Modal Hora a Hora
         function openHourlyModal(dayIndex, dayTitle, dateString, isToday) {
             const modal = document.getElementById('weatherModal');
             const modalTitle = document.getElementById('modalDayTitle');
@@ -1252,11 +1211,15 @@
 
         function updateFavIcons() {
             document.querySelectorAll('.card').forEach(card => {
-                const id = card.dataset.id;
                 const btn = card.querySelector('.btn-fav');
                 if (btn) {
-                    if (favorites.includes(id)) btn.classList.add('is-favorite');
-                    else btn.classList.remove('is-favorite');
+                    if (favorites.includes(card.dataset.id)) {
+                        btn.classList.add('is-favorite');
+                        btn.innerText = '★';
+                    } else {
+                        btn.classList.remove('is-favorite');
+                        btn.innerText = '☆';
+                    }
                 }
             });
         }
