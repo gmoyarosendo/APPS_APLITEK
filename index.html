@@ -66,7 +66,6 @@
             position: relative;
         }
 
-        /* --- FONDO DE IA EN MOVIMIENTO (CANVAS NEURONAL) --- */
         #ai-neural-canvas {
             position: fixed;
             top: 0;
@@ -98,7 +97,6 @@
             flex-direction: column;
         }
 
-        /* --- SPLASH SCREEN --- */
         #splash-screen {
             position: fixed;
             top: 0; left: 0;
@@ -197,7 +195,6 @@
             color: var(--bg-dark);
         }
 
-        /* Cabecera Principal */
         header {
             background-color: var(--header-bg);
             backdrop-filter: blur(12px);
@@ -227,12 +224,14 @@
             background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);
             cursor: pointer; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
         }
+        .header-tool-btn.fav-btn { color: var(--accent-yellow); border-color: rgba(245, 158, 11, 0.4); }
+        .header-tool-btn.fav-btn:hover { background: rgba(245, 158, 11, 0.15); }
+
         .header-info-col { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
         .header-meta-row { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.7rem; }
         .status-pill { color: var(--accent-green); font-weight: 700; }
         .app-version-info { font-size: 0.52rem; color: var(--text-sub); }
 
-        /* --- PANTALLA SELECTORA PRINCIPAL & WIDGET METEOROLÓGICO PRÉMIUM --- */
         #main-selector-screen { padding: 20px 16px; max-width: 800px; margin: 0 auto; width: 100%; gap: 12px; }
 
         .weather-widget-container {
@@ -461,7 +460,6 @@
             display: flex; align-items: center; justify-content: center;
         }
         .main-category-info h2 { font-size: 1.25rem; color: var(--text-main); }
-        .main-category-info p { font-size: 0.82rem; color: var(--text-sub); }
         .resource-count-badge {
             position: absolute; top: 14px; right: 45px; background: rgba(128, 128, 128, 0.15);
             font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 8px; color: var(--text-sub);
@@ -486,21 +484,32 @@
 
         .card {
             background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px;
-            display: flex; flex-direction: column; justify-content: space-between; min-height: 135px; position: relative;
+            display: flex; flex-direction: column; justify-content: space-between; min-height: 120px; position: relative;
             backdrop-filter: blur(10px);
         }
+        /* Estilos para tarjetas bloqueadas (sin contenido) */
+        .card.card-locked {
+            opacity: 0.65;
+            border-style: dashed;
+        }
+        .card-lock-badge {
+            font-size: 0.9rem;
+            margin-left: auto;
+            margin-right: 6px;
+        }
+
         .card-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
         .card-header { display: flex; align-items: center; gap: 10px; }
         .card-icon {
             font-size: 1.3rem; background: rgba(128, 128, 128, 0.1); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
         }
         .card-title { font-size: 0.88rem; font-weight: 700; color: var(--text-main); }
-        .card-desc { font-size: 0.73rem; color: var(--text-sub); margin-top: 3px; }
         .btn-fav { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-sub); }
         .btn-fav.is-favorite { color: var(--accent-yellow); }
         .card-footer { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--card-border); display: flex; justify-content: space-between; align-items: center; }
         .badge { font-size: 0.62rem; text-transform: uppercase; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(128, 128, 128, 0.15); color: var(--text-sub); }
         .card-link { color: var(--accent-blue); text-decoration: none; font-size: 0.78rem; font-weight: 700; padding: 4px 8px; background: rgba(0, 240, 255, 0.1); border-radius: 6px; }
+        .card-link.disabled-link { color: var(--text-sub); background: rgba(128,128,128,0.1); pointer-events: none; }
 
         .empty-state { text-align: center; color: var(--text-sub); padding: 40px 20px; font-size: 0.9rem; grid-column: 1 / -1; }
 
@@ -587,6 +596,7 @@
         </div>
 
         <div class="header-right-separated">
+            <button class="header-tool-btn fav-btn" title="Favoritos ⭐" onclick="openFavorites()">⭐</button>
             <button class="header-tool-btn" title="Pantalla Completa" onclick="toggleFullScreen()">⛶</button>
             <button class="header-tool-btn" id="themeToggleBtn" title="Cambiar Tema" onclick="toggleTheme()">🌙</button>
             <div class="header-info-col">
@@ -658,7 +668,6 @@
             <div class="main-category-icon">⚙</div>
             <div class="main-category-info">
                 <h2>Ruedas</h2>
-                <p>Gestión, planos, pintura y planificación de ruedas.</p>
             </div>
             <span class="resource-count-badge">8 recursos</span>
             <div class="main-category-arrow">→</div>
@@ -668,7 +677,6 @@
             <div class="main-category-icon">📏</div>
             <div class="main-category-info">
                 <h2>Eje Suelto</h2>
-                <p>Información técnica, pintura y mecanizado de ejes.</p>
             </div>
             <span class="resource-count-badge">2 recursos</span>
             <div class="main-category-arrow">→</div>
@@ -678,9 +686,17 @@
             <div class="main-category-icon">🚆</div>
             <div class="main-category-info">
                 <h2>Eje Montado</h2>
-                <p>Control de calado, montaje y conjuntos de ejes.</p>
             </div>
-            <span class="resource-count-badge">1 recurso</span>
+            <span class="resource-count-badge">4 recursos</span>
+            <div class="main-category-arrow">→</div>
+        </div>
+
+        <div class="main-category-card" onclick="openSection('estocaje', 'ESTOCAJE')">
+            <div class="main-category-icon">📦</div>
+            <div class="main-category-info">
+                <h2>Estocaje</h2>
+            </div>
+            <span class="resource-count-badge">4 recursos</span>
             <div class="main-category-arrow">→</div>
         </div>
     </div>
@@ -697,49 +713,96 @@
             </div>
 
             <div class="grid" id="main-grid">
+                <!-- Ruedas -->
                 <div class="card" data-id="rueda-1" data-main-cat="ruedas">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">⚙</span><div><div class="card-title">1. Ruedas Sin Pintar</div><div class="card-desc">Estado e inspección.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-1', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">⚙</span><div><div class="card-title">1. Ruedas Sin Pintar</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-1', event)">★</button></div>
                     <div class="card-footer"><span class="badge">SharePoint</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQDbtMONQJT9TJeRuOBHV8d4ARW7etQ_24LRPiQMb90rVB4?e=ekMz1Y&ActiveCell=RES_SIN_PINTAR_!A1" target="_blank" onclick="trackLastDoc('1. Ruedas Sin Pintar', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-2" data-main-cat="ruedas">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🎨</span><div><div class="card-title">2. Ruedas Pintadas</div><div class="card-desc">Registro y salida.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-2', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🎨</span><div><div class="card-title">2. Ruedas Pintadas</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-2', event)">★</button></div>
                     <div class="card-footer"><span class="badge">SharePoint</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQDbtMONQJT9TJeRuOBHV8d4ARW7etQ_24LRPiQMb90rVB4?e=ekMz1Y&ActiveCell=RES_SIN_ENVIAR!A1" target="_blank" onclick="trackLastDoc('2. Ruedas Pintadas', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-3" data-main-cat="ruedas">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📐</span><div><div class="card-title">3. Planos de Ruedas</div><div class="card-desc">Carpeta FZ con cotas.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-3', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📐</span><div><div class="card-title">3. Planos de Ruedas</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-3', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Carpeta FZ</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgAsR3vxNz9SQI3lfMmRhkl_AabQG9CeLMRSjiXRrKsqikw" target="_blank" onclick="trackLastDoc('3. Planos de Ruedas', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-4" data-main-cat="ruedas">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🧪</span><div><div class="card-title">4. Sistema de Pintura</div><div class="card-desc">Especificaciones técnicas.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-4', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🧪</span><div><div class="card-title">4. Sistema de Pintura</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-4', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Carpeta SP</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=N0rpUC" target="_blank" onclick="trackLastDoc('4. Sistema de Pintura', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-5" data-main-cat="ruedas">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📦</span><div><div class="card-title">5. Embalaje</div><div class="card-desc">Cajas (E1-CV, E2-CVA).</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-5', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📦</span><div><div class="card-title">5. Embalaje</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-5', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAe_IE2DpA5TL5rE2IxNhMZAQ9K4wpDuvsNCL9yk2ZOhUA?e=eVJF8W" target="_blank" onclick="trackLastDoc('5. Embalaje', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-6" data-main-cat="ruedas">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📅</span><div><div class="card-title">6. Planif. Cabinas</div><div class="card-desc">Programación diaria CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-6', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📅</span><div><div class="card-title">6. Planif. Cabinas</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-6', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=Zx6un3&sheet=PLANIFICACIÓN&ActiveCell=PLANIFICACIÓN!A1" target="_blank" onclick="trackLastDoc('6. Planif. Cabinas', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-7" data-main-cat="ruedas">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🖌</span><div><div class="card-title">7. Planif. Brochazo</div><div class="card-desc">Retocado manual CAF.</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-7', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🖌</span><div><div class="card-title">7. Planif. Brochazo</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-7', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=1t530y&sheet=PLANIFICACIÓN_B&ActiveCell=PLANIFICACIÓN_B!A1" target="_blank" onclick="trackLastDoc('7. Planif. Brochazo', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="rueda-8" data-main-cat="ruedas">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🚛</span><div><div class="card-title">8. Pedidos</div><div class="card-desc">Seguimiento y camiones</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-8', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🚛</span><div><div class="card-title">8. Pedidos</div></div></div><button class="btn-fav" onclick="toggleFavorite('rueda-8', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQC8vk6WAIA2Q5xWywi_hJ7UAUJVCXgcgarMcSJO-ZpzO3E?e=uyeJvG&sheet=CAMIONES&ActiveCell=CAMIONES!A1" target="_blank" onclick="trackLastDoc('8. Pedidos (Camiones)', this.href)">Abrir →</a></div>
                 </div>
+                
+                <!-- Eje Suelto -->
                 <div class="card" data-id="eje-s-1" data-main-cat="eje-suelto">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🧪</span><div><div class="card-title">Sistema de Pintura</div><div class="card-desc">Procesos para ejes.</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-s-1', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🧪</span><div><div class="card-title">Sistema de Pintura</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-s-1', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Carpeta SP</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=0gbPzC" target="_blank" onclick="trackLastDoc('Sistema de Pintura (Eje)', this.href)">Abrir →</a></div>
                 </div>
                 <div class="card" data-id="eje-s-2" data-main-cat="eje-suelto">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📐</span><div><div class="card-title">Planos de Eje Suelto</div><div class="card-desc">Especificaciones ejes.</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-s-2', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📐</span><div><div class="card-title">Planos de Eje Suelto</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-s-2', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Carpeta FZ</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBzZVPYZHRyRLMG6dlgGX9kAZUoFjrW_EmmiV8V2RoXBek?e=fMHSId" target="_blank" onclick="trackLastDoc('Planos de Eje Suelto', this.href)">Abrir →</a></div>
                 </div>
+
+                <!-- Eje Montado -->
+                <div class="card" data-id="eje-m-1" data-main-cat="eje-montado">
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🚆</span><div><div class="card-title">Eje Montado Sin Pintar</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-m-1', event)">★</button></div>
+                    <div class="card-footer"><span class="badge">SharePoint</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQBRDntW4chSTJ7-Zg50BzsDAdp6mkVo3mHwHXDhI724xcw?e=CN4Xko&sheet=RES_SIN_PINTAR&ActiveCell=RES_SIN_PINTAR!A1" target="_blank" onclick="trackLastDoc('Eje Montado Sin Pintar', this.href)">Abrir →</a></div>
+                </div>
                 <div class="card" data-id="eje-m-2" data-main-cat="eje-montado">
-                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📐</span><div><div class="card-title">Planos de Eje Montado</div><div class="card-desc">Conjuntos montados.</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-m-2', event)">★</button></div>
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🎨</span><div><div class="card-title">Eje Montado Pintados</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-m-2', event)">★</button></div>
+                    <div class="card-footer"><span class="badge">SharePoint</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQBRDntW4chSTJ7-Zg50BzsDAdp6mkVo3mHwHXDhI724xcw?e=CN4Xko&sheet=RES_SIN_ENVIAR&ActiveCell=RES_SIN_ENVIAR!A1" target="_blank" onclick="trackLastDoc('Eje Montado Pintados', this.href)">Abrir →</a></div>
+                </div>
+                <div class="card" data-id="eje-m-3" data-main-cat="eje-montado">
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">🧪</span><div><div class="card-title">Sistema de Pintura</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-m-3', event)">★</button></div>
+                    <div class="card-footer"><span class="badge">Carpeta SP</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgArUo3htYJ3SbVaNMabkWZ5AZJMK2dvvE9CPgvDLGh2lc0?e=0gbPzC" target="_blank" onclick="trackLastDoc('Sistema de Pintura (Eje Montado)', this.href)">Abrir →</a></div>
+                </div>
+                <div class="card" data-id="eje-m-4" data-main-cat="eje-montado">
+                    <div class="card-top-row"><div class="card-header"><span class="card-icon">📐</span><div><div class="card-title">Planos de Eje Montado</div></div></div><button class="btn-fav" onclick="toggleFavorite('eje-m-4', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Carpeta FZ</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBdpT7CFabWTZycomGY-t5AAQfkGwef6q-D4T4gNTIqc4k?e=Q6JQXs" target="_blank" onclick="trackLastDoc('Planos de Eje Montado', this.href)">Abrir →</a></div>
+                </div>
+
+                <!-- Estocaje (Bloqueadas con candado y sin contenido por ahora) -->
+                <div class="card card-locked" data-id="est-1" data-main-cat="estocaje">
+                    <div class="card-top-row">
+                        <div class="card-header"><span class="card-icon">🏢</span><div><div class="card-title">Ruedas CABINA</div></div></div>
+                        <span class="card-lock-badge" title="Próximamente / Vacío">🔒</span>
+                    </div>
+                    <div class="card-footer"><span class="badge">Vacío</span><span class="card-link disabled-link">No disponible</span></div>
+                </div>
+                <div class="card card-locked" data-id="est-2" data-main-cat="estocaje">
+                    <div class="card-top-row">
+                        <div class="card-header"><span class="card-icon">🖌</span><div><div class="card-title">Ruedas BROCHAZO</div></div></div>
+                        <span class="card-lock-badge" title="Próximamente / Vacío">🔒</span>
+                    </div>
+                    <div class="card-footer"><span class="badge">Vacío</span><span class="card-link disabled-link">No disponible</span></div>
+                </div>
+                <div class="card card-locked" data-id="est-3" data-main-cat="estocaje">
+                    <div class="card-top-row">
+                        <div class="card-header"><span class="card-icon">📏</span><div><div class="card-title">Eje SUELTO</div></div></div>
+                        <span class="card-lock-badge" title="Próximamente / Vacío">🔒</span>
+                    </div>
+                    <div class="card-footer"><span class="badge">Vacío</span><span class="card-link disabled-link">No disponible</span></div>
+                </div>
+                <div class="card card-locked" data-id="est-4" data-main-cat="estocaje">
+                    <div class="card-top-row">
+                        <div class="card-header"><span class="card-icon">🚆</span><div><div class="card-title">Eje MONTADO</div></div></div>
+                        <span class="card-lock-badge" title="Próximamente / Vacío">🔒</span>
+                    </div>
+                    <div class="card-footer"><span class="badge">Vacío</span><span class="card-link disabled-link">No disponible</span></div>
                 </div>
             </div>
         </div>
@@ -749,10 +812,6 @@
         <button class="nav-item active" onclick="showMainSelector()">
             <span class="nav-icon">🏠</span>
             <span>Menú</span>
-        </button>
-        <button class="nav-item" onclick="openFavorites()">
-            <span class="nav-icon">⭐</span>
-            <span>Favoritos</span>
         </button>
         <button class="nav-item" onclick="openSection('ruedas', 'RUEDAS DE TREN')">
             <span class="nav-icon">⚙</span>
@@ -765,6 +824,10 @@
         <button class="nav-item" onclick="openSection('eje-montado', 'EJE MONTADO')">
             <span class="nav-icon">🚆</span>
             <span>Eje Montado</span>
+        </button>
+        <button class="nav-item" onclick="openSection('estocaje', 'ESTOCAJE')">
+            <span class="nav-icon">📦</span>
+            <span>Estocaje</span>
         </button>
     </nav>
 
@@ -1154,9 +1217,10 @@
             applyCardFilters();
             switchScreen('dashboard');
 
-            if (categoryKey === 'ruedas') updateNavActive(2);
-            else if (categoryKey === 'eje-suelto') updateNavActive(3);
-            else if (categoryKey === 'eje-montado') updateNavActive(4);
+            if (categoryKey === 'ruedas') updateNavActive(1);
+            else if (categoryKey === 'eje-suelto') updateNavActive(2);
+            else if (categoryKey === 'eje-montado') updateNavActive(3);
+            else if (categoryKey === 'estocaje') updateNavActive(4);
         }
 
         function openFavorites() {
@@ -1178,7 +1242,6 @@
             });
 
             switchScreen('dashboard');
-            updateNavActive(1);
 
             if (visibleCount === 0) {
                 const grid = document.getElementById('main-grid');
@@ -1236,7 +1299,7 @@
             document.querySelectorAll('.card').forEach(card => {
                 const matchesCategory = (card.dataset.mainCat === currentCategoryKey);
                 const title = card.querySelector('.card-title').innerText.toLowerCase();
-                const desc = card.querySelector('.card-desc').innerText.toLowerCase();
+                const desc = card.querySelector('.card-desc') ? card.querySelector('.card-desc').innerText.toLowerCase() : '';
                 if (matchesCategory && (title.includes(query) || desc.includes(query))) {
                     card.style.display = 'flex';
                 } else {
