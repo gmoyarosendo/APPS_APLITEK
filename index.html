@@ -487,7 +487,6 @@
             display: flex; flex-direction: column; justify-content: space-between; min-height: 120px; position: relative;
             backdrop-filter: blur(10px);
         }
-        /* Estilos para tarjetas bloqueadas (sin contenido) */
         .card.card-locked {
             opacity: 0.65;
             border-style: dashed;
@@ -691,10 +690,10 @@
             <div class="main-category-arrow">→</div>
         </div>
 
-        <div class="main-category-card" onclick="openSection('estocaje', 'ESTOCAJE')">
+        <div class="main-category-card" onclick="openSection('estocaje', 'ESTOCAJE DE PINTURA')">
             <div class="main-category-icon">📦</div>
             <div class="main-category-info">
-                <h2>Estocaje</h2>
+                <h2>Estocaje de Pintura</h2>
             </div>
             <span class="resource-count-badge">4 recursos</span>
             <div class="main-category-arrow">→</div>
@@ -775,7 +774,7 @@
                     <div class="card-footer"><span class="badge">Carpeta FZ</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:f:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IgBdpT7CFabWTZycomGY-t5AAQfkGwef6q-D4T4gNTIqc4k?e=Q6JQXs" target="_blank" onclick="trackLastDoc('Planos de Eje Montado', this.href)">Abrir →</a></div>
                 </div>
 
-                <!-- Estocaje -->
+                <!-- Estocaje de Pintura -->
                 <div class="card" data-id="est-1" data-main-cat="estocaje">
                     <div class="card-top-row"><div class="card-header"><span class="card-icon">🏢</span><div><div class="card-title">Ruedas CABINA</div></div></div><button class="btn-fav" onclick="toggleFavorite('est-1', event)">★</button></div>
                     <div class="card-footer"><span class="badge">Excel</span><a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQAvDdo93K7tRJx2d8q5p5RHAciCt-tsXPFMUzEzDZ0g2lE?e=6q13TA&sheet=Inventario&ActiveCell=Inventario!A1" target="_blank" onclick="trackLastDoc('Ruedas CABINA', this.href)">Abrir →</a></div>
@@ -819,7 +818,7 @@
             <span class="nav-icon">🚆</span>
             <span>Eje Montado</span>
         </button>
-        <button class="nav-item" onclick="openSection('estocaje', 'ESTOCAJE')">
+        <button class="nav-item" onclick="openSection('estocaje', 'ESTOCAJE DE PINTURA')">
             <span class="nav-icon">📦</span>
             <span>Estocaje</span>
         </button>
