@@ -515,7 +515,7 @@
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-height);
             background-color: var(--nav-bg); backdrop-filter: blur(12px);
-            border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; z-index: 50;
+            border-top: 1px solid var(--card-border); display: flex; justify-around: space-around; align-items: center; z-index: 50;
         }
         .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-sub); font-size: 0.6rem; font-weight: 600; background: none; border: none; cursor: pointer; padding: 4px; }
         .nav-item.active { color: var(--accent-blue); }
@@ -786,12 +786,18 @@
                     </div>
                     <div class="card-footer"><span class="badge">Vacío</span><span class="card-link disabled-link">No disponible</span></div>
                 </div>
-                <div class="card card-locked" data-id="est-4" data-main-cat="estocaje">
+                <div class="card" data-id="est-4" data-main-cat="estocaje">
                     <div class="card-top-row">
-                        <div class="card-header"><span class="card-icon">🚆</span><div><div class="card-title">Eje MONTADO</div></div></div>
-                        <span class="card-lock-badge" title="Próximamente / Vacío">🔒</span>
+                        <div class="card-header">
+                            <span class="card-icon">🚆</span>
+                            <div><div class="card-title">Eje MONTADO</div></div>
+                        </div>
+                        <button class="btn-fav" onclick="toggleFavorite('est-4', event)">★</button>
                     </div>
-                    <div class="card-footer"><span class="badge">Vacío</span><span class="card-link disabled-link">No disponible</span></div>
+                    <div class="card-footer">
+                        <span class="badge">Excel</span>
+                        <a class="card-link" href="https://railsolutionsslu-my.sharepoint.com/:x:/g/personal/aplitek_railsolutionsslu_onmicrosoft_com/IQBb6Ix5huvUSYoWdPGvmMLjAU7v3U2i-kgVjImxVSiWssg?e=ae4GMC" target="_blank" onclick="trackLastDoc('Estocaje Eje MONTADO', this.href)">Abrir →</a>
+                    </div>
                 </div>
             </div>
         </div>
